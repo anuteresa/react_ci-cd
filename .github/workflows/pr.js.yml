@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: pull-request
-      uses: react_ci-cd/pull-request@v3
+      uses: anuteresa/react_ci-cd@v3
     
       with:
         destination_branch: "main"
