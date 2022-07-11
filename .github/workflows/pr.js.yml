@@ -18,9 +18,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: checkout
-      uses: react_ci-cd/pull-request@v3
     - name: pull-request
+      uses: react_ci-cd/pull-request@v3
+    
       with:
         destination_branch: "main"
 
