@@ -6,10 +6,9 @@ name: Node.js CI
 on:
   push:
     branches: ['master']
-    
-
-    
-    
+  pull_request:
+    branches: ['master']
+       
 jobs:
   build:
 
@@ -27,12 +26,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Install and Test
+      run: |
+          yarn
+          yarn build
+          yarn test   
  
  
           
     - name: Check if version has been updated
       id: check
-      uses: anuteresa/react@v3
+      uses: EndBug/version-check@v1
       with:
         file-url: https://unpkg.com/pkg/package.json
 
