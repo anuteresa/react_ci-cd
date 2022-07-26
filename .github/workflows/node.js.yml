@@ -6,6 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
+    paths: "package.json"
   pull_request:
     branches: [ "main" ]
 
@@ -16,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,6 +27,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Check if version has been updated
+      id: check
+      uses: EndBug/version-check@v1
+
+    - name: Log when changed
+      if: steps.check.outputs.changed == 'true'
+      run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+    - name: Log when unchanged
+      if: steps.check.outputs.changed == 'false'
+      run: 'echo "No version change :/"'
