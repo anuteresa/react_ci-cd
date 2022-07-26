@@ -33,7 +33,7 @@ jobs:
           
     - name: Check if version has been updated
       id: check
-      uses: actions/checkout@v3
+      uses: EndBug/version-check@v1
       with:
         file-url: https://unpkg.com/pkg/package.json
 
