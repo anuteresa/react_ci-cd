@@ -38,7 +38,7 @@ jobs:
       with: 
          diff-search: true
          file-url: '::before'
-         assume-same-version: old
+         assume-same-version: new
          
 
     - name: Log when changed
