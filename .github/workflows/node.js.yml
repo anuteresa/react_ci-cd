@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
     paths: 
-    - "package*.json"
+    - "package.json"
   pull_request:
     branches: [ "main" ]
 
