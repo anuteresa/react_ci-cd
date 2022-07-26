@@ -50,6 +50,8 @@ jobs:
           yarn
           yarn build
           yarn test
+          yarn global add serve
+          serve -s build
 
     - name: Log when unchanged
       if: steps.check.outputs.changed == 'false'
