@@ -33,6 +33,7 @@ jobs:
     
       uses: EndBug/version-check@v1
       with: 
+         diff-search: true
          file-url: '::before'
          assume-same-version: old
          
