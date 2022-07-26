@@ -6,8 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-    paths: 
-    - "package.json"
+    
   pull_request:
     branches: [ "main" ]
 
@@ -29,11 +28,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Check if version has been updated
+      
       id: check
+    
       uses: EndBug/version-check@v1
       with: 
          file-url: '::before'
-         assume-same-version: new
+         assume-same-version: old
+         
 
     - name: Log when changed
       if: steps.check.outputs.changed == 'true'
