@@ -5,14 +5,16 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ['master']
+    paths:
+     - "package.json"
 
+    
+    
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -26,6 +28,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i
-    - run: npm run build --if-present
-    - run: npm test
+ 
+ 
+          
+    - name: Check if version has been updated
+      id: check
+      uses: anuteresa/react@v3
+      with:
+        file-url: https://unpkg.com/pkg/package.json
+
+        assume-same-version: old
+
+    - name: Log when changed
+      if: steps.check.outputs.changed == 'true'
+      run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+    - name: Log when unchanged
+      if: steps.check.outputs.changed == 'false'
+      run: 'echo "No version change :/"'       
