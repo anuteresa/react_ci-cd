@@ -47,9 +47,9 @@ jobs:
     - name: Install and Build
       if: steps.check.outputs.changed == 'true'  
       run: |
-          npm i
-          npm run build
-          npm test
+          yarn
+          yarn build
+          yarn test
 
 
     - name: Log when unchanged
