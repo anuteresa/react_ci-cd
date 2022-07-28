@@ -38,7 +38,7 @@ jobs:
       with: 
          diff-search: true
          file-url: '::before'
-         assume-same-version: new
+         assume-same-version: old
          
 
     - name: Log when changed
@@ -52,6 +52,3 @@ jobs:
           yarn test
 
 
-    - name: Log when unchanged
-      if: steps.check.outputs.changed == 'false'
-      run: 'echo "No version change :/"'
