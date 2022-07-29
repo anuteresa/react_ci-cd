@@ -7,7 +7,8 @@ on:
   push:
     branches: [ "main" ]
     paths:
-     - package.json
+     -  'package.json'
+    
      
     
   pull_request:
@@ -24,7 +25,20 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: Check out my other private repo
     - uses: actions/checkout@v3
+      with:
+        path: 'main'
+    - name: Check out my other private repo
+      uses: actions/checkout@v3
+      with:
+          repository: anuteresa/mermaid_travel
+          token: ${{ secrets.my_pat }}
+          path: 'my react'
+          
+   
+    
+          
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -35,10 +49,13 @@ jobs:
       id: check
     
       uses: EndBug/version-check@v1
-      with: 
+      with:
          diff-search: true
+         file-name: package.json
+         token: ${{ secrets.my_pat}}
          file-url: '::before'
          assume-same-version: old
+         static-checking: localIsNew
          
 
     - name: Log when changed
@@ -49,6 +66,9 @@ jobs:
       run: |
           yarn
           yarn build
+          ls
+          cd build
+          ls
           yarn test
 
 
