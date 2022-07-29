@@ -27,8 +27,7 @@ jobs:
     steps:
     - name: Check out my other private repo
       uses: actions/checkout@v3
-      with:
-        path: 'main'
+      
     - name: Check out my other private repo
       uses: actions/checkout@v3
       with:
