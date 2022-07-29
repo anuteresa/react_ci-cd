@@ -6,8 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-     -  'package.json'
+    
     
      
     
@@ -27,6 +26,8 @@ jobs:
     steps:
     - name: Check out my other private repo
       uses: actions/checkout@v3
+      with:
+         path: 'main'
       
       
     - name: Check out my other private repo
@@ -45,25 +46,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
  
-    - name: Check if version has been updated
-      
-      id: check
-    
-      uses: EndBug/version-check@v1
-      with:
-         diff-search: true
-         file-name: package.json
-         token: ${{ secrets.my_pat}}
-         file-url: '::before'
-         assume-same-version: old
-         static-checking: localIsNew
+ 
          
 
-    - name: Log when changed
-      if: steps.check.outputs.changed == 'true'
-      run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+   
     - name: Install and Build
-      if: steps.check.outputs.changed == 'true'  
+  
       run: |
           yarn
           yarn build
