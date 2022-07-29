@@ -66,6 +66,7 @@ jobs:
           yarn
           yarn build
           ls
+          cat package.json
           cd build
           ls
           yarn test
