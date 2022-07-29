@@ -33,7 +33,7 @@ jobs:
       with:
           repository: anuteresa/react_components
           token: ${{ secrets.my_pat }}
-          path: 'my react'
+          
           
    
     
