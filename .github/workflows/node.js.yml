@@ -45,7 +45,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-        cache-dependency-path: './main'
+ 
     - name: Check if version has been updated
       
       id: check
@@ -53,7 +53,7 @@ jobs:
       uses: EndBug/version-check@v1
       with:
          diff-search: true
-         file-name: './main'
+         file-name: 'package.json'
          token: ${{ secrets.my_pat}}
          file-url: '::before'
          assume-same-version: old
