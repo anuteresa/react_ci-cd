@@ -34,7 +34,7 @@ jobs:
       with:
           repository: anuteresa/react_components
           token: ${{ secrets.my_pat }}
-          path: 'components'
+          path: 'my components'
           
    
     
@@ -43,7 +43,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+        cache: 'npm'
  
     - name: Check if version has been updated
       
@@ -52,7 +52,7 @@ jobs:
       uses: EndBug/version-check@v1
       with:
          diff-search: true
-         file-name: 'package.json'
+         file-name: package.json
          token: ${{ secrets.my_pat}}
          file-url: '::before'
          assume-same-version: old
