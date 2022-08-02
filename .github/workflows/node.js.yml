@@ -39,9 +39,11 @@ jobs:
           yarn
       env:
          NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
-          yarn build
-          ls
-          cd build
-          ls
-          yarn test
+    - name : Build   
+      run: |
+           yarn build
+           ls
+           cd build
+           ls
+           yarn test
 
