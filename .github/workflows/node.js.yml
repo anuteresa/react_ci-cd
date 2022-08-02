@@ -6,8 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-     -  'package.json'
+    
     
      
     
@@ -15,47 +14,27 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  run-build-if-needed:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    
-    - name: Check if version has been updated
-      
-      id: check
-    
-      uses: EndBug/version-check@v1
-      with:
-         diff-search: true
-         file-name: package.json
-         token: ${{ secrets.my_pat}}
-         file-url: '::before'
-         assume-same-version: old
-         static-checking: localIsNew  
-   
-    - uses: actions/checkout@v3
-      if: steps.check.outputs.changed == 'true'  
-          
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      if: steps.check.outputs.changed == 'true'  
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
- 
-       
+    - uses: MontyD/package-json-updated-action@1.0.1
 
-    - name: Log when changed
-      if: steps.check.outputs.changed == 'true'
-      run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+      id: version-updated
+      with:
+        path: package.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v1
+      if: steps.version-updated.outputs.has-updated
+      with:
+        fetch-depth: 1
+    - uses: actions/setup-node@v1
+      if: steps.version-updated.outputs.has-updated
+      with:
+        node-version: '16.x'
+
     - name: Install and Build
-      if: steps.check.outputs.changed == 'true'  
+      if: steps.version-updated.outputs.has-updated
       run: |
           yarn
           env:
@@ -65,9 +44,4 @@ jobs:
           cd build
           ls
           yarn test
-    - uses: actions/upload-artifact@v3
-      with:
-        name: my-artifact
-        path: ./build 
-
 
