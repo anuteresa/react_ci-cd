@@ -6,6 +6,8 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
+    paths:
+     - 'package.json'
     
     
      
@@ -33,13 +35,14 @@ jobs:
       with:
         node-version: '16.x'
 
-    - name: Install and Build
+    - name: Install
       if: steps.version-updated.outputs.has-updated
       run: |
           yarn
       env:
          NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
-    - name : Build   
+    - name : Build  
+      if: steps.version-updated.outputs.has-updated
       run: |
            yarn build
            ls
