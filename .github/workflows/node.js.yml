@@ -37,8 +37,8 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: |
           yarn
-          env:
-           NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
+      env:
+         NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
           yarn build
           ls
           cd build
