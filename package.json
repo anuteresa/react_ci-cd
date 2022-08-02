@@ -1,6 +1,6 @@
 {
   "name": "helloq",
-  "version": "6.9.9",
+  "version": "6.2.9",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
