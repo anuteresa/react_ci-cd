@@ -6,8 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-     - 'package.json'
+ 
     
     
      
@@ -49,4 +48,8 @@ jobs:
            cd build
            ls
            yarn test
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: ./build      
 
