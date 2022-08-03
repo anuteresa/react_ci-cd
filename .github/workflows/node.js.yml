@@ -6,6 +6,8 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
+    paths:
+     - 'package.json'
  
     
     
@@ -51,5 +53,17 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: ./build      
+        path: ./build   
+        
+    
+
+
+    - uses: actions/download-artifact@v3
+      with:
+       name: my-artifact
+       path: /Desktop/my-app
+    
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: /Desktop/my-app
 
