@@ -1,6 +1,6 @@
 {
   "name": "helloq",
-  "version": "7.6.9",
+  "version": "7.9.9",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -36,6 +36,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
-   "homepage": "https://anuteresa.github.io/react_ci-cd/"
+  },
+   "homepage": {"https://anuteresa.github.io/react_ci-cd/"}
 }
