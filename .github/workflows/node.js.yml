@@ -62,5 +62,11 @@ jobs:
       with:
        name: my-artifact
        path: ./build
+       
+    - name: Deploy to gh pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+          github_token: ${{ secrets.my_pat}}
+          publish_dir: ./build 
     
  
