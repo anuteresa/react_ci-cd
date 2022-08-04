@@ -50,7 +50,7 @@ jobs:
            
    
     - name: Archive Release
-      uses: thedoctor0/zip-release@.6.2
+      uses: thedoctor0/zip-release@0.6.2
       with:
         type: 'zip'
         filename: 'build.zip'
