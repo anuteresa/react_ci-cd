@@ -48,16 +48,21 @@ jobs:
       run: |
            yarn build
            
-    - uses: actions/upload-artifact@v3
-      with:
-        name: my-artifact
-        path: ./build   
+   
     - name: Archive Release
-      uses: thedoctor0/zip-release@master
+      uses: thedoctor0/zip-release@.6.2
       with:
         type: 'zip'
         filename: 'build.zip'
         path: ./build
+    - name: checking file
+      run: ls
+          cd build
+           
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: ./build.zip     
         
     
 
