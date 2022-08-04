@@ -59,7 +59,7 @@ jobs:
       run: |
           ls
           cd build
-           
+    - name: Artifact file       
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
