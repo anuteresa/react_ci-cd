@@ -52,8 +52,8 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@0.6.2
       with:
-        type: 'zip'
-        filename: 'build.zip'
+        type: 'tar'
+        filename: 'build.tar.gz'
         path: ./build
     - name: checking file
       run: |
