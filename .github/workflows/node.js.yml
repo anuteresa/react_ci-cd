@@ -40,33 +40,28 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: |
           yarn
+          yarn test
       env:
          NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
     - name : Build  
       if: steps.version-updated.outputs.has-updated
       run: |
            yarn build
-           ls
-           cd build
-           ls
-           yarn test
+           
     - uses: actions/upload-artifact@v3
       with:
         name: my-artifact
         path: ./build   
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        filename: 'build.zip'
+        path: ./build
         
     
 
 
-    - uses: actions/download-artifact@v3
-      with:
-       name: my-artifact
-       path: ./build
-       
-    - name: Deploy to gh pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-          github_token: ${{ secrets.my_pat}}
-          publish_dir: ./build 
+ 
     
  
