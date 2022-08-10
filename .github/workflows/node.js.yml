@@ -34,8 +34,8 @@ jobs:
     - uses: actions/setup-node@v3
       if: steps.version-updated.outputs.has-updated
       with:
-        node-version: '12.x'
-        cache: yarn
+        node-version: '16.x'
+ 
 
     - name: Install
       if: steps.version-updated.outputs.has-updated
