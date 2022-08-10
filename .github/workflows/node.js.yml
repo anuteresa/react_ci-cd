@@ -29,7 +29,7 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       with:
         fetch-depth: 1
-        ref: 'edw'
+        
     - uses: actions/setup-node@v3
       if: steps.version-updated.outputs.has-updated
       with:
