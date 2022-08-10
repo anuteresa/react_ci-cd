@@ -10,11 +10,10 @@ on:
     
     
      
-  pull_request: 
-   types:
-    - closed
+  push: 
 
-   branches: [ "main" ]
+
+   branches: [ "feature/is/124/staging_ci_cd" ]
    paths:
      - 'package.json'
 
