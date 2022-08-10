@@ -13,7 +13,7 @@ on:
   push: 
 
 
-   branches: [ "feature/is/124/staging_ci_cd" ]
+   branches: [ "feature/is/124/staging_ci/cd" ]
    paths:
      - 'package.json'
 
