@@ -57,7 +57,7 @@ jobs:
       run: |
           ls
           
-          cd package.json
+          
           cat package.json
    
         
