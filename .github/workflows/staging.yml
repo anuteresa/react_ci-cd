@@ -26,7 +26,7 @@ jobs:
       with:
         path: package.json
       env:
-        GITHUB_TOKEN: ${{ secrets.my_pat }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/checkout@v3
       if: steps.version-updated.outputs.has-updated
       with:
@@ -37,6 +37,8 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       with:
         node-version: '16.x'
+        registry-url: 'https://npm.pkg.github.com'
+        scope: '@anuteresa'
  
 
     - name: Install
