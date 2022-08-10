@@ -12,7 +12,7 @@ on:
   pull_request: 
    types:
     - closed
-   branches: [ "edw" ]
+   branches: [ "main" ]
    paths:
      - 'package.json'
 
