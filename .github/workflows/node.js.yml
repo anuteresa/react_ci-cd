@@ -4,54 +4,66 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "develop" ]
-    paths:
-     - package.json
+
+ 
+    
+    
      
     
   pull_request:
-    branches: [ "develop" ]
+   types:
+     - closed
+   branches: [ "develop" ]
+   paths:
+     - 'package.json'
 
 jobs:
-  build:
-
+  run-build-if-needed:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Check if version has been updated
-      
-      id: check
-    
-      uses: EndBug/version-check@v1
-      with: 
-         diff-search: true
-         file-url: '::before'
-         assume-same-version: new
-         
+    - uses: MontyD/package-json-updated-action@1.0.1
 
-    - name: Log when changed
-      if: steps.check.outputs.changed == 'true'
-      run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-    - name: Install and Build
-      if: steps.check.outputs.changed == 'true'  
+      id: version-updated
+      with:
+        path: package.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.my_pat }}
+    - uses: actions/checkout@v3
+      if: steps.version-updated.outputs.has-updated
+      with:
+        fetch-depth: 1
+        ref: 'package.json'
+    - uses: actions/setup-node@v3
+      if: steps.version-updated.outputs.has-updated
+      with:
+        node-version: '16.x'
+ 
+
+    - name: Install
+      if: steps.version-updated.outputs.has-updated
       run: |
           yarn
-          yarn build
           yarn test
+      env:
+         NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
+    - name : Build  
+      if: steps.version-updated.outputs.has-updated
+      run: |
+           yarn build
+           
+   
+
+    - name: checking file
+      run: |
+          ls
+          cd build
+          cd package.json
+          cat package.json
+   
+        
+    
 
 
-    - name: Log when unchanged
-      if: steps.check.outputs.changed == 'false'
-      run: 'echo "No version change :/"'
+ 
+    
+ 
