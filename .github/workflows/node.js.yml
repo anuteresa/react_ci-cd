@@ -9,11 +9,8 @@ on:
     
     
      
-    
-  pull_request:
-   types:
-     - closed
-   branches: [ "develop" ]
+  push:  
+   branches: [ "edw" ]
    paths:
      - 'package.json'
 
@@ -32,7 +29,7 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       with:
         fetch-depth: 1
-        ref: 'develop'
+        ref: 'edw'
     - uses: actions/setup-node@v3
       if: steps.version-updated.outputs.has-updated
       with:
