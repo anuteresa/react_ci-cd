@@ -56,7 +56,7 @@ jobs:
     - name: checking file
       run: |
           ls
-          cd build
+          
           cd package.json
           cat package.json
    
