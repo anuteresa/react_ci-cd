@@ -25,9 +25,7 @@ jobs:
 
        include:
            - REACT_APP_API_URL: 'test'
-             REACT_APP_WEBSITE_URL: 'staging'
-           - REACT_APP_API_URL: 'pro'
-             REACT_APP_WEBSITE_URL: 'staging_pro'  
+             REACT_APP_WEBSITE_URL: 'staging' 
                
     steps:
     - uses: MontyD/package-json-updated-action@1.0.1
@@ -71,14 +69,19 @@ jobs:
            
    
 
-    - name: checking file
-      run: |
-          ls
-          cd build/static/js/
-          ls
+
           
           
-          
+    - name: Deploy to Server with se
+      if: steps.version-updated.outputs.has-updated 
+      uses: easingthemes/ssh-deploy@v2.2.11
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.key}}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "build/"
+          REMOTE_HOST: ${{ secrets.adddress }}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER}}
+          TARGET: ${{ secrets.path }}     
 
    
         
