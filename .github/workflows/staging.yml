@@ -20,6 +20,15 @@ on:
 jobs:
   run-build-if-needed:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+
+       include:
+           - REACT_APP_API_URL: 'test'
+             REACT_APP_WEBSITE_URL: 'staging'
+           - REACT_APP_API_URL: 'pro'
+             REACT_APP_WEBSITE_URL: 'staging_pro'  
+               
     steps:
     - uses: MontyD/package-json-updated-action@1.0.1
 
@@ -51,12 +60,12 @@ jobs:
     - name : Build  
       if: steps.version-updated.outputs.has-updated
       run: |
-          touch .env
-          cat .env
-          echo API_KEY=${{ secrets.WEBSITE_ENV_STAGE }} >> .env
-          cat .env
+
      
           yarn build
+      
+          echo "${{ matrix.REACT_APP_API_URL }}" > .env
+          echo "${{ matrix.REACT_APP_WEBSITE_URL }}" > .env
            
     
            
