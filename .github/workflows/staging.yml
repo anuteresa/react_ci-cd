@@ -80,7 +80,7 @@ jobs:
           ARGS: "-rltgoDzvO --delete"
           SOURCE: "build/"
           REMOTE_HOST: ${{ secrets.adddress }}
-          REMOTE_USER: ${{ secrets.DEPLOY_USER}}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
           TARGET: ${{ secrets.path }}     
 
    
