@@ -54,13 +54,15 @@ jobs:
       run: |
            yarn build
       env: 
-         environment: 'test'     
+         environment: 'pro'     
            
    
 
     - name: checking file
       run: |
           ls
+          cd build/static/js/
+          
           
           
           cat package.json
