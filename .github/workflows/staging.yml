@@ -53,7 +53,7 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: |
           touch .env
-          echo "${{secrets.WEBSITE_ENV_STAGE }}" > .env
+          echo stage= "${{secrets.WEBSITE_ENV_STAGE }}" > .env
           cat .env
      
           yarn build
