@@ -38,8 +38,7 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       with:
         node-version: '16.x'
-        registry-url: 'https://npm.pkg.github.com'
-        scope: '@anuteresa'
+
  
 
     - name: Install
@@ -53,7 +52,7 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: |
           touch .env
-
+          cat .env
           echo API_KEY=${{ secrets.WEBSITE_ENV_STAGE }} >> .env
           cat .env
      
