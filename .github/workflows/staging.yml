@@ -53,6 +53,8 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: |
            yarn build
+      env: 
+         environment: 'test'     
            
    
 
