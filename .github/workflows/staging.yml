@@ -52,8 +52,12 @@ jobs:
     - name : Build  
       if: steps.version-updated.outputs.has-updated
       run: |
-           yarn build
-           echo "${{secrets.WEBSITE_ENV_STAGE }}" > .env
+          touch .env
+          echo "${{secrets.WEBSITE_ENV_STAGE }}" > .env
+          cat .env
+     
+          yarn build
+           
     
            
    
