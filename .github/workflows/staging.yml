@@ -59,13 +59,14 @@ jobs:
          
     - name: Create env file
       run: |
-           ls
+           
            touch .env
-           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
-           echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
            ls
+           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} > .env
+           echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} > .env
+           
           
-           cat .env     
+               
     - name : Build  
       if: steps.version-updated.outputs.has-updated
       run: |
