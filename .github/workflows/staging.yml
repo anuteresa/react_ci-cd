@@ -64,6 +64,15 @@ jobs:
            ls
            echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} > .env
            echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} > .env
+           cat .env
+           
+           
+    - name: Create .env file
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        envkey_GITHUB_LOGIN: ${{ matrix.REACT_APP_API_URL }}
+        envkey_GITHUB_PERSONAL_ACCESS_TOKEN: ${{ matrix.REACT_APP_WEBSITE_URL }}
+      
            
           
                
