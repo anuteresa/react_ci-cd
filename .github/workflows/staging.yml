@@ -52,9 +52,20 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: |
           yarn
-          yarn test
+          
       env:
          NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
+         
+         
+    - name: Create env file
+      run: |
+           ls
+           touch .env
+           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
+           echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
+           ls
+          
+           cat .env     
     - name : Build  
       if: steps.version-updated.outputs.has-updated
       run: |
@@ -62,8 +73,7 @@ jobs:
      
           yarn build
       
-          echo "${{ matrix.REACT_APP_API_URL }}" > .env
-          echo "${{ matrix.REACT_APP_WEBSITE_URL }}" > .env
+
            
     
            
@@ -72,16 +82,7 @@ jobs:
 
           
           
-    - name: Deploy to Server with se
-      if: steps.version-updated.outputs.has-updated 
-      uses: easingthemes/ssh-deploy@v2.2.11
-      env:
-          SSH_PRIVATE_KEY: ${{ secrets.key}}
-          ARGS: "-rltgoDzvO --delete"
-          SOURCE: "build/"
-          REMOTE_HOST: ${{ secrets.adddress }}
-          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-          TARGET: ${{ secrets.path }}     
+    
 
    
         
