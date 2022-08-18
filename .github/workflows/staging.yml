@@ -66,23 +66,18 @@ jobs:
            echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
            cat .env
            yarn build
-           
-           
-    - name: Create .env file
-      uses: SpicyPizza/create-envfile@v1
-      with:
-        envkey_GITHUB_LOGIN: ${{ matrix.REACT_APP_API_URL }}
-        envkey_GITHUB_PERSONAL_ACCESS_TOKEN: ${{ matrix.REACT_APP_WEBSITE_URL }}
-      
-           
           
-               
-    - name : Build  
+          
+    - name: Get current package version
       if: steps.version-updated.outputs.has-updated
-      run: |
-
-     
-          yarn build
+      uses: martinbeentjes/npm-get-version-action@v1.2.3
+      
+      
+    - name : display version  
+      if: steps.version-updated.outputs.has-updated
+      run: | 
+           echo ${{ steps.package-version.outputs.current-version}}
+      
       
 
            
