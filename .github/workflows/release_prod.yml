@@ -1,1 +1,86 @@
 
+
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:    
+  release:
+    types: published
+
+jobs:
+  run-build-if-needed:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+
+       include:
+           - REACT_APP_API_URL: 'test'
+             REACT_APP_WEBSITE_URL: 'staging' 
+               
+    steps:
+
+    - uses: actions/checkout@v3
+ 
+      with:
+        fetch-depth: 1
+        ref: 'main'
+        
+    - uses: actions/setup-node@v3
+ 
+      with:
+        node-version: '16.x'
+
+ 
+
+    - name: Install
+      run: |
+          yarn
+          
+      env:
+         NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
+         
+         
+    - name: Create env file
+      run: |
+           
+           touch .env
+           ls
+           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
+           echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
+           cat .env
+           yarn build
+          
+          
+    - name: Get current package version
+
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@v1.2.3
+      
+      
+    - name : display version  
+      if: steps.version-updated.outputs.has-updated
+      run: | 
+           echo ${{ steps.package-version.outputs.current-version}}
+      
+      
+
+           
+    
+           
+   
+
+
+          
+          
+    
+
+   
+        
+    
+
+
+ 
+    
+ 
