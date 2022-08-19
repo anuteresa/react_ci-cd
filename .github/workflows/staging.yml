@@ -78,7 +78,7 @@ jobs:
     - name : display version  
       if: steps.version-updated.outputs.has-updated
       run: | 
-           echo ${{ steps.package-version.outputs.current-version}}
+           echo ${{ steps.version-updated.outputs.current-package-version}}
       
       
 
