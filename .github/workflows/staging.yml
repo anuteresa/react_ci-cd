@@ -25,7 +25,7 @@ jobs:
 
        include:
            - REACT_APP_API_URL: 'test'
-             REACT_APP_WEBSITE_URL: 'staging' 
+           - REACT_APP_WEBSITE_URL: 'staging' 
                
     steps:
     - uses: MontyD/package-json-updated-action@1.0.1
