@@ -18,7 +18,7 @@ on:
      - 'package.json'
 
 jobs:
-  run-build-if-needed:
+ run-build-if-needed:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -67,7 +67,10 @@ jobs:
            cat .env
            yarn build
           
-          
+ backend-data-update :
+    needs: run-build-if-needed
+    runs-on: ubuntu-latest
+    steps:
     - name: Get current package version
     
       if: steps.version-updated.outputs.has-updated
