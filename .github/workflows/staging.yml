@@ -67,19 +67,16 @@ jobs:
            cat .env
            yarn build
           
- backend-data-update :
-    needs: run-build-if-needed
-    runs-on: ubuntu-latest
-    steps:
+
     - name: Get current package version
     
-
+      if: steps.version-updated.outputs.has-updated
       id: package-version
       uses: martinbeentjes/npm-get-version-action@v1.2.3
       
       
     - name : display version  
-
+      if: steps.version-updated.outputs.has-updated
       run: | 
            echo ${{ steps.version-updated.outputs.current-package-version}}
       
