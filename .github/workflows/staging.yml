@@ -34,7 +34,7 @@ jobs:
       with:
         path: package.json
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/checkout@v3
       if: steps.version-updated.outputs.has-updated
       with:
@@ -61,12 +61,22 @@ jobs:
  notify:
     runs-on: ubuntu-latest
     
-    if: sucess()
+    if: failure()
     needs: [run-build-if-needed]
     steps:         
     - name: Post to a Slack channel
    
       run: echo 'failure'
+      
+ notify_sucess:
+    runs-on: ubuntu-latest
+    
+    if: sucess()
+    needs: [run-build-if-needed]
+    steps:         
+    - name: Post to a Slack channel
+   
+      run: echo 'sucess'      
       
       
 
