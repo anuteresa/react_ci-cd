@@ -34,7 +34,7 @@ jobs:
       with:
         path: package.json
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - uses: actions/checkout@v3
       if: steps.version-updated.outputs.has-updated
       with:
@@ -45,28 +45,7 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       with:
         node-version: '16.x'
-
- 
-
-    - name: Install
-      if: steps.version-updated.outputs.has-updated
-      run: |
-          yarn
-          
-      env:
-         NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
-         
-         
-    - name: Create env file
-      run: |
-           
-           touch .env
-           ls
-           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
-           echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
-           cat .env
-           yarn build
-          
+              
 
     - name: Get current package version
     
