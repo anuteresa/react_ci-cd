@@ -1,6 +1,6 @@
 {
   "name": "helloq",
-  "version": "8.4.5",
+  "version": "9.4.5",
   "private": true,
   "engines": {
     "npm": ">=5",
