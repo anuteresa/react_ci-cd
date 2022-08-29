@@ -62,7 +62,7 @@ jobs:
  notify:
     runs-on: ubuntu-latest
     
-    if: failure() || sucess()
+    if: sucess()
     needs: [run-build-if-needed]
     steps:         
     - name: Post to a Slack channel
