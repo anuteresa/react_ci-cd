@@ -61,12 +61,12 @@ jobs:
  notify:
     runs-on: ubuntu-latest
     
-    if: always()
+    if: failure()
     needs: [run-build-if-needed]
     steps:         
     - name: Post to a Slack channel
-      if: success()  
-      run: echo 'sucess'
+   
+      run: echo 'failure'
       
       
 
