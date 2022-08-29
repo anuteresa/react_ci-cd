@@ -7,7 +7,7 @@ on:
     
   push:
  
-    branches: [ "react_ci-cd" ]
+    branches: [ "main" ]
    
 
 jobs:
