@@ -69,6 +69,10 @@ jobs:
       if: failure()
    
       run: echo 'failure'
+    - name: Post 
+      if: sucess()
+   
+      run: echo 'sucess'
   
       
       
