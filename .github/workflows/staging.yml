@@ -20,6 +20,8 @@ on:
 jobs:
  run-build-if-needed:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.version-updated.outputs.has-updated }}
     strategy:
       matrix:
 
@@ -63,10 +65,11 @@ jobs:
  notify:
     runs-on: ubuntu-latest
     
-    if: failure()
+    if: failure() 
     needs: [run-build-if-needed]
     steps:         
     - name: Post to a Slack channel
+      if: ${{needs.run-build-if-needed.outputs.output1}}
       
    
       run: echo 'failure'
@@ -78,6 +81,7 @@ jobs:
     needs: [run-build-if-needed]
     steps: 
     - name: Post 
+      if: ${{needs.run-build-if-needed.outputs.output1}}
       
    
       run: echo 'sucess'
