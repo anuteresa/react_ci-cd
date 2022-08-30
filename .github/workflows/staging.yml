@@ -75,7 +75,7 @@ jobs:
     - name: Post 
       
    
-      run: echo 'success'
+      run: echo 'success and success'
   
       
       
