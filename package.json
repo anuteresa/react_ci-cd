@@ -1,6 +1,6 @@
 {
   "name": "hellt",
-  "version": "3.3.5",
+  "version": "7.3.5",
   "private": true,
   "engines": {
     "npm": ">=5",
