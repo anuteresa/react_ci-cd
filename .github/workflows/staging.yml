@@ -4,12 +4,7 @@
 
 name: Node.js CI
 
-on:
-
- 
-    
-    
-     
+on:    
   push: 
 
 
@@ -80,7 +75,7 @@ jobs:
     - name: Post 
       
    
-      run: echo 'sucess'
+      run: echo 'success'
   
       
       
