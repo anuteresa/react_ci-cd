@@ -64,7 +64,7 @@ jobs:
     - name: Post to a Slack channel
       
    
-      run: echo 'failure'
+      run: echo 'failure and'
       
  notify_sucess :  
     runs-on: ubuntu-latest
