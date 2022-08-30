@@ -25,6 +25,7 @@ jobs:
 
        include:
            - REACT_APP_API_URL: 'test'
+           - REACT_APP_API_URL: 'staging'
 
                
     steps:
