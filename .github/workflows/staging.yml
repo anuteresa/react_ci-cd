@@ -71,9 +71,17 @@ jobs:
     runs-on: ubuntu-latest
     if: success()
 
-    steps:         
+    steps: 
+    
+     - uses: MontyD/package-json-updated-action@1.0.1
+
+       id: version-updated
+       with:
+        path: package.json
+       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      - name: started  
-       if: ${{needs.run-build-if-needed.outputs.output1}}
+       if: steps.version-updated.outputs.has-updated
        run: echo 'started'          
            
  notify:
