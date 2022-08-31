@@ -40,9 +40,7 @@ jobs:
         path: package.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: started  
-      if: steps.version-updated.outputs.has-updated
-      run: echo 'started'
+  
     
     - uses: actions/checkout@v3
       if: steps.version-updated.outputs.has-updated
@@ -67,6 +65,16 @@ jobs:
       if: steps.version-updated.outputs.has-updated
       run: | 
            echo ${{ steps.version-updated.outputs.current-package-version}}
+           
+           
+ notify_started:
+    runs-on: ubuntu-latest
+    
+
+    steps:         
+     - name: started  
+       if: steps.version-updated.outputs.has-updated
+       run: echo 'started'          
            
  notify:
     runs-on: ubuntu-latest
