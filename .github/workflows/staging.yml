@@ -73,7 +73,7 @@ jobs:
 
     steps:         
      - name: started  
-       if: steps.version-updated.outputs.has-updated
+       if: ${{needs.run-build-if-needed.outputs.output1}}
        run: echo 'started'          
            
  notify:
