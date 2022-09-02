@@ -25,36 +25,7 @@ jobs:
     strategy:
       matrix:
        include:
-           
-          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
-            REACT_APP_WEBSITE_URL: https://app.mula-berlin.de/
-            REACT_APP_WEBSITE_LOCALE: en
-            REACT_APP_DEBUG_MODE: false
-            REACT_APP_GTM_ID: GTM-TS5P82S
-    
-          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
-            REACT_APP_WEBSITE_URL: https://app.mula-stockholm.se/
-            REACT_APP_WEBSITE_LOCALE: se
-            REACT_APP_DEBUG_MODE: false
-            REACT_APP_GTM_ID: GTM-TJ3F8RS
-      
-          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
-            REACT_APP_WEBSITE_URL: https://app.mula-copenhagen.dk/
-            REACT_APP_WEBSITE_LOCALE: dk
-            REACT_APP_DEBUG_MODE: false
-            REACT_APP_GTM_ID: GTM-KXKPCF5
-       
-          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
-            REACT_APP_WEBSITE_URL: https://app.mula-paris.fr/
-            REACT_APP_WEBSITE_LOCALE: fr
-            REACT_APP_DEBUG_MODE: false
-            REACT_APP_GTM_ID: GTM-KDBLQFM
-       
-          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
-            REACT_APP_WEBSITE_URL: https://app.mula-amsterdam.nl/
-            REACT_APP_WEBSITE_LOCALE: nl
-            REACT_APP_DEBUG_MODE: false
-            REACT_APP_GTM_ID: GTM-MB8C5W8
+
 
     steps:
 # Check-out 'master' repository to our action   
@@ -79,10 +50,7 @@ jobs:
       run: |
           touch .env
           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
-          echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
-          echo REACT_APP_WEBSITE_LOCALE=${{ matrix.REACT_APP_WEBSITE_LOCALE }} >> .env
-          echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
-          echo REACT_APP_GTM_ID=${{ matrix. REACT_APP_GTM_ID }} >> .env
+          
           cat .env
           yarn build
           
