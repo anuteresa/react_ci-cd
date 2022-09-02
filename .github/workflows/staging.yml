@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     
     if: failure() 
-    needs: [run-build-if-needed]
+    needs: [run-build]
     steps:         
     - name: Post to a Slack channel
       if: ${{needs.run-build-if-needed.outputs.output1}}
@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     
     if: success()
-    needs: [run-build-if-needed]
+    needs: [run-build]
     steps: 
     - name: Post 
       if: ${{needs.run-build-if-needed.outputs.output1}}
