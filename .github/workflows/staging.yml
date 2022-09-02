@@ -18,56 +18,83 @@ on:
      - 'package.json'
 
 jobs:
- run-build-if-needed:
+  run-build:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.version-updated.outputs.has-updated }}
+    
+# Define different .env variables    
     strategy:
       matrix:
-
        include:
-           - REACT_APP_API_URL: 'test'
-           - REACT_APP_API_URL: 'staging'
+           
+          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
+            REACT_APP_WEBSITE_URL: https://app.mula-berlin.de/
+            REACT_APP_WEBSITE_LOCALE: en
+            REACT_APP_DEBUG_MODE: false
+            REACT_APP_GTM_ID: GTM-TS5P82S
+    
+          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
+            REACT_APP_WEBSITE_URL: https://app.mula-stockholm.se/
+            REACT_APP_WEBSITE_LOCALE: se
+            REACT_APP_DEBUG_MODE: false
+            REACT_APP_GTM_ID: GTM-TJ3F8RS
+      
+          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
+            REACT_APP_WEBSITE_URL: https://app.mula-copenhagen.dk/
+            REACT_APP_WEBSITE_LOCALE: dk
+            REACT_APP_DEBUG_MODE: false
+            REACT_APP_GTM_ID: GTM-KXKPCF5
+       
+          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
+            REACT_APP_WEBSITE_URL: https://app.mula-paris.fr/
+            REACT_APP_WEBSITE_LOCALE: fr
+            REACT_APP_DEBUG_MODE: false
+            REACT_APP_GTM_ID: GTM-KDBLQFM
+       
+          - REACT_APP_API_URL: https://backend.mula-berlin.de/api/v1/
+            REACT_APP_WEBSITE_URL: https://app.mula-amsterdam.nl/
+            REACT_APP_WEBSITE_LOCALE: nl
+            REACT_APP_DEBUG_MODE: false
+            REACT_APP_GTM_ID: GTM-MB8C5W8
 
-               
     steps:
-    
-    
-    - uses: MontyD/package-json-updated-action@1.0.1
-
-      id: version-updated
-      with:
-        path: package.json
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-    
+# Check-out 'master' repository to our action   
     - uses: actions/checkout@v3
-      if: steps.version-updated.outputs.has-updated
       with:
         fetch-depth: 1
-        ref: 'main'
+        ref: main
         
+# Installation of node         
     - uses: actions/setup-node@v3
-      if: steps.version-updated.outputs.has-updated
       with:
-        node-version: '16.x'
-              
+        node-version: '12.x'
+        
+# Installation of all dependencies 
+    - name: Install
+      run: |
+          yarn
 
+         
+# creating .env file within our action and build our source code
+    - name: Create env file and build
+      run: |
+          touch .env
+          echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
+          echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
+          echo REACT_APP_WEBSITE_LOCALE=${{ matrix.REACT_APP_WEBSITE_LOCALE }} >> .env
+          echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
+          echo REACT_APP_GTM_ID=${{ matrix. REACT_APP_GTM_ID }} >> .env
+          cat .env
+          yarn build
+          
+
+          
+# Retrieves the package version from the package.json file           
     - name: Get current package version
-    
-      if: steps.version-updated.outputs.has-updated
       id: package-version
-      uses: martinbeentjes/npm-get-version-action@v1.2.3
-      
-      
-    - name : display version  
-      if: steps.version-updated.outputs.has-updated
-      run: | 
-           echo ${{ steps.version-updated.outputs.current-package-version}}
+      uses: martinbeentjes/npm-get-version-action@v1.2.3 
            
            
- notify_started:
+  notify_started:
     runs-on: ubuntu-latest
     
 
@@ -84,7 +111,7 @@ jobs:
        if: steps.version-updated.outputs.has-updated
        run: echo 'started'          
            
- notify:
+  notify:
     runs-on: ubuntu-latest
     
     if: failure() 
@@ -96,7 +123,7 @@ jobs:
    
       run: echo 'failure'
       
- notify_sucess :  
+  notify_sucess :  
     runs-on: ubuntu-latest
     
     if: success()
