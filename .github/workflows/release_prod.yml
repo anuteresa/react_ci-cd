@@ -6,9 +6,9 @@
 name: Production CI
 
 on:    
-  release:
-    types: published
-    branches: 'main'
+  schedule:
+    - cron: '*/5 * * * *'
+  
 
 jobs:
   run-build-if-needed:
@@ -28,52 +28,7 @@ jobs:
         fetch-depth: 1
         ref: 'main'
         
-    - uses: actions/setup-node@v3
- 
-      with:
-        node-version: '16.x'
 
- 
-
-    - name: Install
-      run: |
-          yarn
-          
-      env:
-         NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
-         
-         
-    - name: Create env file
-      run: |
-           
-           touch .env
-           ls
-           echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
-           echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
-           cat .env
-           yarn build
-          
-          
-    - name: Get current package version
-
-      id: package-version
-      uses: martinbeentjes/npm-get-version-action@v1.2.3
-      
-      
-    - name : display version  
-      if: steps.version-updated.outputs.has-updated
-      run: | 
-           echo ${{ steps.package-version.outputs.current-version}}
-      
-      
-
-           
-    
-           
-   
-
-
-          
           
     
 
