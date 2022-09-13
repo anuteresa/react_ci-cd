@@ -5,7 +5,7 @@ function dumpData() {
 	"prod")
 	SYSTEM="production";;
 	"stg")
-	SYSTEM="staging";;
+	echo "staging";;
 	*)
 	SYSTEM="production";;
   esac
