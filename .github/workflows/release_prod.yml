@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
  
-            sudo  ./setup.sh dump
+            sh ./setup.sh dump
  
 
 
