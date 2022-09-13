@@ -3,7 +3,7 @@ function dumpData() {
 	read -p "System? (prod/stg) default production: " system;
 	case $system in
 	"prod")
-	SYSTEM="production";;
+	echo "production and dump production";;
 	"stg")
 	echo "staging";;
 	*)
