@@ -36,9 +36,9 @@ jobs:
         ref: 'main'
         
     - name: 'Blog Custom Github Action'
-      shell: sh
+      shell: bash
       run: |
-           sh setup.sh dump
+            ./setup.sh dump
  
 
 
