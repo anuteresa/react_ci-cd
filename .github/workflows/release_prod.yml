@@ -39,7 +39,7 @@ jobs:
       shell: bash 
       run: |
            sudo chmod +x setup.sh
-           echo stg | ./setup.sh dump
+           echo prod | ./setup.sh dump
  
 
 
