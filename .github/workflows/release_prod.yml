@@ -39,7 +39,8 @@ jobs:
       shell: bash
       run: |
             yn=${{ github.event.inputs.staging }}
-            sh ./setup.sh echo "::set-output name=value::${yn:-"Yes"}"
+            
+            sh ./setup.sh ${yn}
  
 
 
