@@ -36,10 +36,10 @@ jobs:
         ref: 'main'
         
     - name: 'Blog Custom Github Action'
-      shell: bash
+      shell: bash 
       run: |
            sudo chmod +x setup.sh
-           ./setup.sh dump
+           echo stg | ./setup.sh dump
  
 
 
