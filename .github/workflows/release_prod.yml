@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       staging:
-        default: "Yes"  
+        default: "Y"  
  
         
   
@@ -39,11 +39,11 @@ jobs:
       shell: bash
       run: |
             
-            yn=${{ github.event.inputs.staging }}
+            answer=${{ github.event.inputs.staging }}
  
             sh ./setup.sh
             env:
-               ${{ yn}}
+               answer: ${{ answer}}
 
 
    
