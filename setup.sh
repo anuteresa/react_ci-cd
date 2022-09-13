@@ -1,7 +1,8 @@
-echo "Do you wish to install this program?"
-select yn in "Yes" "No"; do
+while true; do
+    read -p "Do you wish to install this program? " yn
     case $yn in
-        Yes ) echo  "install"; break;;
-        No ) exit;;
+        [Yy]* ) make install; break;;
+        [Nn]* ) exit;;
+       
     esac
 done
