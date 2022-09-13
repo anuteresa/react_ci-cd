@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       staging:
-        default: "yes"  
+        default: "Yes"  
  
         
   
@@ -40,7 +40,7 @@ jobs:
       run: |
  
             USER_INPUT=${{ github.event.inputs.staging }}
-            echo "::set-output name=value::${USER_INPUT:-"yes"}"
+            echo "::set-output name=value::${USER_INPUT:-"Yes"}"
 
 
    
