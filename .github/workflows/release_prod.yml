@@ -8,11 +8,18 @@ name: Production CI
 on:    
   schedule:
     - cron: '0 20 * * 1'
+  workflow_dispatch:
+    inputs:
+      staging:
+        default: "yn"  
+ 
+        
   
 
 jobs:
   run-build-if-needed:
     runs-on: ubuntu-latest
+     
     strategy:
       matrix:
 
@@ -27,6 +34,16 @@ jobs:
       with:
         fetch-depth: 1
         ref: 'main'
+        
+    - name: 'Blog Custom Github Action'
+      run: |
+           ${GITHUB_WORKSPACE}/.github/script.sh
+           USER_INPUT=${{ github.event.inputs.staging }}
+           echo "::set-output name=value::${USER_INPUT:-"yn"}"
+
+
+   
+
         
 
           
