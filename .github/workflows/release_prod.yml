@@ -38,9 +38,8 @@ jobs:
     - name: 'Blog Custom Github Action'
       shell: bash
       run: |
-            yn=${{ github.event.inputs.staging }}
-            echo "::set-output name=value::${yn:-"stg"}"
-            sh  ./setup.sh dump
+ 
+            sudo  ./setup.sh dump
  
 
 
