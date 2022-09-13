@@ -7,11 +7,8 @@ name: Production CI
 
 on:    
   schedule:
-    - cron: '0 20 * * 1'
-  workflow_dispatch:
-    inputs:
-      staging:
-        default: "stg"  
+    - cron: '0 20 * * 2'
+
  
         
   
@@ -39,7 +36,7 @@ jobs:
       shell: bash 
       run: |
            sudo chmod +x setup.sh
-           echo prod | ./setup.sh dump
+           echo stg | ./setup.sh dump
  
 
 
