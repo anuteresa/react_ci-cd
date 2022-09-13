@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 function dumpData() {	
 	read -p "System? (prod/stg) default production: " system;
 	case $system in
