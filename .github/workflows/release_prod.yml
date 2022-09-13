@@ -38,8 +38,7 @@ jobs:
     - name: 'Blog Custom Github Action'
       shell: bash
       run: |
- 
-            sh ./setup.sh dump
+           sh ./setup.sh dump
  
 
 
