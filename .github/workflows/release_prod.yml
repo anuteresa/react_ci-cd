@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
             yn=${{ github.event.inputs.staging }}
-            sh ./setup.sh yn
+            sh ./setup.sh $yn
  
 
 
