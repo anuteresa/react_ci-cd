@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
             answer=${{ github.event.inputs.staging }}
-            sh ./setup.sh ${{ answer}}
+            sh ./setup.sh 
  
 
 
