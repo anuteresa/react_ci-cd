@@ -1,3 +1,5 @@
+#!/bin/bash
+
 
 	function dumpData() {	
 	read -p "System? (prod/stg) default production: " system;
