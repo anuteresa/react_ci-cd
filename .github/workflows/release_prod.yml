@@ -40,8 +40,10 @@ jobs:
       run: |
             
             yn=${{ github.event.inputs.staging }}
-            echo "::set-output name=value::${yn:-"Yes"}"
+ 
             sh ./setup.sh
+            env:
+               ${{ yn}}
 
 
    
