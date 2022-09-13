@@ -36,10 +36,11 @@ jobs:
         ref: 'main'
         
     - name: 'Blog Custom Github Action'
+      shell: bash
       run: |
-           .github/setup.sh
-           USER_INPUT=${{ github.event.inputs.staging }}
-           echo "::set-output name=value::${USER_INPUT:-"yn"}"
+            ./.github/setup.sh
+            USER_INPUT=${{ github.event.inputs.staging }}
+            echo "::set-output name=value::${USER_INPUT:-"yn"}"
 
 
    
