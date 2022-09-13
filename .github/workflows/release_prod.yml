@@ -38,9 +38,7 @@ jobs:
     - name: 'Blog Custom Github Action'
       shell: bash
       run: |
-            
             answer=${{ github.event.inputs.staging }}
- 
             sh ./setup.sh ${{ answer}}
  
 
