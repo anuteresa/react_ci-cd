@@ -40,7 +40,7 @@ jobs:
       run: |
             yn=${{ github.event.inputs.staging }}
             
-            sh $ Yes | ./setup.sh
+             $ Yes | ./setup.sh
  
 
 
