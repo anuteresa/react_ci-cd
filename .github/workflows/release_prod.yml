@@ -38,7 +38,7 @@ jobs:
     - name: 'Blog Custom Github Action'
       shell: bash
       run: |
-            sh ./setup.sh
+ 
             USER_INPUT=${{ github.event.inputs.staging }}
             echo "::set-output name=value::${USER_INPUT:-"yes"}"
 
