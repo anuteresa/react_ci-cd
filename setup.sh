@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-	function dumpData() {	
+function dumpData() {	
 	read -p "System? (prod/stg) default production: " system;
 	case $system in
 	"prod")
@@ -10,7 +10,7 @@
 	SYSTEM="staging";;
 	*)
 	SYSTEM="production";;
-	esac
+  esac
 }
 
 MODE=$1	
