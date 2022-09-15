@@ -5,7 +5,7 @@ function dumpData() {
 	"prod")
 	ls;;
 	"stg")
-	echo "staging";;
+	pwd;;
 	*)
 	SYSTEM="production";;
   esac
