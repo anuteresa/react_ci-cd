@@ -34,5 +34,5 @@ jobs:
         uses: actions/checkout@v2
       - name : dump data
         run: |
-             touch -p backups/backup.sql
+             touch  backups/backup.sql
              pg_dump test > "backups/backup.sql"
