@@ -35,6 +35,6 @@ jobs:
       - name : dump data
         run: |
              pwd
-             sudo apt-get install postgresql-14.5
+             sudo apt-get install postgresql
              touch  backup.sql
              pg_dump test > backup.sql
