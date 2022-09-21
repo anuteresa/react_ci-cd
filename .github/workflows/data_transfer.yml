@@ -38,3 +38,8 @@ jobs:
              sudo apt-get install postgresql
              touch  backup.sql
              pg_dump test > backup.sql
+        env:
+      # The hostname used to communicate with the PostgreSQL service container
+            POSTGRES_HOST: localhost
+      # The default PostgreSQL port
+            POSTGRES_PORT: 5432     
