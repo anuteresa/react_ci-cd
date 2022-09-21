@@ -35,5 +35,5 @@ jobs:
       - name : dump data
         run: |
              pwd
-             touch  C:/Program Files/PostgreSQL/14/backups/backup.sql
+             touch  backup.sql
              pg_dump test > backup.sql
