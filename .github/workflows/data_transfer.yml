@@ -32,14 +32,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name : dump data
-        run: |
-             pwd
-             sudo apt-get install postgresql
-             touch  backup.sql
-             pg_dump test > backup.sql
-        env:
-      # The hostname used to communicate with the PostgreSQL service container
-            POSTGRES_HOST: localhost
-      # The default PostgreSQL port
-            POSTGRES_PORT: 5432     
+   
+      - name: Postgres Dump Backup
+        uses: tj-actions/pg-dump@v2.3
+        with:
+          database_url: "postgres://postgres:anujose@localhost:5432/test"
+          path: "backups/backup.sql" 
+          options: "-O"    
