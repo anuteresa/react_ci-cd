@@ -3,11 +3,7 @@ name: Master Build
 
 on: [push]
 
-env:
- 
-  DB_HOST: localhost
-  DB_USERNAME: postgres
-  DB_PASSWORD: anujose
+
 
 jobs:
   my_image_test:
@@ -18,7 +14,7 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_DB: test        
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: anujose
           POSTGRES_USER: postgres
         ports:
           - 5432:5432
