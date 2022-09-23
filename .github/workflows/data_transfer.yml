@@ -41,8 +41,8 @@ jobs:
              ls
              touch db.sql
              ls
-             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  -d test > db.sql
-             pg_dump  -d  postgres://postgres:anujose@localhost:5432/test > db.sql
+             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  -t person test > db.sql
+ 
              cat db.sql
         env:
           POSTGRES_DB: test  
