@@ -42,12 +42,13 @@ jobs:
       - name: Postgres Dump Backup
         run: |
              ls
-             touch db.sql
+             touch db.dump
              ls
-             pg_dump  postgres://postgres:postgres@localhost:5432/postgres > db.sql 
-             cat db.sql
+             pg_dump  postgres://postgres:postgres@localhost:5432/postgres > db.dump 
+             cat db.dump
+             more db.dump
              
-            
+
        
        
    
