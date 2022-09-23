@@ -8,7 +8,7 @@ on: [push]
 jobs:
   my_image_test:
     runs-on: ubuntu-latest
-    container: windows
+    container: ubuntu
     services:
       postgres:
         image: postgres:latest
@@ -43,6 +43,11 @@ jobs:
              ls
              PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres -d test> db.sql
              cat db.sql
+        env:
+          POSTGRES_DB: test  
+          POSTGRES_HOST: localhost 
+          POSTGRES_PASSWORD: anujose
+          POSTGRES_USER: postgres      
  
              
 
