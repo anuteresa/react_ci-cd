@@ -39,9 +39,9 @@ jobs:
       - name: Postgres Dump Backup
         run: |
              ls
-             touch db.sql
+             mkdir -p $(dirname backups/backup.sql)
              ls
-             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres test > db.sql
+             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres test > backups/backup.sql
  
              cat db.sql
         env:
