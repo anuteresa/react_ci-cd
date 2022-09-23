@@ -44,7 +44,7 @@ jobs:
              ls
              touch db.dump
              ls
-             PGPASSWORD= "anujose" && pg_dump -h localhost -p 5432  -U postgres -d test> db.dump 
+             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres -d test> db.dump 
              cat db.dump
  
              
