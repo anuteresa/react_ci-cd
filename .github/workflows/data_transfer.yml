@@ -44,7 +44,9 @@ jobs:
         run: |
              ls
              mkdir -p backups/db.sql
-             pg_dump -d postgres://postgres:anujose@localhost:5432/test > backups/db.sql
+             cd backup
+             ls
+             pg_dump -d postgres://postgres:anujose@localhost:5432/test > /backups/db.sql
              
             
        
