@@ -43,17 +43,14 @@ jobs:
              ls
              PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres test > backups/backup.sql
  
-             cat db.sql
+             cat backups/backup.sql
         env:
           POSTGRES_DB: test  
           POSTGRES_HOST: localhost 
           POSTGRES_PASSWORD: anujose
           POSTGRES_USER: postgres  
           
-      - uses: actions/upload-artifact@v3
-        with:
-         name: my-artifact
-         path: db.sql     
+      
  
              
 
