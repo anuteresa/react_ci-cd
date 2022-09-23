@@ -5,7 +5,8 @@
 
 name: Production CI
 
-on:    
+on:
+pull_request
  
 
  
