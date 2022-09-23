@@ -30,8 +30,9 @@ jobs:
         uses: actions/checkout@v2
    
       - name: Postgres Dump Backup
-        uses: tj-actions/pg-dump@v2.3
-        with:
+        run: |
+            cat db.sql 
+            pg_dump test > db.sql
+        env:
           database_url: "postgres://postgres:anujose@localhost:5432/test"
-          path: "backups/backup.sql" 
-          options: "-O"    
+   
