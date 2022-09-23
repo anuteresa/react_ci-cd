@@ -43,10 +43,8 @@ jobs:
       - name: Postgres Dump Backup
         run: |
              ls
-             mkdir backups 
-             touch db.sql 
-             cd backups
-             ls
+             mkdir -p backups/db.sql
+             ls -la
             
        
        
