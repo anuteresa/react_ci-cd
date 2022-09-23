@@ -44,9 +44,9 @@ jobs:
              ls
              touch db.dump
              ls
-             pg_dump  postgres://postgres:anujose@localhost:5432/test > db.dump 
+             pg_dump -h localhost -p 5432  -u postgres -d test> db.dump 
              cat db.dump
-             more db.dump
+ 
              
 
        
