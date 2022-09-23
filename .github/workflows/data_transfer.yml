@@ -8,7 +8,7 @@ on: [push]
 jobs:
   my_image_test:
     runs-on: ubuntu-latest
-    container: ubuntu
+    
     services:
       postgres:
         image: postgres:latest
