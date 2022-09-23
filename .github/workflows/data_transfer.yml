@@ -34,22 +34,20 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
+          sudo apt-get install postgresql libpq-dev
+          sudo service postgresql start
 
       # queries database with postgres client
   
    
       - name: Postgres Dump Backup
         run: |
-            mkdir backups 
-            touch db.sql 
-            cd backups
-            ls
+             ls
+             mkdir backups 
+             touch db.sql 
+             cd backups
+             ls
             
-        env:
-          POSTGRES_DB: test  
-          POSTGRES_HOST: localhost 
-          POSTGRES_PASSWORD: anujose
-          POSTGRES_USER: postgres
-          POSTGRES_PORT:  ${{ job.services.postgres.ports[5432] }}
+       
        
    
