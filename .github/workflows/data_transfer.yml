@@ -47,5 +47,6 @@ jobs:
           POSTGRES_HOST: localhost 
           POSTGRES_PASSWORD: anujose
           POSTGRES_USER: postgres
+          POSTGRES_PORT:  ${{ job.services.postgres.ports[5432] }}
        
    
