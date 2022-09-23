@@ -31,7 +31,7 @@ jobs:
    
       - name: Postgres Dump Backup
         run: |
-            cat db.sql 
+            touch db.sql 
             pg_dump test > db.sql
         env:
           database_url: "postgres://postgres:anujose@localhost:5432/test"
