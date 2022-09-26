@@ -43,7 +43,8 @@ jobs:
              ls
              mkdir -p $(dirname backups/backup.sql)
            
-             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres -d test  > backups/backup.sql
+             PGPASSWORD="anujose" pg_dump -s -h localhost -p 5432  -U postgres -d test -N _timescaledb_internal | grep -v _timescaledb_internal  > backups/backup.sql
+
  
              cat backups/backup.sql
         env:
