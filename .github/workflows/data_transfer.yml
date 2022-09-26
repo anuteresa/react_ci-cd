@@ -37,6 +37,7 @@ jobs:
   
    
       - name: Postgres Dump Backup
+        shell: bash
         run: |
              ls
              mkdir -p $(dirname backups/backup.sql)
