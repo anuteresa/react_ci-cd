@@ -30,9 +30,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
         
-      -   name: Install pg_dump
-          run: sudo apt-get install postgresql-client -y
-        
+    
 
       # queries database with postgres client
   
@@ -42,12 +40,13 @@ jobs:
         run: |
              ls -la
              mkdir -p $(dirname tmp/backup.sql)
+             ls -la
              
            
-             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > backups/backup.sql
+             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
 
  
-             cat backups/backup.sql
+             cat tmp/backup.sql
         env:
           POSTGRES_DB: test  
           POSTGRES_HOST: localhost 
