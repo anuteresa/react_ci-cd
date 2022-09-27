@@ -36,15 +36,19 @@ jobs:
         with:
           database_url: "postgres://postgres:anujose@localhost:5432/test"
           path: "backups/backup.sql" 
-          options: "-h localhost -p 5432"   
+          options: "-h localhost -p 5432"  
+          
+          
+          
 
       # queries database with postgres client
   
    
-    #  - name: Postgres Dump Backup
-     #   shell: bash
-      #  run: |
-       #      ls -la
+      - name: Postgres Dump Backup
+        shell: bash
+        run: |
+             ls -la
+             cat backups/backup.sql
         #     mkdir -p $(dirname tmp/backup.sql)
          #    ls -la
              
