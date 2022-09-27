@@ -50,7 +50,8 @@ jobs:
              ls -la
  
              mkdir -p $(dirname tmp/backup.sql)
-             cat tmp/backup.sql  
+             ls -la
+             cat backup.sql  
              
            
              PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
