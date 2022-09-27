@@ -29,8 +29,18 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-        
-    
+      - name: backup postgres
+        uses: ./
+        with:   
+         database_driver: postgres
+         database_username: postgres
+         database_password: anujose
+         database_name: test
+         database_host: postgres:5432
+
+         storage_driver: disk
+         
+         storage_path: C:\backup
 
       # queries database with postgres client
   
