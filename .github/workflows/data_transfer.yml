@@ -51,6 +51,7 @@ jobs:
  
              mkdir -p $(dirname tmp/backup.sql)
              ls -la
+             cd tmp
              cat backup.sql  
              
            
