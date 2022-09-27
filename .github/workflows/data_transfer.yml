@@ -29,39 +29,35 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: backup postgres
-        uses: ./
-        with:   
-         database_driver: postgres
-         database_username: postgres
-         database_password: anujose
-         database_name: test
-         database_host: postgres:5432
-
-         storage_driver: disk
-         
-         storage_path: C:\backup
+      
+      - uses: actions/checkout@v2
+      - name: Postgres Dump Backup
+        uses: tj-actions/pg-dump@v2.3
+        with:
+          database_url: "postgres://posgres:anujose@localhost:5432/test"
+          path: "backups/backup.sql" 
+          options: "-h localhost -p 5432"   
 
       # queries database with postgres client
   
    
-      - name: Postgres Dump Backup
-        shell: bash
-        run: |
-             ls -la
-             mkdir -p $(dirname tmp/backup.sql)
-             ls -la
+    #  - name: Postgres Dump Backup
+     #   shell: bash
+      #  run: |
+       #      ls -la
+        #     mkdir -p $(dirname tmp/backup.sql)
+         #    ls -la
              
            
-             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
+          #   PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
 
  
-             cat tmp/backup.sql
-        env:
-          POSTGRES_DB: test  
-          POSTGRES_HOST: localhost 
-          POSTGRES_PASSWORD: anujose
-          POSTGRES_USER: postgres  
+           #  cat tmp/backup.sql
+        #env:
+         # POSTGRES_DB: test  
+          #POSTGRES_HOST: localhost 
+          #POSTGRES_PASSWORD: anujose
+          #POSTGRES_USER: postgres  
           
       
  
