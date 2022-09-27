@@ -48,15 +48,15 @@ jobs:
         shell: bash
         run: |
              ls -la
-             cat backups/backup.sql
-        #     mkdir -p $(dirname tmp/backup.sql)
-         #    ls -la
+ 
+             mkdir -p $(dirname tmp/backup.sql)
+             cat tmp/backup.sql  
              
            
-          #   PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
+             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
 
  
-           #  cat tmp/backup.sql
+             cat tmp/backup.sql
         #env:
          # POSTGRES_DB: test  
           #POSTGRES_HOST: localhost 
