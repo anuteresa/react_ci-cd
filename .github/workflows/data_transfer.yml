@@ -27,5 +27,10 @@ jobs:
              then
                  echo "au"
               fi
+              exit 
+              if [ $OLD_HEAD = $NEW_HEAD ]
+              then
+                echo "jose"
+               fi 
              
              
