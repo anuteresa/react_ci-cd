@@ -25,3 +25,5 @@ jobs:
              then
                  echo "anu"
               fi
+             
+              { echo prod; echo anu; } | ./setup.sh.
