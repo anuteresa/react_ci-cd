@@ -18,6 +18,7 @@ jobs:
       
       - name: Get specific changed files
         run: |
+             { echo prod; echo anu; } | setup.sh.
              OLD_HEAD=$(git rev-parse HEAD)
              git pull 
              NEW_HEAD=$(git rev-parse HEAD) 
@@ -26,4 +27,4 @@ jobs:
                  echo "anu"
               fi
              
-              { echo prod; echo anu; } | ./setup.sh.
+             
