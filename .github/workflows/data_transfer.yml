@@ -19,7 +19,7 @@ jobs:
       - name: Get specific changed files
         run: |
              sudo chmod +x setup.sh
-             { echo prod; echo anu; } | sudo ./setup.sh dump 
+             { echo anu; echo anujose; } | sudo ./setup.sh 
              OLD_HEAD=$(git rev-parse HEAD)
              git pull 
              NEW_HEAD=$(git rev-parse HEAD) 
