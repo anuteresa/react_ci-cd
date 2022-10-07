@@ -1,74 +1,28 @@
 
-name: Master Build
+name: CI
 
-on: [push]
-
-
+on:
+  pull_request:
+    branches:
+      - main
+ 
 
 jobs:
-  my_image_test:
-    runs-on: ubuntu-latest
-    
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: test  
-          POSTGRES_HOST: localhost 
-          POSTGRES_PASSWORD: anujose
-          POSTGRES_USER: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-
+  build:
+    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    name: Test changed-files
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      
-      - uses: actions/checkout@v2
-      - name: Postgres Dump Backup
-        uses: tj-actions/pg-dump@v2.3
+      - uses: actions/checkout@v3
         with:
-          database_url: "postgres://postgres:anujose@localhost:5432/test"
-          path: "backups/backup.sql" 
-          options: "-h localhost -p 5432"  
-          
-          
-          
-
-      # queries database with postgres client
-  
-   
-      - name: Postgres Dump Backup
-        shell: bash
-        run: |
-             ls -la
- 
-             mkdir -p $(dirname tmp/backup.sql)
-             ls -la
-             cd tmp
-             cat backup.sql  
-             
-           
-             PGPASSWORD="anujose" pg_dump -h localhost -p 5432  -U postgres  test  > tmp/backup.sql
-
- 
-             cat tmp/backup.sql
-        #env:
-         # POSTGRES_DB: test  
-          #POSTGRES_HOST: localhost 
-          #POSTGRES_PASSWORD: anujose
-          #POSTGRES_USER: postgres  
-          
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
       
- 
-             
-
-       
-       
-   
+      # Example 1
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v32
+        
+      - name: Run step if any file(s) in the docs folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"   
