@@ -3,7 +3,8 @@ function dumpData() {
 	read -p "System? (prod/stg) default production: " system;
 	case $system in
 	"prod")
-	ls;;
+	read -p "Name? (prod/stg) default production: " name;
+	
 	"stg")
 	pwd;;
 	
