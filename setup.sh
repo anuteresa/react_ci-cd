@@ -6,8 +6,7 @@ function dumpData() {
 	ls;;
 	"stg")
 	pwd;;
-	*)
-	SYSTEM="production";;
+	
   esac
 }
 
