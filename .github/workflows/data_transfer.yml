@@ -16,5 +16,9 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
       
-      - name: pull
-        run: sudo git pull
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v32
+        with:
+          files: |
+            package.json
