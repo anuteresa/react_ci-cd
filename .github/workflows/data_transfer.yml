@@ -2,7 +2,7 @@
 name: CI
  
 on:
-  pull_request:
+  push:
     branches:
       - main
  
@@ -14,15 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: 1  # OR "2" -> To retrieve the preceding commit.
       
       - name: Get specific changed files
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v32
-        with:
-          files: |
-            package.json
-      - name: Run step if any of the listed files above change
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
-          echo "One or more files listed above has changed."        
+             OLD_HEAD=$(git rev-parse HEAD)
+             git pull 
+             NEW_HEAD=$(git rev-parse HEAD) 
+             if [ $OLD_HEAD = $NEW_HEAD ]
+             then
+                 echo "anu"
+              fi
