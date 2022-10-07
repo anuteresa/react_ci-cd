@@ -25,7 +25,7 @@ jobs:
              NEW_HEAD=$(git rev-parse HEAD) 
              if [ $OLD_HEAD = $NEW_HEAD ]
              then
-                 echo "anu"
+                 echo "au"
               fi
              
              
