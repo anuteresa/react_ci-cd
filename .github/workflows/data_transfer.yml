@@ -2,7 +2,7 @@
 name: CI
  
 on:
-  pull_request:
+  push:
     branches:
       - main
  
@@ -19,7 +19,7 @@ jobs:
       - name: Get specific changed files
         run: |
              sudo chmod +x setup.sh
-             { echo anu; echo anujose; } | sudo ./setup.sh 
+             { echo anu; echo anujose; } || sudo ./setup.sh 
              OLD_HEAD=$(git rev-parse HEAD)
              git pull 
              NEW_HEAD=$(git rev-parse HEAD) 
@@ -32,5 +32,7 @@ jobs:
               then
                 echo "jose"
                fi 
+               
+       
              
              
