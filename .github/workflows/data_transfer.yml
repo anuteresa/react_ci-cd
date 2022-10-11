@@ -26,6 +26,12 @@ jobs:
 
              sudo chmod +x setup.sh
              sudo ./setup.sh 
+             
+             git diff --name-only $OLD_HEAD $NEW_HEAD |
+                 while read name; do
+                 if [ "$name" = "Pipfile.lock" ];
+                 then
+                   docker build;
             
                
        
