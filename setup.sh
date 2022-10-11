@@ -5,14 +5,14 @@ NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
 ls -la | 
 while read name; do 
-  if [ "$name" = "setup.sh" ];
+  if [ "$name" = "package.json" ];
    then
        echo "good"
        pwd
       
-  else 
-       echo "not goood";
-       pwd
+else 
+echo "not goood";
+ pwd
                   
   fi;
   done
