@@ -18,7 +18,7 @@ jobs:
       
       - name: Get specific changed files
         run: |
-             git pull --dry-run https://anuteresa:$ {{secrtes.my_pat}}@github.com/anuteresa/react_ci-cd
+             git pull https://anuteresa:${{secrtes.my_pat}}@github.com/anuteresa/react_ci-cd
              echo "done"
              sudo chmod +x setup.sh
              { echo anu; echo anujose; } || sudo ./setup.sh 
