@@ -6,7 +6,8 @@ on:
     branches:
       - main
  
-
+env:
+  token: ${{ secrets.my_pat }}
 jobs:
   build:
     runs-on: ubuntu-latest  
