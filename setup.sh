@@ -15,7 +15,7 @@ while read name; do
 done  
 if [ $OLD_HEAD = $NEW_HEAD ];
 then 
-echo "no changes"
+echo "no changes and happy"
 fi
 
                  
