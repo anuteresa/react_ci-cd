@@ -1,7 +1,5 @@
 #!/bin/bash
-OLD_HEAD=$(git rev-parse HEAD)
-git pull 
-NEW_HEAD=$(git rev-parse HEAD)
+
 echo $NEW_HEAD
 git diff --name-only $OLD_HEAD $NEW_HEAD |
 while read name; do
