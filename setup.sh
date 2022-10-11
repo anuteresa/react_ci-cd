@@ -13,6 +13,11 @@ while read name; do
                   
   fi;
 done  
+if [ $OLD_HEAD = $NEW_HEAD ];
+then 
+echo "no changes"
+fi
+
                  
     
 
