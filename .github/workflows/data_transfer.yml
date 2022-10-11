@@ -15,6 +15,25 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1 # OR "2" -> To retrieve the preceding commit.
+          
+      - name: create a file
+        run: |  
+             touch ci.sh
+             echo "OLD_HEAD=$(git rev-parse HEAD)
+             git pull 
+             NEW_HEAD=$(git rev-parse HEAD) 
+             if [ $OLD_HEAD != $NEW_HEAD ]
+             then
+                 echo "auc"
+              fi
+              exit
+              elif [ $OLD_HEAD = $NEW_HEAD ]
+              then
+                echo "jose"
+               fi " >> ci.sh
+               cat ci.sh
+             
+          
       
       - name: Get specific changed files
         run: |
