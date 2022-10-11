@@ -19,40 +19,28 @@ jobs:
       - name: create a file
         run: |  
              touch ci.sh
-             echo "OLD_HEAD=$(git rev-parse HEAD)
-             git pull 
+             echo "
+             ##!/bin/bash
+             OLD_HEAD=$(git rev-parse HEAD)
+              git pull https://anuteresa:${{secrets.my_pat}}@github.com/anuteresa/react_ci-cd
              NEW_HEAD=$(git rev-parse HEAD) 
-             if [ $OLD_HEAD != $NEW_HEAD ]
-             then
-                 echo "auc"
-              fi
-              exit
-              elif [ $OLD_HEAD = $NEW_HEAD ]
-              then
-                echo "jose"
-               fi " >> ci.sh
+             if [ $OLD_HEAD = $NEW_HEAD ]
+             then 
+                echo "annnu"
+                else
+                 echo "jose"
+               fi " 
+                   >> ci.sh
                cat ci.sh
              
           
       
       - name: Get specific changed files
         run: |
-             git pull https://anuteresa:${{secrets.my_pat}}@github.com/anuteresa/react_ci-cd
-             echo "done"
-             sudo chmod +x setup.sh
-             { echo anu; echo anujose; } || sudo ./setup.sh 
-             OLD_HEAD=$(git rev-parse HEAD)
-             git pull 
-             NEW_HEAD=$(git rev-parse HEAD) 
-             if [ $OLD_HEAD != $NEW_HEAD ]
-             then
-                 echo "auc"
-              fi
-              exit
-              elif [ $OLD_HEAD = $NEW_HEAD ]
-              then
-                echo "jose"
-               fi 
+
+             sudo chmod +x ci.sh
+             { echo anu; echo anujose; } || sudo ./ci.sh 
+            
                
        
              
