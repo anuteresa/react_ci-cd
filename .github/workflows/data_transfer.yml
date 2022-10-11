@@ -39,7 +39,7 @@ jobs:
         run: |
 
              sudo chmod +x ci.sh
-             { echo anu; echo anujose; } || sudo ./ci.sh 
+             sudo ./ci.sh 
             
                
        
