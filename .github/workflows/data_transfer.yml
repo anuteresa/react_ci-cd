@@ -25,9 +25,6 @@ jobs:
         run: |
 
              sudo chmod +x setup.sh
-             OLD_HEAD=$(git rev-parse HEAD)
-             git pull 
-             NEW_HEAD=$(git rev-parse HEAD)
              sudo ./setup.sh 
             
                
