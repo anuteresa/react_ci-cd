@@ -3,7 +3,7 @@ OLD_HEAD=$(git rev-parse HEAD)
 git pull
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
-result= $(ls | egrep 'anu.sh') 
+result= $(ls | egrep 'setup.sh') 
 
 if [ "$result" = "anu.sh" ]
 then
