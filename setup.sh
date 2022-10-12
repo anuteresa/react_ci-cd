@@ -4,7 +4,7 @@ git pull
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
 result=$(ls -la | egrep 'setup.sh') 
-if [ $result = 'setup.sh' ]
+if [ "$result" = "setup.sh" ]
 then
   echo 'found'
 fi  
