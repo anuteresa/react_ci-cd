@@ -3,7 +3,7 @@ OLD_HEAD=$(git rev-parse HEAD)
 git pull --dry-run https://anuteresa:$token@github.com/anuteresa/react_ci-cd
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
-ls -la | egrep 'setup.sh' |
+ls -la | egrep 'anu.sh' |
 while read name; do 
   echo "found"
 done
