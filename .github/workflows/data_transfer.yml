@@ -2,7 +2,7 @@
 name: CI
  
 on:
-  workflow_dispatch:
+  push:
  
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
         run: |
 
              sudo chmod +x setup.sh
-             { echo anuteresa ;  echo $ {{ secrets.my_pat }} ; } | sudo ./setup.sh 
+             sudo ./setup.sh 
 
               
              
