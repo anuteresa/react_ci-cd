@@ -4,7 +4,7 @@ git pull
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
 result=$(ls | egrep 'anu.sh') 
-echo $result
+
 if [ "$result" = "anu.sh" ]
 then
   echo 'found'
