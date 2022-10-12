@@ -23,7 +23,7 @@ jobs:
 
              sudo chmod +x setup.sh
              OLD_HEAD=$(git rev-parse HEAD)
-             echo anu | sudo git pull
+             echo anujose | sudo git pull
              NEW_HEAD=$(git rev-parse HEAD)
              
 
