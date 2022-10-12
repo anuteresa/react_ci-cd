@@ -7,7 +7,7 @@ result=$(ls | egrep 'setup.sh')
 
 if [ "$result" = "setup.sh" ]
 then
-  echo 'found '
+  echo 'found and be happy'
 else 
 echo 'not found and anu'
 fi  
