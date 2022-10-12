@@ -3,19 +3,16 @@ OLD_HEAD=$(git rev-parse HEAD)
 git pull --dry-run https://anuteresa:$token@github.com/anuteresa/react_ci-cd
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
-ls -la | 
+ls -la | egrep 'setup.sh' |
 while read name; do 
-  if [ "$name" = "package.json" ];
-   then
-       echo "good"
-       pwd
-      
-else 
-echo "not goood";
- pwd
-                  
-  fi;
-  done
+  echo "found"
+done
+if [ $OLD_HEAD = $NEW_HEAD ]
+then 
+ pwd;
+ echo "happy";
+ fi
+
 
 
                  
