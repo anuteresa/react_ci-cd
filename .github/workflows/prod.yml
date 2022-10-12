@@ -5,16 +5,7 @@
 name: Node.js CI
 
 on:
-
- 
-    
-    
-     
-  push:
-
-   branches: [ "feature/is/124/staging_ci/cd" ]
-   paths:
-     - 'package.json'
+ workflow_dispatch:
 
 jobs:
   run-build-if-needed:
