@@ -9,7 +9,7 @@ if [ "$result" = "setup.sh" ]
 then
   echo 'found '
 else 
-echo 'not found'
+echo 'not found and'
 fi  
 
 if [ $OLD_HEAD = $NEW_HEAD ]
