@@ -5,7 +5,7 @@ NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
 result=$(ls | egrep 'setup.sh') 
 
-if [ "$result" = "anu.sh" ]
+if [ "$result" = "setup.sh" ]
 then
   echo 'found'
 else 
