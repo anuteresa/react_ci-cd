@@ -1,23 +1,14 @@
 #!/bin/bash
 OLD_HEAD=$(git rev-parse HEAD)
-
-
-echo "Type the username, followed by [ENTER]:"
-
-read username
-echo "username is $ username"
-
-echo "Type the password, followed by [ENTER]:"
-
-read -s password
-echo "password is $ password"
-
+git pull
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
-ls -la | egrep 'anu.sh' |
-while read name; do 
-  echo "found"
-done
+result=$(ls -la | egrep 'setup.sh') 
+if [ $result = 'setup.sh' ]
+then
+  echo 'found'
+fi  
+
 if [ $OLD_HEAD = $NEW_HEAD ]
 then 
  pwd;
