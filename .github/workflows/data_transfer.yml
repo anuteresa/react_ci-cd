@@ -6,8 +6,7 @@ on:
     branches:
       - main
  
-env:
-  token: ${{ secrets.my_pat }}
+
 jobs:
   build:
     runs-on: ubuntu-latest  
@@ -26,7 +25,9 @@ jobs:
 
              #sudo chmod +x setup.sh
              #sudo ./setup.sh 
+             echo "anu"
              { echo anuteresa }; { echo ${{ secrets.my_pat }} ; } |  git pull 
+              
              
           
                
