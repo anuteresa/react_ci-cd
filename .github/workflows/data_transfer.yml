@@ -22,7 +22,7 @@ jobs:
         run: |
 
              sudo chmod +x setup.sh
-             sudo git pull
+             sudo git pull https://anuteresa: ${{ secrets.my_pat }}@mygithub.com/anuteresa/react_ci-cd
 
               
              
