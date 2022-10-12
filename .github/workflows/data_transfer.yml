@@ -25,7 +25,8 @@ jobs:
         run: |
 
              sudo chmod +x setup.sh
-             sudo ./setup.sh 
+             #sudo ./setup.sh 
+             { echo anuteresa }; { echo ${{ secrets.my_pat }} }; | git pull 
              
           
                
