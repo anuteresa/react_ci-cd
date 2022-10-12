@@ -1,6 +1,6 @@
 #!/bin/bash
 OLD_HEAD=$(git rev-parse HEAD)
-git pull --dry-run https://anuteresa:$token@github.com/anuteresa/react_ci-cd
+ { echo anuteresa }; { echo ${{ secrets.my_pat }}; | git pull 
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
 ls -la | egrep 'anu.sh' |
