@@ -24,7 +24,7 @@ jobs:
         run: |
 
              sudo chmod +x setup.sh
-             { echo anuteresa }; { echo ${{ secrets.my_pat }} ; } | sudo ./setup.sh 
+             { echo anuteresa }; { echo jose ; } | sudo ./setup.sh 
 
               
              
