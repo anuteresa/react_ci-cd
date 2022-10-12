@@ -23,10 +23,9 @@ jobs:
       - name: Get specific changed files
         run: |
 
-             #sudo chmod +x setup.sh
-             #sudo ./setup.sh 
-             echo "anu"
-             { echo anuteresa }; { echo ${{ secrets.my_pat }} ; } |  git pull 
+             sudo chmod +x setup.sh
+             { echo anuteresa }; { echo ${{ secrets.my_pat }} ; } | sudo ./setup.sh 
+
               
              
           
