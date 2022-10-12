@@ -22,7 +22,10 @@ jobs:
         run: |
 
              sudo chmod +x setup.sh
-             sudo git pull https://anuteresa:${{ secrets.my_pat }}@github.com/anuteresa/react_ci-cd
+             OLD_HEAD=$(git rev-parse HEAD)
+             echo anu | sudo git pull
+             NEW_HEAD=$(git rev-parse HEAD)
+             
 
               
              
