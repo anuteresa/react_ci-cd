@@ -1,6 +1,6 @@
 #!/bin/bash
 OLD_HEAD=$(git rev-parse HEAD)
-git pull
+git pull git pull https://anuteresa:Attikal123@github.com/anuteresa/react_ci-cd
 NEW_HEAD=$(git rev-parse HEAD)
 echo $NEW_HEAD
 result=$(ls | egrep 'setup.sh') 
