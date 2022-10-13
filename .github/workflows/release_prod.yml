@@ -37,7 +37,7 @@ jobs:
 
     - name: Install
       run: |
-          yarn
+          yarn 
           
       env:
          NODE_AUTH_TOKEN: ${{ secrets.my_pat}}
@@ -50,6 +50,7 @@ jobs:
            ls
            echo REACT_APP_API_URL=${{ matrix.REACT_APP_API_URL }} >> .env
            echo REACT_APP_WEBSITE_URL=${{ matrix.REACT_APP_WEBSITE_URL }} >> .env
+           cat .env
            cat .env
            yarn build
           
