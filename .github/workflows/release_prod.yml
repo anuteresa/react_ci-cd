@@ -55,7 +55,7 @@ jobs:
            yarn build
           
           
-    - name: Get current package version
+    - name: Get current package version and 
 
       id: package-version
       uses: martinbeentjes/npm-get-version-action@v1.2.3
