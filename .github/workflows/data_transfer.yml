@@ -2,7 +2,9 @@
 name: CI
  
 on:
-  pull_request:
+  release:
+   types: [ published ]
+   branches: "feature/2"
  
 
 jobs:
@@ -23,7 +25,7 @@ jobs:
 
              sudo chmod +x setup.sh
              OLD_HEAD=$(git rev-parse HEAD)
-             echo anujose | sudo git pull | pull
+             echo anujose 
              NEW_HEAD=$(git rev-parse HEAD)
              
 
