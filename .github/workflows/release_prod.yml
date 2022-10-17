@@ -8,7 +8,7 @@ name: Production CI
 on:
   push:
     tags:
-      - v0.**
+      - staging*.**
  
 
  
