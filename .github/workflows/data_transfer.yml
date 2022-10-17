@@ -2,9 +2,9 @@
 name: CI
  
 on:
-  release:
-   types: [ published ]
-   branches: "feature/2"
+  push:
+    tags:
+      - v1.**
  
 
 jobs:
