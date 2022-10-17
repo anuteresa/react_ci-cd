@@ -6,9 +6,9 @@
 name: Production CI
 
 on:
-   release:
-    types: [ "published" ]    
-    branches: main
+  push:
+    tags:
+      - v0.**
  
 
  
