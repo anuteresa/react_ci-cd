@@ -5,7 +5,7 @@ on:
  
   release:
     types: published
-    branches: [ 'development' ]
+    branches: [ 'feature/is/124/staging_ci/cd' ]
 
 jobs:
   
