@@ -1,0 +1,39 @@
+
+name: CI
+ 
+on:
+  push:
+    tags:
+      - production*.**
+
+ 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1 # OR "2" -> To retrieve the preceding commit.
+          
+
+             
+          
+      
+      - name: Get specific changed files
+        run: |
+
+             sudo chmod +x setup.sh
+             OLD_HEAD=$(git rev-parse HEAD)
+             echo anujose 
+             NEW_HEAD=$(git rev-parse HEAD)
+             
+
+              
+             
+          
+               
+       
+             
+             
