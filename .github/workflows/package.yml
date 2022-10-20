@@ -1,32 +1,22 @@
-name: 'Autopublish'
-
 on:
-    push:
-        branches:
-            - main
-            
-
+  pull_request:
+    branches:
+      - staging
+name: Continuous integration
 jobs:
-    autopublish:
-        name: Publish release if package.json version was bumped
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check out repository
-              uses: actions/checkout@v3
+  version-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-            - name: Check package version
-              id: cpv
-              uses: PostHog/check-package-version@v2
 
-            - name: Echo versions
-              run: |
-                  echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
-                  echo "Published version: ${{ steps.cpv.outputs.published-version }}"
-
-            - name: Install dependencies
-              if: steps.cpv.outputs.is-new-version == 'true'
-              run: echo "anu"
-
-            - name: Publish new version
-              if: steps.cpv.outputs.is-new-version == 'true'
-              run: echo "jose"
+      - name: Check Release Version
+        uses: thebongy/version-check@v1
+        with:
+          file: package.json
+  
+        id: version_check_staging
+      - name: check
+        if: ${{steps.version_check_staging.outputs.versionChanged}} == 'true'
+        run: |
+             echo "Version ${{steps.version_check_staging.outputs.versionChanged}}"
