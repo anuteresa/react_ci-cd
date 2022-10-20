@@ -9,7 +9,7 @@ jobs:
 
 
       - name: Check if version has been updated
-        id: check.  
+        id: check  
         uses: EndBug/version-check@v1
         
       - name: Log when changed
