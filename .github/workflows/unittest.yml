@@ -3,20 +3,37 @@ name: unittest
  
 on:
   push:
-    tags:
-      - v*.**
+    #tags:
+     # - v*.**
 
  
 
 jobs:
   build:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: m
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 1 # OR "2" -> To retrieve the preceding commit.
-          
+      
+      - name: create .env
+        run: touch .env
+             ls -la
 
              
           
@@ -24,9 +41,9 @@ jobs:
       - name: Get specific changed files
         run: |
 
-             sudo chmod +x load.sh
+             sudo chmod +x setup.sh
              OLD_HEAD=$(git rev-parse HEAD)
-             ./load.sh
+             ./setup.sh
              NEW_HEAD=$(git rev-parse HEAD)
              
 
