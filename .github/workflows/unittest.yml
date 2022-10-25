@@ -34,6 +34,7 @@ jobs:
       - name: create .env
         run: |
              touch .env
+             cd ./
              ls -la
 
              
