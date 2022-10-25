@@ -24,9 +24,9 @@ jobs:
       - name: Get specific changed files
         run: |
 
-             sudo chmod +x setup.sh
+             sudo chmod +x load.sh
              OLD_HEAD=$(git rev-parse HEAD)
-             echo anujose 
+             ./load.sh
              NEW_HEAD=$(git rev-parse HEAD)
              
 
