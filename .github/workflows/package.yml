@@ -1,6 +1,6 @@
 on:
   workflow_run:
-    workflows: ["unittest"]
+    workflows: ["uni"]
     types: [completed]
 
 jobs:
