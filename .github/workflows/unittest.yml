@@ -3,8 +3,8 @@ name: unittest
  
 on:
   push:
-    #tags:
-     # - v*.**
+    tags:
+      - v*.**
 
  
 
@@ -31,13 +31,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: create .env
-        run: |
-             touch .env
-             cd ./
-             ls -la
+      - name: Copy a file from s3
+        uses: prewk/s3-cp-action@v2
+        with:
+         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         source: 's3://some-bucket/something-remote'
+         dest: './'
 
-             
+      - name: Set up Python 
+        uses: actions/setup-python@4.3.0
+        with:
+          python-version: 3.9
+          
+      - name: Install dependencies
+        run: |
+         python -m pip install --upgrade pip
+
+      - name: Test with Unittest
+        run: |
+         python manage.py test      
           
       
       - name: Get specific changed files
