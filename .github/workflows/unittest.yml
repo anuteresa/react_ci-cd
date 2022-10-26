@@ -15,7 +15,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: m
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: m
 
@@ -31,17 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Copy a .env file from s3
-        uses: prewk/s3-cp-action@v2
-        with:
-         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         source: 's3://some-bucket/something-remote'
-         dest: './'
          
-      - name: Rename the file to .env
-        run: |
-             mv be-staging-environment .env    
 
       - name: Set up Python 
         uses: actions/setup-python@4.3.0
@@ -51,19 +41,30 @@ jobs:
       - name: Install dependencies
         run: |
          python -m pip install --upgrade pip
+         
+      - name: Copy a .env file from s3
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+         command: cp
+         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws_region: eu-central-1
+         source: 's3://mula-application-data/be-staging-environment'
+         dest: './'
+         
+      - name: Rename the file to .env
+        run: |
+             mv be-staging-environment .env     
 
       - name: Test with Unittest
+        env:
+         POSTGRES_HOST: localhost
+         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         run: |
          python manage.py test      
           
       
-      - name: Get specific changed files
-        run: |
 
-             sudo chmod +x setup.sh
-             OLD_HEAD=$(git rev-parse HEAD)
-             ./setup.sh
-             NEW_HEAD=$(git rev-parse HEAD)
              
 
               
