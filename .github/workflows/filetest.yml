@@ -29,3 +29,12 @@ jobs:
         run: |
              mv be-staging-environment .env
              ls -la
+             
+      - name: Set up Python 
+        uses: actions/setup-python@4.3.0
+        with:
+          python-version: 3.9
+          
+      - name: Install dependencies
+        run: |
+         python -m pip install --upgrade pip        
