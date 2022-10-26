@@ -2,7 +2,7 @@
 name: filetest
  
 on:
-  push:
+  pull_request:
 
 
  
