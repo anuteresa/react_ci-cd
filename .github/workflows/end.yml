@@ -14,8 +14,7 @@ jobs:
       - name: Check if version has been updated
         id: check  
         uses: EndBug/version-check@v2.1.1
-        with:
-           diff-search: true
+      
      
         
       - name: Log when changed
