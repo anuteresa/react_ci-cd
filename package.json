@@ -1,6 +1,6 @@
 {
   "name": "hello",
-  "version": "0.0.5",
+  "version": "8.0.5",
   "private": true,
   "engines": {
     "npm": ">=5",
