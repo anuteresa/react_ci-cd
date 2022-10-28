@@ -6,14 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps: 
-       
-      - uses: actions/checkout@v3
-
+    
       - name: Check if version has been updated
         id: check  
         uses: EndBug/version-check@v2.1.1
         with:
            diff-search: true
+       
+      - uses: actions/checkout@v3
+
+      
      
         
       - name: Log when changed
