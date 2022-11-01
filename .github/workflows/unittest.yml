@@ -49,12 +49,12 @@ jobs:
          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws_region: eu-central-1
-         source: 's3://mula-application-data/be-staging-environment'
+         source: 's3://'
          dest: './'
          
       - name: Rename the file to .env
         run: |
-             mv be-staging-environment .env     
+             mv be .env     
 
       - name: Test with Unittest
         env:
