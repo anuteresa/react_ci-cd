@@ -23,9 +23,9 @@ jobs:
           cd .ssh
           touch staging.key
           ls -la
-          echo "$SSH_KEY" > ~/.ssh/staging.key
+          echo "$SSH_KEY" > staging.key
           cat staging.key
-          chmod 600 ~/.ssh/staging.key
+          chmod 600 staging.key
           
           cat >>~/.ssh/config <<END
           
