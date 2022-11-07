@@ -27,7 +27,7 @@ jobs:
           cat staging.key
           chmod 600 staging.key
           
-          cat >>~/.ssh/config <<END
+          cat >>config <<END
           
           Host staging
 
