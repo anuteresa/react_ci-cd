@@ -21,7 +21,9 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/staging.key
           chmod 600 ~/.ssh/staging.key
+          ls -la
           cat >>~/.ssh/config <<END
+          
           Host staging
 
             User $SSH_USER
@@ -32,7 +34,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.DEPLOY_USER }}
           SSH_KEY: ${{ secrets.MY_PAT }}
-               ls -la
+              
 
              
           
