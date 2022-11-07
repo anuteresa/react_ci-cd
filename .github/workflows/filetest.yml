@@ -20,8 +20,11 @@ jobs:
         run: |
           mkdir -p .ssh/
           ls -la
+          cd .ssh
           touch staging.key
+          ls -la
           echo "$SSH_KEY" > ~/.ssh/staging.key
+          cat staging.key
           chmod 600 ~/.ssh/staging.key
           
           cat >>~/.ssh/config <<END
