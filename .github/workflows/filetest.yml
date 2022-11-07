@@ -28,11 +28,11 @@ jobs:
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking no
           END
-           ls -la
+         
         env:
           SSH_USER: ${{ secrets.DEPLOY_USER }}
           SSH_KEY: ${{ secrets.MY_PAT }}
-             
+               ls -la
 
              
           
