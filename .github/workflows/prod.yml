@@ -49,7 +49,7 @@ jobs:
     - name: checking file
       run: |
           ls
-        
+          cat package.json
           cd package.json
    
         
