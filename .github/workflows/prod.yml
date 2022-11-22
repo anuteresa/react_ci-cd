@@ -51,7 +51,7 @@ jobs:
           ls
           
           
-          cat package.json
+          cd package.json
    
         
     
