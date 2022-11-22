@@ -26,7 +26,7 @@ jobs:
 
              sudo chmod +x setup.sh
              OLD_HEAD=$(git rev-parse HEAD)
-             echo anujose 
+             echo anuteresa
              NEW_HEAD=$(git rev-parse HEAD)
              
 
