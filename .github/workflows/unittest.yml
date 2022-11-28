@@ -3,8 +3,7 @@ name: unittest
  
 on:
   push:
-    tags:
-      - v*.**
+
 
  
 
@@ -40,29 +39,10 @@ jobs:
           
       - name: Install dependencies
         run: |
+         sudo apt-get update && sudo apt install libcairo2
          python -m pip install --upgrade pip
          
-      - name: Copy a .env file from s3
-        uses: keithweaver/aws-s3-github-action@v1.0.0
-        with:
-         command: cp
-         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws_region: eu-central-1
-         source: 's3://'
-         dest: './'
-         
-      - name: Rename the file to .env
-        run: |
-             mv be .env     
 
-      - name: Test with Unittest
-        env:
-         POSTGRES_HOST: localhost
-         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-        run: |
-         python manage.py test      
-          
       
 
              
