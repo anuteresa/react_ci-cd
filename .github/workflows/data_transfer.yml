@@ -2,37 +2,21 @@
 name: CI
  
 on:
-  push:
-    tags:
-      - production*.**
-
- 
+  workflow_run:
+    workflows: [unittest]
+    types: [completed]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  
-
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 1 # OR "2" -> To retrieve the preceding commit.
-          
-
-             
-          
-      
-      - name: Get specific changed files
-        run: |
-
-             sudo chmod +x setup.sh
-             OLD_HEAD=$(git rev-parse HEAD)
-             echo anuteresajose
-             NEW_HEAD=$(git rev-parse HEAD)
-             
-
-              
-             
-          
+      - run: echo 'The triggering workflow passed'
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
                
        
              
