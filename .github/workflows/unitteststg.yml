@@ -2,8 +2,9 @@
 name: unitteststg
  
 on:
-  pull_request:
-
+ push:
+   tags:
+     - v1.**
 
  
 
