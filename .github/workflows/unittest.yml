@@ -2,7 +2,7 @@
 name: unittest
  
 on:
-  push:
+  pull_request:
 
 
  
@@ -10,22 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: m
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: m
-
-        ports:
-          - 5432:5432
-
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+   
 
     steps:
       - uses: actions/checkout@v3
@@ -35,11 +20,11 @@ jobs:
       - name: Set up Python 
         uses: actions/setup-python@v4.3.0
         with:
-          python-version: 3.
+          python-version: 3.7
           
       - name: Install dependencies
         run: |
-         sudo apt-get update && sudo apt install libcairo2
+
          python -m pip install --upgrade pip
          
 
