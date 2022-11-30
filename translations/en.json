@@ -1,1 +1,8 @@
-
+{
+    "welcome_header": "Hello world!",
+    "welcome_button": "Welcome",
+    "welcome_footer": "Footer",
+    "ware.button.download": "Download",
+    "down.button.id": "ID",
+    "down.up": "up"
+}
