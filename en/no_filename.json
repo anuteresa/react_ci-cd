@@ -1,4 +1,5 @@
 {
     "welcome_header": "Hello world!",
-    "welcome_button": "Welcome"
+    "welcome_button": "Welcome",
+    "welcome_footer": "Footer"
 }
