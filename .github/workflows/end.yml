@@ -14,7 +14,9 @@ jobs:
         id: check  
         uses: EndBug/version-check@v2.1.1
       
-      - id: get_version
-        uses: battila7/get-version-action@v2
-
-      - run: echo ${{ steps.get_version.outputs.version }}
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.1.1
+      # From now you can access the version
+      - name: Print version
+        run: echo ${{ steps.extract_version.outputs.version }}
