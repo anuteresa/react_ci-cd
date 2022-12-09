@@ -5,15 +5,17 @@ on:
 jobs:
   version-check:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.check.outputs.changed == 'true' }}
     
     steps: 
    
        
       - uses: actions/checkout@v3
 
-  #    - name: Check if version has been updated
-   #     id: check  
-    #    uses: EndBug/version-check@v2.1.1
+      - name: Check if version has been updated
+        id: check  
+        uses: EndBug/version-check@v2.1.1
       
       - name: Get the release version
         id: get_version
@@ -22,3 +24,11 @@ jobs:
       - name: version 
         run: 
           echo "version =${{ steps.get_version.outputs.VERSION }}"
+  notify-success:
+    runs-on: ubuntu-latest
+    if: success()
+    needs: [version-check]
+    steps:
+    - name: Notify slack success
+      if: ${{needs.version-check.outputs.output1}}
+      run: echo "success"
