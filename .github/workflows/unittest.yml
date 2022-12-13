@@ -1,5 +1,5 @@
 
-name: unittest
+name: unittestslack
  
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
 
-             echo "https://github.com/${owner}/${repo} | ${owner}/${repo}"
+             echo "https://github.com/${{ github.repository_owner }}/${{ github.repository }} | ${{ github.repository_owner }}/${{ github.repository }}"
 
       
 
