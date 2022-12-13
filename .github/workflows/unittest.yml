@@ -20,7 +20,7 @@ jobs:
           
       - name: Install dependencies
         run: |
-              echo "event name is:" ${{ github.event_name }}" 
+              echo "event name is: ${{ github.event_name }}" 
               echo "https://github.com/${{ github.repository }}"
               echo "branch name is: ${{ github.ref_name }}"
 
