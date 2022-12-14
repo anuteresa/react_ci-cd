@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
    
 
     steps:
@@ -24,7 +24,7 @@ jobs:
               echo "https://github.com/${{ github.repository }}"
               echo "branch name is: ${{ github.ref_name }}"
               echo "${{github.workflow}}"
-              ts =Math.floor(Date.now() / 1000)
+              ts = Math.floor(Date.now() / 1000)
               echo "$ts"
 
       
