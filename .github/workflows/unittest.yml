@@ -24,6 +24,8 @@ jobs:
               echo "https://github.com/${{ github.repository }}"
               echo "branch name is: ${{ github.ref_name }}"
               echo "${{github.workflow}}"
+              ts =Math.floor(Date.now() / 1000)
+              echo "$ts"
 
       
 
