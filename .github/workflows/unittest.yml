@@ -23,9 +23,9 @@ jobs:
               echo "event name is: ${{ github.event_name }}" 
               echo "https://github.com/${{ github.repository }}"
               echo "branch name is: ${{ github.ref_name }}"
-              echo "${{github.workflow}}"
-              ts = Math.floor(Date.now() / 1000)
-              echo "$ts"
+              echo "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} | ${{github.workflow}}>`"
+
+
 
       
 
