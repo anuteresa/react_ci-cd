@@ -2,7 +2,7 @@
 name: unittestslack
  
 on:
-  push:
+  release:
 
 
  
