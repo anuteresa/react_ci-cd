@@ -28,7 +28,7 @@ jobs:
           echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
       - name: version 
         run: 
-          echo "version =${{ steps.check.outputs.VERSION }}"
+          echo "version =${{ steps.check.outputs.version}}"
   notify-success:
     runs-on: ubuntu-latest
     if: success()
