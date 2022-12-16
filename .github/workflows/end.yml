@@ -35,5 +35,5 @@ jobs:
     needs: [version-check]
     steps:
     - name: Notify slack success
-      if: ${{needs.version-check.outputs.output1}}
+      if: ${{needs.version-check.outputs.output1}} == 'true'
       run: echo "success"
