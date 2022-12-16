@@ -1,21 +1,21 @@
 on:
+# push:
   pull_request:
-    types:
-      - closed
-    branches: [ "main" ]
-    paths:
-     - 'package.json'
+  #  types:
+   #   - closed
+   # branches: [ "main" ]
+   # paths:
+    # - 'package.json'
 
 jobs:
   version-check:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.check.outputs.changed }} == 'true'
+
     
     steps: 
    
        
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v
 
       - name: Check if version has been updated
         id: check  
@@ -42,3 +42,17 @@ jobs:
       - name: Notify slack success
         if: steps.check.outputs.changed == 'true'
         run: echo "success"
+        
+  notify-failure:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: [version-check]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if version has been updated
+        id: check  
+        uses: EndBug/version-check@v2.1.1
+      - name: Notify slack success
+        if: steps.check.outputs.changed == 'true'
+        run: echo "failure"      
