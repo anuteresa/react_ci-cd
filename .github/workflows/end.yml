@@ -34,6 +34,11 @@ jobs:
     if: success()
     needs: [version-check]
     steps:
-    - name: Notify slack success
-      if: ${{needs.version-check.outputs.output1}} == 'true'
-      run: echo "success"
+      - uses: actions/checkout@v3
+
+      - name: Check if version has been updated
+        id: check  
+        uses: EndBug/version-check@v2.1.1
+      - name: Notify slack success
+        if: steps.check.outputs.changed == 'true'
+        run: echo "success"
