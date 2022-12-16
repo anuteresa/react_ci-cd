@@ -10,7 +10,7 @@ jobs:
   version-check:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.check.outputs.changed == 'true' }}
+      output1: ${{ steps.check.outputs.changed }} == 'true'
     
     steps: 
    
