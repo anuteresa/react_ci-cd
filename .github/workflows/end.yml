@@ -1,8 +1,8 @@
 on:
- push:
+ release:
  # pull_request:
-  #  types:
-   #   - closed
+    types:
+      - published
    # branches: [ "main" ]
    # paths:
     # - 'package.json'
@@ -17,30 +17,30 @@ jobs:
        
       - uses: actions/checkout@v3
 
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
+   #   - name: Check if version has been updated
+    #    id: check  
+     #   uses: EndBug/version-check@v2.1.1
       
       - name: Get the release version
-        if: steps.check.outputs.changed == 'true'
+      #  if: steps.check.outputs.changed == 'true'
         id: get_version
         run:  |
           echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
-      - name: version 
-        run: 
-          echo "version =${{ steps.check.outputs.version}}"
+   #   - name: version 
+        #run: 
+       #   echo "version =${{ steps.check.outputs.version}}"
   notify-success:
     runs-on: ubuntu-latest
     if: success()
     needs: [version-check]
     steps:
-      - uses: actions/checkout@v3
+      #- uses: actions/checkout@v3
 
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
+      #- name: Check if version has been updated
+       # id: check  
+        #uses: EndBug/version-check@v2.1.1
       - name: Notify slack success
-        if: steps.check.outputs.changed == 'true'
+       # if: steps.check.outputs.changed == 'true'
         run: echo "success"
         
   notify-failure:
@@ -48,11 +48,11 @@ jobs:
     if: failure()
     needs: [version-check]
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
+   #   - uses: actions/checkout@v3
+#
+ #     - name: Check if version has been updated
+  #      id: check  
+   #     uses: EndBug/version-check@v2.1.1
       - name: Notify slack success
-        if: steps.check.outputs.changed == 'true'
+    #    if: steps.check.outputs.changed == 'true'
         run: echo "failure"      
