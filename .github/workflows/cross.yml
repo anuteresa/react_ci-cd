@@ -13,7 +13,7 @@ jobs:
           echo "Build Web App"
       - uses: convictional/trigger-workflow-and-wait@v1.3.0
         with:
-          owner: keithweaver
-          repo: demo-web-api
-          github_token: ${{ secrets.G_ACCESS_TOKEN }}
-          workflow_file_name: deploy.yml
+          owner: anuteresa
+          repo: ci-cd
+          github_token: ${{ secrets.PAT }}
+          workflow_file_name: repo.yml
