@@ -46,7 +46,7 @@ def main():
         # Call the Drive v3 API
 
         path = f"/backup.sq"
-        file_metadata = {"name": backup.sql", "parents": ["1nxUiDSYgXByyTiDzjjQa1fy1jZNebJDU"]}
+        file_metadata = {"name": "backup.sql", "parents": ["1nxUiDSYgXByyTiDzjjQa1fy1jZNebJDU"]}
         media = MediaFileUpload(path,
                                 mimetype='application/sql')
         # pylint: disable=maybe-no-member
