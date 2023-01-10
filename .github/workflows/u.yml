@@ -1,0 +1,25 @@
+name: d
+
+on:
+  push:
+    
+ 
+
+ 
+        
+  
+
+jobs:
+  run-build-if-needed:
+    runs-on: ubuntu-latest
+     
+  
+               
+    steps:
+
+    - uses: actions/checkout@v3
+    - name: 'Blog Custom Github Action'
+      shell: bash 
+      run: |
+           sudo chmod +x setup.sh
+            ./setup.sh 
