@@ -18,8 +18,12 @@ jobs:
     steps:
 
     - uses: actions/checkout@v3
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.6.0
+
     - name: 'Blog Custom Github Action'
       shell: bash 
       run: |
-           sudo chmod +x setup.sh
-            ./setup.sh 
+          npm install 
+          npm build
+          ls -la
