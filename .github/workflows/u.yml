@@ -36,6 +36,7 @@ jobs:
       with:
           source-files: 'build/'
           destination-username: 'anuteresa'
+          destination-branch: 'main'
           destination-repository: 'react_ci-cd'
           destination-directory: 'ml'
    
