@@ -29,14 +29,29 @@ jobs:
           ls -la
           
        
-    - name: GitHub Pages action
-      uses: peaceiris/actions-gh-pages@v3.9.1
+    - name: Deploy to external repository
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+ 
+          API_TOKEN_GITHUB: ${{ secrets.PAT }}
+          # Way 2: using SSH deploy keys
+          # @see https://cpina.github.io/push-to-another-repository-docs/setup-using-ssh-deploy-keys.html#setup-ssh-deploy-keys
+          # 2.1 Generate an SSH key in terminal (Leave the passphrase empty)
+          # 2.2 Add public key in the external repository: <external repository>/Settings/Deploy keys/Add deploy key
+          #     Name: DEPLOY_PUBLIC_KEY, Value Paste the public key. Enable "✅️ Allow write access"
+          # 2.3 Add private key in the source repository: <external repository>/Settings/Secrets/Actions/New repository secret
+          #     Name: DEPLOY_PRIVATE_KEY, Value Paste the private key.
+          # SSH_DEPLOY_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
 
       with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          folder: build
-          publish_branch: 'f4'
-          publish_dir: 'en'
+          # GitHub Action output files
+          source-directory: build/
+          destination-github-username: anuteresa
+          destination-repository-name: react_ci-cd
+          user-email: anuteresaj@gmail.com
+          # It defaults to `main`
+          target-branch: "main"
+          target-directory: 'en'
 
 
    
