@@ -28,8 +28,9 @@ jobs:
           npm run build
           ls -la
           
-    - name: Push generated webpage to another repository
-      uses: nkoppel/push-files-to-another-repository@v1.1.2
+    - name: Copy files to another repository
+      uses: nkoppel/push-files-to-another-repository@v1.1.1
+
       env:
           API_TOKEN_GITHUB: ${{ secrets.MY_PAT }}
       with:
