@@ -35,7 +35,8 @@ jobs:
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           folder: build
-          branch: main
-          target-folder: en
+          publish_branch: 'main'
+          publish_dir: 'en'
+
 
    
