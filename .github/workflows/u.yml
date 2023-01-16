@@ -25,5 +25,5 @@ jobs:
       shell: bash 
       run: |
           npm install 
-          npm build
+          npm run build
           ls -la
