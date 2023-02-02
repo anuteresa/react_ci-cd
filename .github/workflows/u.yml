@@ -1,16 +1,11 @@
 name: d
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches: [ "main" ]
-    paths:
-     - 'package.json'
+  push:
 
 jobs:
   run-build:
-    if: github.event.pull_request.merged == true
+
     runs-on: ubuntu-latest
   
                
@@ -20,11 +15,15 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.6.0
 
-    - name: 'Blog Custom Github Action'
-      shell: bash 
-      run: |
+    - name: Create env file and build
 
-          ls -la
+      run: |
+           npm install
+           touch .env
+ 
+           echo  REACT_APP_DEBUG_MODE=true >> .env
+           cat .env
+ 
           
        
    
