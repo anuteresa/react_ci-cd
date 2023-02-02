@@ -21,7 +21,7 @@ jobs:
            npm install
            touch .env
  
-           echo  REACT_APP_DEBUG_MODE=true >> .env
+           echo REACT_APP_DEBUG_MODE=true >> .env
            cat .env
  
           
