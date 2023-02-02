@@ -30,7 +30,7 @@ jobs:
            cat .env
  
     - name:  build
-      if: matrix.REACT_APP_DEBUG_MODE == 'true'
+      if: matrix. REACT_APP_DEBUG_MODE == 'true'
       run: |
           echo anu     
        
