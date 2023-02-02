@@ -7,7 +7,11 @@ jobs:
   run-build:
 
     runs-on: ubuntu-latest
-  
+    strategy:
+      matrix:
+        include:
+          - REACT_APP_DEBUG_MODE: false
+            
                
     steps:
 
@@ -21,12 +25,12 @@ jobs:
            npm install
            touch .env
  
-           echo REACT_APP_DEBUG_MODE=true >> .env
+           echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
  
            cat .env
  
     - name: Create env file and build
-      if: $REACT_APP_DEBUG_MODE == ‘true’
+      if: matrix.REACT_APP_DEBUG_MODE == 'true'
       run: |
           echo anu     
        
