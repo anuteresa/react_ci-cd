@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - REACT_APP_DEBUG_MODE: 'true'
+          - REACT_APP_DEBUG_MODE: true
             REACT_APP_WEBSITE_LOCALE: nl
             
                
