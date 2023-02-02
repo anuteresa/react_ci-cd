@@ -25,11 +25,11 @@ jobs:
            npm install
            touch .env
  
-           echo   REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
+           echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
  
            cat .env
  
-    - name: Create env file and build
+    - name:  build
       if: matrix.REACT_APP_DEBUG_MODE == 'true'
       run: |
           echo anu     
