@@ -11,6 +11,7 @@ jobs:
       matrix:
         include:
           - REACT_APP_DEBUG_MODE: true
+            REACT_APP_WEBSITE_LOCALE: nl
             
                
     steps:
@@ -26,11 +27,11 @@ jobs:
            touch .env
  
            echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
- 
+           echo REACT_APP_WEBSITE_LOCALE=${{ matrix.REACT_APP_WEBSITE_LOCALE }} >> .env
            cat .env
  
     - name:  build
-      if: matrix. REACT_APP_DEBUG_MODE == 'true'
+      if: matrix.REACT_APP_WEBSITE_LOCALE == 'nl'
       run: |
           echo anu     
        
