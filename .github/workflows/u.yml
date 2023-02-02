@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - REACT_APP_DEBUG_MODE: false
+          - REACT_APP_DEBUG_MODE: true
             
                
     steps:
@@ -25,7 +25,7 @@ jobs:
            npm install
            touch .env
  
-           echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
+           echo   REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
  
            cat .env
  
