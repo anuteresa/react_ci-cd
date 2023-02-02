@@ -22,8 +22,12 @@ jobs:
            touch .env
  
            echo REACT_APP_DEBUG_MODE=true >> .env
+ 
            cat .env
  
-          
+    - name: Create env file and build
+      if: REACT_APP_DEBUG_MODE == ‘true’
+      run: |
+          echo anu     
        
    
