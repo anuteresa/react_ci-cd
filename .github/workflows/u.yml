@@ -20,5 +20,16 @@ jobs:
 
     - name: Current branch name
       run: |
-          echo "${{ steps.branch-name.outputs.base_ref_branch }}"
+            OLD_HEAD=$(git rev-parse HEAD)
+            echo $OLD_HEAD
+            git checkout {{ steps.branch-name.outputs.base_ref_branch }}
+            NEW_HEAD=$(git rev-parse HEAD)
+            echo $NEW_HEAD
+            file=$(git diff --name-only $OLD_HEAD $NEW_HEAD | egrep 'package.json')
+            if [ "$file" = "package.json" ]
+            then
+              echo "changed"
+            else
+              echo "no chnage"
+            fi 
    
