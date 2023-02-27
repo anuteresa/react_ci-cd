@@ -25,4 +25,5 @@ jobs:
             NEW_HEAD=$(git rev-parse HEAD)
             echo $NEW_HEAD
             ls -la
+            file=$(git diff --name-only $OLD_HEAD $NEW_HEAD | egrep 'package.json')
             
