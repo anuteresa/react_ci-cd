@@ -20,6 +20,7 @@ jobs:
 
     - name: Current branch name
       run: |
+            git fetch
             git checkout  develop
             OLD_HEAD=$(git rev-parse HEAD)
             echo $OLD_HEAD
