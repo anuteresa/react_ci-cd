@@ -2,37 +2,23 @@ name: d
 
 on:
   push:
+   tags:
+    - feature*.**
 
 jobs:
   run-build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - REACT_APP_DEBUG_MODE: true
-            REACT_APP_WEBSITE_LOCALE: nl
-            
+    
                
     steps:
 
     - uses: actions/checkout@v3
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3.6.0
+    - name: Get branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v6
 
-    - name: Create env file and build
-
+    - name: Current branch name
       run: |
-           npm install
-           touch .env
- 
-           echo REACT_APP_DEBUG_MODE=${{ matrix. REACT_APP_DEBUG_MODE }} >> .env
-           echo REACT_APP_WEBSITE_LOCALE=${{ matrix.REACT_APP_WEBSITE_LOCALE }} >> .env
-           cat .env
- 
-    - name:  build
-      if: matrix.REACT_APP_WEBSITE_LOCALE == 'true'
-      run: |
-          echo anu     
-       
+          echo "${{ steps.branch-name.outputs.base_ref_branch }}"
    
