@@ -13,8 +13,7 @@ jobs:
     steps:
 
     - uses: actions/checkout@v3
-      with:
-       ref: main
+ 
     - name: Get branch name
       id: branch-name
       uses: tj-actions/branch-names@v6
@@ -23,8 +22,8 @@ jobs:
       run: |
             OLD_HEAD=$(git rev-parse HEAD)
             echo $OLD_HEAD
-
-            git pull
+            mkdir .env
+            git checkout -b ${{ steps.branch-name.outputs.base_ref_branch }}
             NEW_HEAD=$(git rev-parse HEAD)
             echo $NEW_HEAD
             ls -la
