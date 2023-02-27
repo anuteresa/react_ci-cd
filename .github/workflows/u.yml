@@ -34,6 +34,6 @@ jobs:
             then
               echo "changed";
             else
-              echo "no chnage":
+              echo "no chnage";
             fi 
             
