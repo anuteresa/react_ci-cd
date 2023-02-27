@@ -28,7 +28,7 @@ jobs:
           OLD_HEAD=$(git rev-parse HEAD)
 
           # Check out the second branch
-          git checkout feature/is/common
+          git checkout -b feature/is/common
           NEW_HEAD=$(git rev-parse HEAD)
 
           # Compare the two branches and filter by the specific file
