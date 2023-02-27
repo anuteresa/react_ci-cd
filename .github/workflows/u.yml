@@ -2,8 +2,7 @@ name: d
 
 on:
   push:
-   tags:
-    - feature*.**
+
 
 jobs:
   run-build:
@@ -20,5 +19,23 @@ jobs:
 
     - name: Current branch name
       run: |
-          echo "${{ steps.branch-name.outputs.base_ref_branch }}"
+       #   echo "${{ steps.branch-name.outputs.base_ref_branch }}"
+ 
+    - name: Check file diff
+      run: |
+
+          git checkout main
+          OLD_HEAD=$(git rev-parse HEAD)
+
+          # Check out the second branch
+          git checkout feature/is/common
+          NEW_HEAD=$(git rev-parse HEAD)
+
+          # Compare the two branches and filter by the specific file
+          if git diff --name-only $OLD_HEAD $NEW_HEAD | grep -q "package.json"; then
+            echo "The file has changed"
+          else
+            echo "The file has not changed"
+          fi
+      
    
