@@ -27,10 +27,11 @@ jobs:
             echo $NEW_HEAD
             ls -la
             file=$(git diff --name-only $OLD_HEAD $NEW_HEAD | egrep 'package.json')
-            if [ "$file" = "package.json" ]
-            then
-              echo "changed"
-            else
-              echo "no chnage"
-            fi 
+            echo $file
+            #if [ "$file" = "package.json" ]
+            #then
+             # echo "changed"
+            #else
+             # echo "no chnage"
+            #fi 
    
