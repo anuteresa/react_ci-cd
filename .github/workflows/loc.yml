@@ -12,14 +12,31 @@ jobs:
   
     runs-on: ubuntu-latest   
     
-    steps:  
+    steps: 
       - uses: actions/checkout@v3
         with:
-         fetch-depth: 1
-         ref:  main
+          ref: development
+
+      - name: Check if version has been updated
+        id: check  
+        uses: EndBug/version-check@v2.1.1
+       
+   
+
+     
+        
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+      - name: Log when unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change :/"'
+
                
          
       - name: Download lokalise translations
+        if: steps.check.outputs.changed == 'true'
         run: |
           docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
           --token "633896f181ccf6613e1d44fa6a2d1dbc00fa1dcd" \
@@ -36,6 +53,7 @@ jobs:
           --replace-breaks=false
              
       - name: Move new translations
+        if: steps.check.outputs.changed == 'true'
         run: |
              ls -la
              cp /tmp/lokalise/locale/* ./translations/app  
@@ -52,14 +70,11 @@ jobs:
           # original-filename: false
           # directory-prefix : "values-%LANG_ISO%"
           # placeholder-format: printf
-          
-      - name: Create Pull z
-        run: |
-             ls -la
-             git remote prune origin
+
            
   
       - name: Create Pull Request
+        if: steps.check.outputs.changed == 'true'
         id: demo-pr
         uses: peter-evans/create-pull-request@v4
         
@@ -94,11 +109,28 @@ jobs:
            - REACT_APP_WEBSITE_URL: https://staging.anu
              REACT_APP_RT: anu
              REACT_APP: JOSE
-    steps:  
+    steps:
       - uses: actions/checkout@v3
         with:
-         fetch-depth: 1
-         ref:  main 
+         ref: development
+       
+      - name: Check if version has been updated
+        id: check  
+        uses: EndBug/version-check@v2.1.1
+       
+      
+
+
+     
+        
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+      - name: Log when unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change :/"'
+
          
       - name: Create Pull 
         run: |
