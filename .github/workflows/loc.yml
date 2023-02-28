@@ -11,13 +11,6 @@ jobs:
   run-build-if-needed:
   
     runs-on: ubuntu-latest   
-    strategy:
-      matrix:
-       include:
-           - REACT_APP_API_URL: https://staging
-           - REACT_APP_WEBSITE_URL: https://staging.anu
-             REACT_APP_RT: anu
-             REACT_APP: JOSE
     
     steps:  
       - uses: actions/checkout@v3
@@ -86,12 +79,35 @@ jobs:
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
           method: squash   
   
+     
+
+
+  run-build:
+  
+    runs-on: ubuntu-latest 
+    if: success()
+    needs: [run-build-if-needed]
+    strategy:
+      matrix:
+       include:
+           - REACT_APP_API_URL: https://staging
+           - REACT_APP_WEBSITE_URL: https://staging.anu
+             REACT_APP_RT: anu
+             REACT_APP: JOSE
+    steps:  
+      - uses: actions/checkout@v3
+        with:
+         fetch-depth: 1
+         ref:  main 
+         
       - name: Create Pull 
         run: |
              ls -la
              cd translations
              cd app
-             ls 
+             cat en.json
+                 
+         
         
      # - name:  Use Lokalise
       #  run: |
