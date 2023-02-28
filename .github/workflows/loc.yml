@@ -112,7 +112,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-         ref: development
+         ref: main
        
       - name: Check if version has been updated
         id: check  
