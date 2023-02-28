@@ -63,10 +63,7 @@ jobs:
       - name: Create Pull z
         run: |
              ls -la
-             cd translations
-             cd app
-             ls 
-  
+             git remote prune origin
            
   
       - name: Create Pull Request
