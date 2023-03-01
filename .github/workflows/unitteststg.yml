@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         id: error
         run: |
-            cd anu
-            python -m pip install --upgrade pip > changed-fields.out
+
+            python -m pip install --ugrade pip > changed-fields.out
             #result_code=${PIPESTATUS[0]}
             
             #exit $result_code
