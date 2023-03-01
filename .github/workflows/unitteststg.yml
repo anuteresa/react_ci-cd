@@ -32,15 +32,16 @@ jobs:
              output="$(cat changed-fields.out)"
              echo ${output}
              output="${output//$'\n'/\\n}"
-             output="${output// / }"     # replace regular space with 'En Space'
+             output="${output// / }" # replace regular space with 'En Space'
+             echo ${output}
              echo "ERROR=${ouput}" >> $GITHUB_OUTPUT
          
       - name: Persist logs
         
-        if: ${{ failure() }}
+        #if: ${{ failure() }}
         run: |
-            cat changed-fields.out
-            echo "error = ${{ steps.test.outputs.ERROR}}"
+            #cat changed-fields.out
+            echo "error = ${{ steps.test.outputs.ERROR }}"
 
   build-f:
     runs-on: ubuntu-latest
