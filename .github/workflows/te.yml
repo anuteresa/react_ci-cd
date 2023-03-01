@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         id: test
         run: |
-             cd anu
+
              python -m pip install --urade pip  | tee output.log
             
       - name: Persist logs
