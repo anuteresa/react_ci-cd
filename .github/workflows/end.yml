@@ -1,11 +1,8 @@
 on:
  
- pull_request:
-    types:
-      - published
-   # branches: [ "main" ]
-   # paths:
-    # - 'package.json'
+ push:
+  tags:
+   - anu*.**
 
 jobs:
   version-check:
