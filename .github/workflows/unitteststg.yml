@@ -3,8 +3,7 @@ name: unitteststg
  
 on:
  push:
-   tags:
-     - v2.**
+
 
  
 
@@ -29,6 +28,6 @@ jobs:
             python -m pip install --upgrade pip 2>&1 | tee output.log
          
       - name: Persist logs
-        if: ${{ always() }}
+        if: ${{ failure() }}
         run: |
           cat output.log 
