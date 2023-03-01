@@ -32,10 +32,12 @@ jobs:
             echo $ERROR
 
          
-    #  - name: Persist logs
-     #   if: ${{ failure() }}
-      #  run: |
-      
+      - name: Persist logs
+        id: test
+        if: ${{ failure() }}
+        run: |
+             cat output.log
+             echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
   build-f:
     runs-on: ubuntu-latest
     if : failure()
@@ -43,4 +45,4 @@ jobs:
     steps:
       - name: error display
         run: |
-             echo "error =${{ steps.error.outputs.ERROR}}"
+             echo "error =${{ steps.test.outputs.ERROR}}"
