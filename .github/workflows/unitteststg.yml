@@ -25,24 +25,21 @@ jobs:
           
       - name: Install dependencies
         id: test
-        continue-on-error: true
+
         run: |
 
-            python -m pip install --ugrade pip > changed-fields.out
+            python -m pip install --ugrade pip 2>&1 | tee output.log
 
-             output="$(cat changed-fields.out)"
-             echo ${output}
-             output="${output//$'\n'/\\n}"
-             output="${output// / }" # replace regular space with 'En Space'
-             echo ${output}
-             echo "ERROR=${ouput}" >> $GITHUB_OUTPUT
-         
+            
       - name: Persist logs
-        
+        id: error
         if: ${{ failure() }}
         run: |
-            cat changed-fields.out
-            echo "error = ${{ steps.test.outputs.ERROR }}"
+            cat output.log
+            output="$(cat output.log)"
+            output="${output//$'\n'/\\n}"
+            output="${output// / }"
+            echo "ERROR=${output}" >> $GITHUB_OUTPUT
 
   build-f:
     runs-on: ubuntu-latest
