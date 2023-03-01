@@ -33,10 +33,10 @@ jobs:
         if: ${{ failure() }}
         run: |
             #cat output.log
-            #output="$(cat output.log)"
+            output="$(cat error.log)"
             #output="${output//$'\n'/\\n}"
             #output="${output// / }"
-            echo "ERROR=${cat error.log}" >> $GITHUB_OUTPUT
+            echo "ERROR=${output}" >> $GITHUB_OUTPUT
   build-f:
     runs-on: ubuntu-latest
     if: failure()
