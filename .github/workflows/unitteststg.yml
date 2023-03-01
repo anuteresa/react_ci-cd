@@ -25,4 +25,10 @@ jobs:
           
       - name: Install dependencies
         run: |
-         python -m pip install --upgrade pip
+            cd anu
+            python -m pip install --upgrade pip 2>&1 | tee output.log
+         
+      - name: Persist logs
+        if: ${{ always() }}
+        run: |
+          cat output.log 
