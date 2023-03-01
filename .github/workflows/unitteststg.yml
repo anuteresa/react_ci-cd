@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      error: ${{ steps.test.outputs.ERROR }}
+      error: ${{ steps.error.outputs.ERROR }}
 
     steps:
       - uses: actions/checkout@v3
@@ -27,18 +27,21 @@ jobs:
         id: error
         run: |
             cd anu
-            python -m pip install --upgrade pip 2>&1 | tee output.log
-            result_code=${PIPESTATUS[0]}
-            echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
-            exit $result_code
-            echo $ERROR
-
+            python -m pip install --upgrade pip > changed-fields.out
+            #result_code=${PIPESTATUS[0]}
+            
+            #exit $result_code
+            #echo $ERROR
+             output="$(cat changed-fields.out)"
+             output="${output//$'\n'/\\n}"
+             output="${output// / }"     # replace regular space with 'En Space'
+             echo "ERROR=${ouput}" >> $GITHUB_OUTPUT
          
-      - name: Persist logs
-        id: test
-        if: ${{ failure() }}
-        run: |
-             out= "$(cat output.log)"| echo "ERROR=${out}" >> $GITHUB_OUTPUT
+   #   - name: Persist logs
+    #    id: test
+     #   if: ${{ failure() }}
+      #  run: |
+       #      out= "$(cat output.log)"| echo "ERROR=${out}" >> $GITHUB_OUTPUT
 
   build-f:
     runs-on: ubuntu-latest
