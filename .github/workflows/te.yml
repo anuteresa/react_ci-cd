@@ -26,17 +26,17 @@ jobs:
         id: test
         run: |
 
-             python -m pip install --urade pip 2>&1 | tee output.log
+             python -m pip install --urade pip  > error.log 2>&1 || true
             
       - name: Persist logs
         id: error
         if: ${{ failure() }}
         run: |
-            cat output.log
-            output="$(cat output.log)"
-            output="${output//$'\n'/\\n}"
-            output="${output// / }"
-            echo "ERROR=${output}" >> $GITHUB_OUTPUT
+            #cat output.log
+            #output="$(cat output.log)"
+            #output="${output//$'\n'/\\n}"
+            #output="${output// / }"
+            echo "ERROR=${cat error.log}" >> $GITHUB_OUTPUT
   build-f:
     runs-on: ubuntu-latest
     if: failure()
@@ -44,4 +44,4 @@ jobs:
     steps:
       - name: error display
         run: |
-             echo "error = ${{ steps.build.outputs.error}}"
+             echo "error = ${{ needs.build.outputs.ERROR}}"
