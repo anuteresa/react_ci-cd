@@ -36,7 +36,7 @@ jobs:
          
       - name: Persist logs
         
-        if: ${{ failure() }}
+        #if: ${{ failure() }}
         run: |
             cat cat changed-fields.out
             echo "error = ${{ steps.test.outputs.ERROR}}"
