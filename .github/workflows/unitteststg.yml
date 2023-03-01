@@ -38,7 +38,7 @@ jobs:
         id: test
         if: ${{ failure() }}
         run: |
-             cat output.log | echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
+             out= "$(cat output.log)"| echo "ERROR=${out}" >> $GITHUB_OUTPUT
 
   build-f:
     runs-on: ubuntu-latest
