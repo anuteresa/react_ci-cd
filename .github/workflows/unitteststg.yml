@@ -27,9 +27,10 @@ jobs:
         run: |
             cd anu
             python -m pip install --upgrade pip 2>&1 | tee output.log
-            result_code=${PIPESTATUS[0]}
+
             echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
-            exit $result_code
+            echo $ERROR
+
          
     #  - name: Persist logs
      #   if: ${{ failure() }}
