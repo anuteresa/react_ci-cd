@@ -37,7 +37,7 @@ jobs:
         
         if: ${{ failure() }}
         run: |
-           echo "error = ${{ steps.test.outputs.ERROR}}
+           echo "error = ${{ steps.test.outputs.ERROR}}"
 
   build-f:
     runs-on: ubuntu-latest
