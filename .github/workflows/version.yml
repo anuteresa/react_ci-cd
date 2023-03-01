@@ -1,0 +1,24 @@
+on:
+ 
+ push:
+  tags:
+   - an*.**
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+   # outputs:
+      #output1: ${{ steps.get_version.outputs.VERSION }}
+    
+    steps: 
+   
+       
+      - uses: actions/checkout@v3
+
+      - name: Get current package version
+        
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.2.3  
+      - name: vvversion 
+        run: 
+          echo "version =${{ steps.package-version.outputs.current-version}}"  
