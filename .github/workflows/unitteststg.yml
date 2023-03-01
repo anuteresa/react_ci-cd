@@ -24,24 +24,20 @@ jobs:
           python-version: 3.7
           
       - name: Install dependencies
-        id: error
+        id: test
         run: |
 
             python -m pip install --ugrade pip > changed-fields.out
-            #result_code=${PIPESTATUS[0]}
-            
-            #exit $result_code
-            #echo $ERROR
              output="$(cat changed-fields.out)"
              output="${output//$'\n'/\\n}"
              output="${output// / }"     # replace regular space with 'En Space'
              echo "ERROR=${ouput}" >> $GITHUB_OUTPUT
          
-   #   - name: Persist logs
-    #    id: test
-     #   if: ${{ failure() }}
-      #  run: |
-       #      out= "$(cat output.log)"| echo "ERROR=${out}" >> $GITHUB_OUTPUT
+      - name: Persist logs
+        
+        if: ${{ failure() }}
+        run: |
+           echo "error = ${{ steps.test.outputs.ERROR}}
 
   build-f:
     runs-on: ubuntu-latest
