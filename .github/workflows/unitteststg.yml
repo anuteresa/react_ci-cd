@@ -28,6 +28,6 @@ jobs:
             python -m pip install --upgrade pip 2>&1 | tee output.log
          
       - name: Persist logs
-        if: ${{ failure() }}
+        #if: ${{ failure() }}
         run: |
           cat output.log 
