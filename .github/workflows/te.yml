@@ -36,7 +36,7 @@ jobs:
             #output="$(cat error.log)"
             #output="${output//$'\n'/\\n}"
             #output="${output// / }"
-            echo "ERROR=$(cat error.log" >> $GITHUB_OUTPUT
+            echo "ERROR=$(cat error.log)" >> $GITHUB_OUTPUT
   build-f:
     runs-on: ubuntu-latest
     if: failure()
