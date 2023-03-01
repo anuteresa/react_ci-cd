@@ -25,10 +25,8 @@ jobs:
           
       - name: Install dependencies
         id: test
-
         run: |
-
-            python -m pip install --ugrade pip 2>&1 | tee output.log
+             python -m pip install --urade pip 2>&1 | tee output.log
 
             
       - name: Persist logs
