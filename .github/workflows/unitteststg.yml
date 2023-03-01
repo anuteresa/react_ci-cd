@@ -24,10 +24,13 @@ jobs:
           
       - name: Install dependencies
         run: |
-            
+            cd anu
             python -m pip install --upgrade pip 2>&1 | tee output.log
+            result_code=${PIPESTATUS[0]}
+            echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
+            exit $result_code
          
-      - name: Persist logs
-        if: ${{ failure() }}
-        run: |
-          cat output.log 
+    #  - name: Persist logs
+     #   if: ${{ failure() }}
+      #  run: |
+      
