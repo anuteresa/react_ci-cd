@@ -30,7 +30,7 @@ jobs:
             python -m pip install --upgrade pip > changed-fields.out
 
              output="$(cat changed-fields.out)"
-             echo $(output)
+             echo ${output}
              output="${output//$'\n'/\\n}"
              output="${output// / }"     # replace regular space with 'En Space'
              echo "ERROR=${ouput}" >> $GITHUB_OUTPUT
