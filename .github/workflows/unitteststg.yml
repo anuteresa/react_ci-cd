@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      error: ${{ steps.error.outputs.hash }}
+      error: ${{ steps.error.outputs.ERROR }}
 
     steps:
       - uses: actions/checkout@v3
@@ -42,9 +42,9 @@ jobs:
              echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
   build-f:
     runs-on: ubuntu-latest
-    if : failure()
+    if: failure()
     needs: [build]
     steps:
       - name: error display
         run: |
-             echo "error =${{ steps.build.outputs.error}}"
+             echo "error = ${{ steps.build.outputs.error}}"
