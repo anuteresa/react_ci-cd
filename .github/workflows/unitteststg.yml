@@ -10,7 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-   
+    outputs:
+      error: ${{ steps.error.outputs.hash }}
 
     steps:
       - uses: actions/checkout@v3
@@ -27,8 +28,9 @@ jobs:
         run: |
             cd anu
             python -m pip install --upgrade pip 2>&1 | tee output.log
-
+            result_code=${PIPESTATUS[0]}
             echo "ERROR=${cat output.log}" >> $GITHUB_OUTPUT
+            exit $result_code
             echo $ERROR
 
          
@@ -45,4 +47,4 @@ jobs:
     steps:
       - name: error display
         run: |
-             echo "error =${{ steps.test.outputs.ERROR}}"
+             echo "error =${{ steps.build.outputs.error}}"
