@@ -23,7 +23,7 @@ jobs:
       #  if: steps.check.outputs.changed == 'true'
         id: get_version
         run:  |
-          echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+          echo "VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
       - name: version 
         run: 
           echo "version =${{ steps.get_version.outputs.VERSION}}"
