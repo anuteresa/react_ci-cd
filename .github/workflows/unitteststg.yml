@@ -23,6 +23,7 @@ jobs:
           python-version: 3.7
           
       - name: Install dependencies
+        id: error
         run: |
             cd anu
             python -m pip install --upgrade pip 2>&1 | tee output.log
@@ -34,3 +35,11 @@ jobs:
      #   if: ${{ failure() }}
       #  run: |
       
+  build-f:
+    runs-on: ubuntu-latest
+    if : failure()
+    needs: [build]
+    steps:
+      - name: error display
+        run: |
+             echo "error =${{ steps.error.outputs.ERROR}}"
