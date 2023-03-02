@@ -35,7 +35,12 @@ jobs:
             output="${output//$'\n'/\\n}"
             output="${output// / }"  
             echo "ERROR=${output}" >> $GITHUB_OUTPUT
-            #echo "::set-output name=error::$(cat error.log)"
+      - name: Persistd logs
+        id: errors
+        if: ${{ failure() }}
+        run: |       
+            echo "error = ${{ steps.error.outputs.ERROR}}"
+            
   build-f:
     runs-on: ubuntu-latest
     if: failure()
