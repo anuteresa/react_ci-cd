@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.error.outputs.ERROR }}
 
     steps:
       - uses: actions/checkout@v3
@@ -51,4 +53,4 @@ jobs:
     steps:
       - name: error display
         run: |
-             echo "error = ${{ needs.build.outputs.error}}"
+             echo  ${{ needs.build.outputs.output1}}
