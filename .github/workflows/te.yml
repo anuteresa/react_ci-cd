@@ -31,7 +31,10 @@ jobs:
         if: ${{ failure() }}
         run: |
             #echo $(cat error.log) > logs.txt
-            echo "ERROR=$(cat error.log)" >> $GITHUB_OUTPUT
+            output="$(cat error.log)"
+            #output="${output//$'\n'/\\n}"
+            #output="${output// / }"  
+            echo "ERROR=${output}" >> $GITHUB_OUTPUT
             #echo "::set-output name=error::$(cat error.log)"
   build-f:
     runs-on: ubuntu-latest
