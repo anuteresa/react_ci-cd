@@ -53,4 +53,4 @@ jobs:
     steps:
       - name: error display
         run: |
-             echo  ${{ needs.build.outputs.output1}}
+             echo  "error=${{ needs.build.outputs.output1}}"
