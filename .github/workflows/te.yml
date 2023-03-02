@@ -30,8 +30,9 @@ jobs:
         id: error
         if: ${{ failure() }}
         run: |
-            echo $(cat error.log) > logs.txt
-            echo "ERROR=$(cat logs.txt)" >> $GITHUB_OUTPUT
+            #echo $(cat error.log) > logs.txt
+            #echo "ERROR=$(cat logs.txt)" >> $GITHUB_OUTPUT
+            echo "::set-output name=error::$(cat error.log)"
   build-f:
     runs-on: ubuntu-latest
     if: failure()
@@ -39,4 +40,4 @@ jobs:
     steps:
       - name: error display
         run: |
-             echo "error = ${{ needs.build.outputs.ERROR}}"
+             echo "error = ${{ needs.build.outputs.error}}"
