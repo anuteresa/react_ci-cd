@@ -26,7 +26,7 @@ jobs:
         id: test
         run: |
 
-             python -m pip install --urade pip  
+             python -m pip install --upgrade pip  
              #> error.log 2>&1 
             
       - name: Persist logs
