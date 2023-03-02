@@ -42,7 +42,7 @@ jobs:
         id: errors
         if: ${{ failure() }}
         run: |       
-            echo "error = ${{ steps.error.outputs.ERROR}}"
+            echo "WARNING = ${{ steps.error.outputs.ERROR}}"
             
   build-f:
     runs-on: ubuntu-latest
