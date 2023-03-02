@@ -32,9 +32,12 @@ jobs:
         run: |
             #echo $(cat error.log) > logs.txt
             output="$(cat error.log)"
-            output="${output//$'\n'/\\n}"
-            output="${output// / }"  
-            echo "ERROR=${output}" >> $GITHUB_OUTPUT
+            #output="${output//$'\n'/\\n}"
+            #output="${output// / }"
+            echo "ERROR<<EOF" >> $GITHUB_OUTPUT
+            echo "$output<<EOF" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            #echo "ERROR=${output}" >> $GITHUB_OUTPUT
       - name: Persistd logs
         id: errors
         if: ${{ failure() }}
