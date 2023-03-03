@@ -26,7 +26,8 @@ jobs:
         id: test
         run: |
 
-             python testsum.py  > error.log 2>&1 
+             python testsum.py  
+             #> error.log 2>&1 
             
       - name: Persist logs
         id: error
