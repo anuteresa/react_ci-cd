@@ -64,7 +64,7 @@ jobs:
               {
                 "title": "Status",
                 "short": true,
-                "value": "${{ steps.error.outputs.ERROR}}"
+                "value": " echo error ="${{ steps.error.outputs.ERROR}}""
               }
             ]
             }
