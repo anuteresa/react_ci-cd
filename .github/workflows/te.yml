@@ -65,7 +65,7 @@ jobs:
             "fields": [
               {
                 "title": "Status",
-                "short": true,
+                "short": false,
                 "value": "${{ steps.error.outputs.ERROR }}"
               }
             ]
