@@ -26,8 +26,7 @@ jobs:
         id: test
         run: |
 
-             python -m pip install --upgrade pip  
-             #> error.log 2>&1 
+             python -m pip install --upgrade pip  > error.log 2>&1 
             
       - name: Persist logs
         id: error
@@ -41,11 +40,11 @@ jobs:
             echo "$output<<EOF" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
             #echo "ERROR=${output}" >> $GITHUB_OUTPUT
-      - name: Persistd logs
-        id: errors
-        if: ${{ failure() }}
-        run: |       
-            echo "WARNING = ${{ steps.error.outputs.ERROR}}"
+    #  - name: Persistd logs
+     #   id: errors
+      #  if: ${{ failure() }}
+       # run: |       
+        #    echo "WARNING = ${{ steps.error.outputs.ERROR}}"
             
   build-f:
     runs-on: ubuntu-latest
