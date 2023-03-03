@@ -36,7 +36,7 @@ jobs:
             output="$(cat error.log)"
             output="${output//$'\n'/\\n}"
             output="${output// / }"
-            output=${echo $output | tr -d '"'}
+            output=$(echo $output | tr -d '"')
             #echo "ERROR<<EOF" >> $GITHUB_OUTPUT
             #echo "$output<<EOF" >> $GITHUB_OUTPUT
             #echo "EOF" >> $GITHUB_OUTPUT
