@@ -48,15 +48,15 @@ jobs:
             
       - id: slack
         uses: slackapi/slack-github-action@v1.23.0
-         with:
+        with:
     # The following message update step does not accept a channel name.
     # Setting a channel ID here for consistency is highly recommended.
            channel-id: "C345VGHA"
            payload: |
-      {
-        "text": "Deployment started (In Progress)",
-        "attachments": [
-          {
+            {
+            "text": "Deployment started (In Progress)",
+             "attachments": [
+            {
             "pretext": "Deployment started",
             "color": "dbab09",
             "fields": [
@@ -66,11 +66,11 @@ jobs:
                 "value": "${{ steps.error.outputs.ERROR}}"
               }
             ]
-          }
-        ]
-      }
-  env:
-    SLACK_BOT_TOKEN: 6456475476576 
+            }
+            ]
+            }
+        env:
+            SLACK_BOT_TOKEN: 6456475476576 
             
   build-f:
     runs-on: ubuntu-latest
