@@ -49,7 +49,7 @@ jobs:
             
   build-f:
     runs-on: ubuntu-latest
-    if: failure()
+    if: always()
     needs: [build]
     steps:
       - name: error display
