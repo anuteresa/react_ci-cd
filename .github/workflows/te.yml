@@ -64,7 +64,7 @@ jobs:
               {
                 "title": "Status",
                 "short": true,
-                "value": "${{steps.error.outputs.ERROR  | replace('\"', '\\\"')}}"
+                "value": "${{steps.error.outputs.ERROR // '' }}" | replace('\"', '\\\"')
               }
             ]
             }
