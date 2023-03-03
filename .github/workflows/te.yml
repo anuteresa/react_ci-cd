@@ -44,7 +44,8 @@ jobs:
         id: errors
         if: ${{ failure() }}
         run: |       
-            echo "${{ steps.error.outputs.ERROR}}"
+            echo "${{ steps.error.outputs.ERROR}}" >> anu
+            cat anu
             
       - id: slack
         if: ${{ failure() }}
