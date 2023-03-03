@@ -44,7 +44,7 @@ jobs:
         id: errors
         if: ${{ failure() }}
         run: |       
-            echo "WARNING = ${{ (steps.error.outputs.WARNING | replace('\"', '\\\"')) }}"
+            echo "WARNING = ${{ (steps.error.outputs.WARNING.replaceAll('\"', '\\\"') }}"
             
   build-f:
     runs-on: ubuntu-latest
