@@ -47,6 +47,7 @@ jobs:
             echo "${{ steps.error.outputs.ERROR}}"
             
       - id: slack
+        if: ${{ failure() }}
         uses: slackapi/slack-github-action@v1.23.0
         with:
     # The following message update step does not accept a channel name.
