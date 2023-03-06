@@ -27,6 +27,11 @@ jobs:
         run: |
 
              python testsum.py  > error.log 2>&1 
+             
+      - name: Generate Report
+        run: |
+           pip install coverage
+           coverage run -m unittest        
             
       - name: Persist logs
         id: error
