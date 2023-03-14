@@ -34,7 +34,7 @@ jobs:
         if: ${{ failure() }}
         run: |
             #echo $(cat error.log) > logs.txt
-            output="$(./test/cat error.log)"
+            output="$(cat ./test/error.log)"
             output="${output//$'\n'/\\n}"
             output="${output// / }"
             output=$(echo $output | tr -d '"')
