@@ -28,13 +28,7 @@ jobs:
              cd test
              python testsum.py  > error.log 2>&1 
              
-      - name: Generate Report
-        run: |
-           pip install coverage
-           coverage run -m unittest discover
-           coverage html
-           cd htmlcov
-           cat index.html
+
       - name: Persist logs
         id: error
         if: ${{ failure() }}
