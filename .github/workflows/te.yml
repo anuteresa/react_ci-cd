@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         id: test
         run: |
-
+             cd test
              python testsum.py  > error.log 2>&1 
              
       - name: Generate Report
