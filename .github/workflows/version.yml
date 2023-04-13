@@ -17,12 +17,14 @@ jobs:
       - name: Get current package version
         
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.2.3  
+        uses: martinbeentjes/npm-get-version-action@v1.3.1  
       - name: vvversion 
         run: 
           echo "version =${{ steps.package-version.outputs.current-version}}"  
           
   version:
+     if: success()
+     needs: [version-check]
      runs-on: ubuntu-latest
    # outputs:
       #output1: ${{ steps.get_version.outputs.VERSION }}
@@ -34,7 +36,7 @@ jobs:
       - name: Get current package version
         
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.2.3  
+        uses: martinbeentjes/npm-get-version-action@v1.3.1 
       - name: vvversion 
         run: 
           echo "version =${{ steps.package-version.outputs.current-version}}" 
