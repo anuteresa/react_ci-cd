@@ -36,7 +36,12 @@ jobs:
           release_name: production${{ steps.package-version.outputs.current-version}}
           draft: false
           prerelease: false
-          
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false  
+          title: production${{ steps.package-version.outputs.current-version}}
   version:
      if: success()
      needs: [version-check]
