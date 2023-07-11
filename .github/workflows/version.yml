@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - 'releases/**'
+      - 'releases/v1.*'
   
 
 jobs:
