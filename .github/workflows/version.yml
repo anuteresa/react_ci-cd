@@ -1,6 +1,7 @@
 on:
   push:
- 
+   tags:
+      - 'v*' 
   
 
 jobs:
@@ -25,11 +26,16 @@ jobs:
       - name: vvversion 
         run: 
           echo "version =${{ steps.package-version.outputs.current-version}}" 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Create Release
+        id: create_release   
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: ${{ github.ref }}
+          release_name: Production ${{ github.ref }}
+          draft: false
           prerelease: false
-          title: production
           
   version:
      if: success()
