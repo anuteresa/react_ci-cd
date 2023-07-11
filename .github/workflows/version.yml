@@ -1,7 +1,9 @@
 on:
   push:
    tags:
-      - 'v*' 
+      - 'v*'
+   branches:
+     - main    
   
 
 jobs:
