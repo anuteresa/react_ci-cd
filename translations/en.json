@@ -1,0 +1,26 @@
+{
+    "welcome_header": {
+        "translation": "Hello world!"
+    },
+    "welcome_button": {
+        "translation": "Welcome"
+    },
+    "welcome_footer": {
+        "translation": "Footer"
+    },
+    "ware.button.download": {
+        "translation": "Download"
+    },
+    "down.button.id": {
+        "translation": "ID"
+    },
+    "down.up": {
+        "translation": "up"
+    },
+    "jshs.k": {
+        "translation": "hju"
+    },
+    "download.kl": {
+        "translation": "reoip"
+    }
+}

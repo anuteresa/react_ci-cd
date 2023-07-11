@@ -1,0 +1,58 @@
+
+name: filetest
+ 
+on:
+  workflow_dispatch:
+
+
+ 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1 # OR "2" -> To retrieve the preceding commit.
+          
+      - name: Configure SSH
+        run: |
+          mkdir -p .ssh/
+          ls -la
+          cd .ssh
+          touch staging.key
+          ls -la
+          echo "$SSH_KEY" > staging.key
+          cat staging.key
+          chmod 600 staging.key
+          
+          cat >>config <<END
+          
+          Host staging
+
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+          cat config
+         
+        env:
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+          SSH_KEY: ${{ secrets.MY_PAT }}
+              
+
+             
+          
+      
+      - name: Get specific changed files
+        run: |
+             touch be-staging-environment
+             ls -la
+             
+      - name: Get specific changed files
+        run: |
+             mv be-staging-environment .env
+             ls -la
+             
+    

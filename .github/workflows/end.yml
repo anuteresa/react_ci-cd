@@ -1,0 +1,79 @@
+on:
+ 
+ push:
+  tags:
+   - anu*.**
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.get_version.outputs.VERSION }}
+    
+    steps: 
+   
+       
+      - uses: actions/checkout@v3
+
+   #   - name: Check if version has been updated
+    #    id: check  
+     #   uses: EndBug/version-check@v2.1.1
+      
+      - name: Get the release version
+      #  if: steps.check.outputs.changed == 'true'
+        id: get_version
+        run:  |
+          echo "VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+      - name: version 
+        run: 
+          echo "version =${{ steps.get_version.outputs.VERSION}}"
+          
+      - name: Get current package version
+        
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.2.3  
+      - name: vvversion 
+        run: 
+          echo "version =${{ steps.package-version.outputs.current-version}}"  
+
+  notify-start:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      #- uses: actions/checkout@v3
+
+      #- name: Check if version has been updated
+       # id: check  
+        #uses: EndBug/version-check@v2.1.1
+      - name: Notify slack success
+       # if: steps.check.outputs.changed == 'true'
+        run: echo "start"         
+        
+  notify-success:
+    runs-on: ubuntu-latest
+    if: success()
+    needs: [version-check]
+    steps:
+      #- uses: actions/checkout@v3
+
+      #- name: Check if version has been updated
+       # id: check  
+        #uses: EndBug/version-check@v2.1.1
+      - name: Notify slack success
+       # if: steps.check.outputs.changed == 'true'
+        run: echo "success"
+        
+  notify-failure:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: [version-check]
+    steps:
+   #   - uses: actions/checkout@v3
+#
+ #     - name: Check if version has been updated
+  #      id: check  
+   #     uses: EndBug/version-check@v2.1.1
+      - name: Notify slack success
+    #    if: steps.check.outputs.changed == 'true'
+        run: echo "failure"      

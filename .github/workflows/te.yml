@@ -1,0 +1,86 @@
+name: unitteststg
+ 
+on:
+ pull_request:
+
+
+ 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.error.outputs.ERROR }}
+
+    steps:
+      - uses: actions/checkout@v3
+      
+         
+
+      - name: Set up Python 
+        uses: actions/setup-python@v4.3.0
+        with:
+          python-version: 3.7
+          
+      - name: Install dependencies
+        id: test
+        run: |
+             cd test
+             python testsum.py  > error.log 2>&1 
+             
+
+      - name: Persist logs
+        id: error
+        if: ${{ failure() }}
+        run: |
+            #echo $(cat error.log) > logs.txt
+            output="$(cat ./test/error.log)"
+            output="${output//$'\n'/\\n}"
+            output="${output// / }"
+            output=$(echo $output | tr -d '"')
+            #echo "ERROR<<EOF" >> $GITHUB_OUTPUT
+            #echo "$output<<EOF" >> $GITHUB_OUTPUT
+            #echo "EOF" >> $GITHUB_OUTPUT
+            echo "ERROR=${output}" >> $GITHUB_OUTPUT
+      - name: Persistd logs
+        id: errors
+        if: ${{ failure() }}
+        run: |       
+            echo "${{ steps.error.outputs.ERROR}}" >> anu
+            cat anu
+            
+      - id: slack
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+    # The following message update step does not accept a channel name.
+    # Setting a channel ID here for consistency is highly recommended.
+           channel-id: "C345VGHA"
+           payload: |
+            {
+            "text": "Deployment started (In Progress)",
+             "attachments": [
+            {
+            "pretext": "Deployment started",
+            "color": "dbab09",
+            "fields": [
+              {
+                "title": "Status",
+                "short": false,
+                "value": "${{ steps.error.outputs.ERROR }}"
+              }
+            ]
+            }
+            ]
+            }
+        env:
+            SLACK_BOT_TOKEN: 6456475476576 
+            
+  build-f:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [build]
+    steps:
+      - name: error display
+        run: |
+             echo  "error=${{ needs.build.outputs.output1}}"

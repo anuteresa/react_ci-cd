@@ -1,0 +1,26 @@
+on:
+  workflow_run:
+    workflows: ["unittest"]
+    types: [completed]
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Check if version has been updated
+        id: check  
+        uses: EndBug/version-check@v2.1.1
+       
+      - uses: actions/checkout@v3
+
+
+     
+        
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
+
+      - name: Log when unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change :/"'

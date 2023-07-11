@@ -1,0 +1,49 @@
+
+name: unitteststg
+ 
+on:
+ pull_request:
+
+
+ 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      error: ${{ steps.error.outputs.ERROR }}
+
+    steps:
+      - uses: actions/checkout@v3
+      
+         
+
+      - name: Set up Python 
+        uses: actions/setup-python@v4.3.0
+        with:
+          python-version: 3.7
+          
+      - name: Install dependencies
+        id: test
+        run: |
+             python -m pip install --urade pip  | tee output.log
+
+            
+      - name: Persist logs
+        id: error
+        if: ${{ failure() }}
+        run: |
+            cat output.log
+            output="$(cat output.log)"
+            output="${output//$'\n'/\\n}"
+            output="${output// / }"
+            echo "ERROR=${output}" >> $GITHUB_OUTPUT
+
+  build-f:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: [build]
+    steps:
+      - name: error display
+        run: |
+             echo "error = ${{ steps.build.outputs.error}}"

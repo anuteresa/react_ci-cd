@@ -1,0 +1,19 @@
+name: Deploy
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run Web App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Web App
+        run: |
+          echo "Build Web App" 
+          
+      - uses: convictional/trigger-workflow-and-wait@v1.3.0
+        with:
+          owner: anuteresa
+          repo: ci-cd
+          github_token: ${{ secrets.PAT }}
+          workflow_file_name: repo.yml

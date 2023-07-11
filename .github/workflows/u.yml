@@ -1,0 +1,42 @@
+name: d
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  run-build:
+
+    runs-on: ubuntu-latest
+    
+               
+    steps:
+
+    - uses: actions/checkout@v3
+    - name: Get branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v6
+
+    - name: Current branch name
+      run: |
+       #   echo "${{ steps.branch-name.outputs.base_ref_branch }}"
+ 
+    - name: Check file diff
+      run: |
+
+          git checkout main
+          OLD_HEAD=$(git rev-parse HEAD)
+
+          # Check out the second branch
+          git fetch
+          git checkout feature/is/common
+          NEW_HEAD=$(git rev-parse HEAD)
+
+          # Compare the two branches and filter by the specific file
+          if git diff --name-only $OLD_HEAD $NEW_HEAD | grep -q "package.json"; then
+            echo "The file has changed"
+          else
+            echo "The file has not changed"
+          fi
+      
+   
