@@ -19,7 +19,7 @@ jobs:
         
       - name: files
         run: 
-          ls -la   
+          ls   
           
 
       - name: Get current package version
