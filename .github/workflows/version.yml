@@ -1,7 +1,7 @@
 on:
   push:
-    branches:
-      - 'release/**'
+    tags:
+      - "v*"
   
 
 jobs:
@@ -16,6 +16,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: feature/mondu
+          
+          
 
       - name: Get current package version
         
@@ -23,7 +25,11 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@v1.3.1  
       - name: vvversion 
         run: 
-          echo "version =${{ steps.package-version.outputs.current-version}}"  
+          echo "version =${{ steps.package-version.outputs.current-version}}" 
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false   
           
   version:
      if: success()
