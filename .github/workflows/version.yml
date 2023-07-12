@@ -1,7 +1,8 @@
 on:
   push:
-   branches:
-     - 'releases/v*'
+   tags:
+      - 'v*.**'
+   
   
 
 jobs:
@@ -14,10 +15,9 @@ jobs:
    
        
       - uses: actions/checkout@v3
-
-      - name: files
-        run: 
-          ls -la  
+        with:
+          ref: main
+          
           
 
       - name: Get current package version
@@ -27,33 +27,13 @@ jobs:
       - name: vvversion 
         run: 
           echo "version =${{ steps.package-version.outputs.current-version}}" 
-      - name: Create Release
-        id: create_release   
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+
+      - name: Generate release notes
+        uses: softprops/action-gh-release@v0.1.15
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Production ${{ github.ref }}
-          draft: false
-          prerelease: false
+          token: ${{ secrets.PAT }}
+          //name: production${{ steps.package-version.outputs.current-version}}
+          generate_release_notes: true 
           
-  version:
-     if: success()
-     needs: [version-check]
-     runs-on: ubuntu-latest
-   # outputs:
-      #output1: ${{ steps.get_version.outputs.VERSION }}
-    
-     steps: 
-   
-       
-      - uses: actions/checkout@v3
-      - name: Get current package version
-        
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1 
-      - name: vvversion 
-        run: 
-          echo "version =${{ steps.package-version.outputs.current-version}}" 
+
      
