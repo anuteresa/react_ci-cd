@@ -31,7 +31,7 @@ jobs:
       - name: Checkout and pull branch
         run: |
           git checkout origin/${{ env.BRANCH_NAME }}
-          git pull    
+          git pull  origin/${{ env.BRANCH_NAME }}   
 
 
 
