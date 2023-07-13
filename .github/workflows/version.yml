@@ -30,9 +30,8 @@ jobs:
 
       - name: Checkout and pull branch
         run: |
-           git fetch origin ${{ env.BRANCH_NAME }}
            git checkout ${{ env.BRANCH_NAME }}
-           git pull origin ${{ env.BRANCH_NAME }}  
+           git pull origin ${{ env.BRANCH_NAME }} 
 
 
 
