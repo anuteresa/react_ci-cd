@@ -32,7 +32,7 @@ jobs:
       - name: Checkout and pull branch
         run: |
            git checkout ${{ steps.branch.outputs.BRANCH_NAME }}
-           git pull origin ${{ steps.branch.outputs.BRANCH_NAME }} 
+           git pull 
            
 
 
