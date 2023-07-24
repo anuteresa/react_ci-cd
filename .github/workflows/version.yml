@@ -27,12 +27,12 @@ jobs:
           
       - name: Get branch name
         id: branch
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
 
       - name: Checkout and pull branch
         run: |
-           git checkout ${{ env.BRANCH_NAME }}
-           git pull origin ${{ env.BRANCH_NAME }} 
+           git checkout ${{ steps.branch.outputs.BRANCH_NAME }}
+           git pull origin ${{ steps.branch.outputs.BRANCH_NAME }} 
            
 
 
