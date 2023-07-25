@@ -1,8 +1,7 @@
 on:
   push:
-   tags:
-      - 'v*.*'
-
+   branches:
+      - releases/v*
   
 
 jobs:
@@ -15,8 +14,8 @@ jobs:
    
        
       - uses: actions/checkout@v3
-        with:
-          ref: main
+ 
+ 
           
       - name: Get current package version
         
@@ -25,7 +24,19 @@ jobs:
       - name: vvversion 
         run: 
           echo "version =${{ steps.package-version.outputs.current-version}}" 
-          
+ 
+           
+  version:
+     if: success()
+     needs: [version-check]
+     runs-on: ubuntu-latest
+   # outputs:
+      #output1: ${{ steps.get_version.outputs.VERSION }}
+    
+     steps: 
+   
+       
+      - uses: actions/checkout@v3
       - name: Get branch name
         id: branch
         run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
