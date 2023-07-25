@@ -44,10 +44,5 @@ jobs:
       - name: Checkout and pull branch
         run: |
            git checkout ${{ steps.branch.outputs.BRANCH_NAME }}
- 
-           
-
-
-
      
      
