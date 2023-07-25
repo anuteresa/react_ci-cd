@@ -1,0 +1,27 @@
+name: Move Trello Card to Needs review list
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  move_card_when_pull_request_merged_job:
+    runs-on: ubuntu-latest
+    name: Move Trello Card to Needs review when Card refers to the issue referred by PR
+    steps:
+      - name: Call trello-github-actions
+        id: call-trello-github-actions
+        uses: Yleisradio/github-action-trello-integration@v1.1.0
+        with:
+          action: pull_request_event_move_card
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRELLO_API_KEY: 1bd4bb418965a7a4797d6c813cb501dd
+          TRELLO_API_TOKEN: ATTA03a969221a4d43c1c81e12c659372e513a7c810a6b6e795b05a1c4004fbead8bFB80CBC0
+          TRELLO_BOARD_ID: 64bffc8c819e3c609104416b
+          # List "In progress"
+          TRELLO_SOURCE_LIST_ID: 64bffc8dbf6f522efc86a0d9"
+          # List "Needs review"
+          TRELLO_TARGET_LIST_ID: 64bffc8c1741b0c5ed800d87
