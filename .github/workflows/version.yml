@@ -1,14 +1,20 @@
 on:
   push:
    tags:
+<<<<<<< HEAD
       - 'v*.*'
    branches:
      - main    
+=======
+      - 'v*.**'
+    
+>>>>>>> a6cc8e1d59f7ec30334447344b3d55a027b3b5ff
   
 
 jobs:
   version-check:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') && github.ref == 'refs/tags/v*.*'
    # outputs:
       #output1: ${{ steps.get_version.outputs.VERSION }}
     
