@@ -2,7 +2,7 @@ on:
   
   push:
     branches:
-      - main
+      - release/v*
  
 jobs:
   run-build-if-needed:
@@ -53,7 +53,6 @@ jobs:
            
   
       - name: Create Pull Request
-        if: steps.check.outputs.changed == 'true'
         id: demo-pr
         uses: peter-evans/create-pull-request@v4
         
