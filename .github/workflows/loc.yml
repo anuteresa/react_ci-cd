@@ -15,7 +15,7 @@ jobs:
     
       - name: Get Branch Name
         id: get-branch-name
-        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
  
       - name: Set Branch Name Output
         id: set-branch-name-output
