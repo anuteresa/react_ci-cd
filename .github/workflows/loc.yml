@@ -85,6 +85,7 @@ jobs:
              cd translations
              cd app
              cat en.json
+             npm install
 
   run-build:
   
