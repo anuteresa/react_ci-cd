@@ -79,7 +79,12 @@ jobs:
           method: squash   
   
      
-
+      - name: Create Pull 
+        run: |
+             ls -la
+             cd translations
+             cd app
+             cat en.json
 
   run-build:
   
