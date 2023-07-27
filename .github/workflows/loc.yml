@@ -6,12 +6,16 @@ on:
  
 jobs:
   run-build-if-needed:
-   runs-on: ubuntu-latest   
+   runs-on: ubuntu-latest  
+   outputs:
+      branch-name: ${{ steps.get-branch-name.outputs.branch-name }}
     
    steps: 
       - uses: actions/checkout@v3
     
-
+      - name: Get Branch Name
+        id: get-branch-name
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
  
        
                
@@ -89,6 +93,8 @@ jobs:
              REACT_APP: JOSE
     steps:
       - uses: actions/checkout@v3
+        with:
+         ref: ${{ needs.run-build-if-needed.outputs.branch-name }}
 
          
       - name: Create Pull 
