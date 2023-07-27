@@ -15,9 +15,11 @@ jobs:
     
       - name: Get Branch Name
         id: get-branch-name
-        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> >> $GITHUB_ENV
  
-       
+      - name: Set Branch Name Output
+        id: set-branch-name-output
+        run: echo "branch-name=${BRANCH_NAME}" >> $GITHUB_ENV
                
          
       - name: Download lokalise translations
