@@ -1,46 +1,26 @@
 on:
   
-  pull_request:
-    types:
-      - closed
-    branches: [ "main" ]
-    paths:
-     - 'package.json'
+  push:
+    branches:
+      -'release'
  
 jobs:
   run-build-if-needed:
-   if: github.event.pull_request.merged == true
    runs-on: ubuntu-latest   
     
    steps: 
       - uses: actions/checkout@v3
-        with:
-          ref: main
+    
 
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
+ 
        
-   
-
-     
-        
-      - name: Log when changed
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-
-      - name: Log when unchanged
-        if: steps.check.outputs.changed == 'false'
-        run: 'echo "No version change :/"'
-
                
          
       - name: Download lokalise translations
-        if: steps.check.outputs.changed == 'true'
         run: |
           docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
-          --token "633896f181ccf6613e1d44fa6a2d1dbc00fa1dcd" \
-          --project-id 6425482963873698913302.34331656 file download \
+          --token "e1c60528902a5a3c4a1e257d9b8f2bc7a72f43f7" \
+          --project-id 1002082764c25a286c0de3.61986318 file download \
           --format json_structured \
           --unzip-to /opt/dest \
           --original-filenames=false \
@@ -53,7 +33,6 @@ jobs:
           --replace-breaks=false
              
       - name: Move new translations
-        if: steps.check.outputs.changed == 'true'
         run: |
              ls -la
              cp /tmp/lokalise/locale/* ./translations/app  
@@ -111,25 +90,6 @@ jobs:
              REACT_APP: JOSE
     steps:
       - uses: actions/checkout@v3
-        with:
-         ref: main
-       
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
-       
-      
-
-
-     
-        
-      - name: Log when changed
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-
-      - name: Log when unchanged
-        if: steps.check.outputs.changed == 'false'
-        run: 'echo "No version change :/"'
 
          
       - name: Create Pull 
