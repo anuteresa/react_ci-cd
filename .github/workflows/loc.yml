@@ -120,7 +120,7 @@ jobs:
    steps: 
       - uses: actions/checkout@v3
         with:
-         ref: 'main'
+         ref: main
     
 
  
@@ -182,7 +182,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
           method: squash   
-          repo: juliangruber/octokit-action
           
       - name: Create Pull 
         run: |
