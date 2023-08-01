@@ -113,6 +113,8 @@ jobs:
              cat en.json
                  
   if-needed:
+   if: success()
+   needs: [run-build]
    runs-on: ubuntu-latest   
     
    steps: 
