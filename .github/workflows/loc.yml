@@ -181,7 +181,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
-          method: squash       
+          method: squash   
+          repo: juliangruber/octokit-action
           
       - name: Create Pull 
         run: |
