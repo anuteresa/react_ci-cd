@@ -177,7 +177,7 @@ jobs:
          number: ${{ steps.demo-pr.outputs.pull-request-number }}
       - name: Merge Pull Request
         if:  ${{ steps.demo-pr.outputs.pull-request-number }}
-        uses: juliangruber/merge-pull-request-action@v1.1.0
+        uses: juliangruber/merge-pull-request-action@v1.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
