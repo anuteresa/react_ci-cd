@@ -1,7 +1,7 @@
 on:
   push:
-   tags:
-      - 'v*.**'
+   branches:
+      - 'hotfix/v*'
     
   
 
@@ -15,8 +15,8 @@ jobs:
    
        
       - uses: actions/checkout@v3
-        with:
-          ref: main
+        
+        
           
           
 
