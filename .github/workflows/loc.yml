@@ -1,8 +1,6 @@
 on:
-  
-  push:
-    branches:
-      - release/v*
+
+ workflow_dispatch:
  
 jobs:
   run-build-if-needed:
