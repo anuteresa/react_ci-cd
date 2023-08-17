@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release/v*
+      - hotfix/v*
  
 jobs:
   run-build-if-needed:
@@ -71,6 +72,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
           method: squash   
+      - name: Push changes to main
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}     
   
      
 
