@@ -3,6 +3,13 @@ name: Trigger
 on:
   repository_dispatch:
     types: [workflow_dispatch]
+    inputs:
+      param1:
+        description: 'Parameter 1'
+        required: true
+      param2:
+        description: 'Parameter 2'
+        required: false
 
 jobs:
   trigger:
