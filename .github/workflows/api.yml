@@ -1,20 +1,22 @@
-name: Manually 
+name: Trigger 
+
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Person to greet'
-        required: true
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'
+  repository_dispatch:
+    types: [workflow_dispatch]
 
 jobs:
-  say_hello:
+  trigger:
     runs-on: ubuntu-latest
+
     steps:
-    - run: |
-        echo "Hello $!"
-        echo "- in $!"
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Run My Workflow
+        run: |
+          # Insert the steps of your workflow here
