@@ -14,7 +14,7 @@ jobs:
 
       - name: Create Nginx Config
         run:  |
-              echo "server { listen 80; server_name ${{ secrets.DOMAIN_NAME }}; location / { # Your configuration here } }" > ${{ secrets.DOMAIN_NAME }.conf
+              echo "server { listen 80; server_name ${{ secrets.DOMAIN_NAME }}; location / { # Your configuration here } }" > ${{ secrets.DOMAIN_NAME }}.conf
               cat ${{ secrets.DOMAIN_NAME }}.conf
 
       - name: Run My Workflow
