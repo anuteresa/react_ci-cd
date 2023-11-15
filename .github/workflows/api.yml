@@ -33,7 +33,7 @@ jobs:
 
       - name: Run My Workflow
         run: |
-             apt-get update
-             apt-get install certbot
-             apt-get install python3-certbot-nginx
-             certbot --nginx -d ${{ github.event.inputs.domain }}
+             
+             sudo apt-get install certbot
+             sudo apt-get install python3-certbot-nginx
+             sudo certbot --nginx -d ${{ github.event.inputs.domain }}
