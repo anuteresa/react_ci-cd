@@ -36,4 +36,21 @@ jobs:
              
              sudo apt-get install certbot
              sudo apt-get install python3-certbot-nginx
-             sudo certbot --nginx -d ${{ github.event.inputs.domain }}
+
+      - name: Create Nginx Config for example.com
+        run: |
+             echo "server {
+              listen 80;
+              server_name ${{ github.event.inputs.domain }};
+
+              location / {
+                return 200 'Hello, this is your Nginx server for example.com!';
+             }
+              }" | sudo tee /etc/nginx/sites-available/${{ github.event.inputs.domain }}
+             
+              sudo certbot certonly --standalone -d ${{ github.event.inputs.domain }} --non-interactive --agree-tos -m your-email@example.com
+
+
+
+       
+            
