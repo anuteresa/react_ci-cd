@@ -1,7 +1,11 @@
 name: Trigger 
 
 on:
-  push:
+  workflow_dispatch:
+   inputs:
+      domain:
+        description: 'Notification needed'
+        required: true
  
 
 jobs:
@@ -14,9 +18,15 @@ jobs:
 
       - name: Create Nginx Config
         run:  |
-              echo "server { listen 80; server_name ${{ secrets.DOMAIN_NAME }}; location / { # Your configuration here } }" > ${{ secrets.DOMAIN_NAME }}.conf
-              cat ${{ secrets.DOMAIN_NAME }}.conf
+              echo "server { listen 80; server_name ${{ github.event.inputs.domain }}; 
+              location / { # Your configuration here }
+              location /location2 {
+                    # Configuration for location2
+                  }
+                  }" > ${{ github.event.inputs.domain }}.conf
+              cat ${{ github.event.inputs.domain }}.conf
+              ls -la
 
       - name: Run My Workflow
         run: |
-          # Insert the steps of your workflow here
+             ls -la
