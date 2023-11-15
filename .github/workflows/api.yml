@@ -1,7 +1,7 @@
 name: Trigger 
 
 on:
-  workflow_dispatch:
+  push:
  
 
 jobs:
@@ -12,10 +12,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
+      - name: Create Nginx Config
+        run:  |
+              echo "server { listen 80; server_name ${{ secrets.DOMAIN_NAME }}; location / { # Your configuration here } }" > ${{ secrets.DOMAIN_NAME }.conf
+              cat ${{ secrets.DOMAIN_NAME }}.conf
 
       - name: Run My Workflow
         run: |
