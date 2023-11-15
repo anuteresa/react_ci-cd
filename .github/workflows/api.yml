@@ -48,7 +48,7 @@ jobs:
              }
               }" | sudo tee /etc/nginx/sites-available/${{ github.event.inputs.domain }}
              
-              sudo certbot certonly --standalone -d ${{ github.event.inputs.domain }} --non-interactive --agree-tos -m your-email@example.com
+              sudo certbot --nginx -d ${{ github.event.inputs.domain }}
 
 
 
