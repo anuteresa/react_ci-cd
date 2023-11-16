@@ -1,56 +1,99 @@
-name: Trigger 
+name: Mapping
 
+# Trigger the workflow when the pull request for version change is merged/closed.
 on:
   workflow_dispatch:
    inputs:
-      domain:
-        description: 'Notification needed'
-        required: true
- 
-
+     message:
+       description: 'Notifcation message'
+       required: true
+    
 jobs:
-  trigger:
+  notification:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10' 
-
-      - name: Create Nginx Config
-        run:  |
-              echo "server { listen 80; server_name ${{ github.event.inputs.domain }}; 
-              location / { # Your configuration here }
-              location /location2 {
-                    # Configuration for location2
-                  }
-                  }" > ${{ github.event.inputs.domain }}.conf
-              cat ${{ github.event.inputs.domain }}.conf
-              ls -la
-
-      - name: Run My Workflow
-        run: |
-             
-             sudo apt-get install certbot
-             sudo apt-get install python3-certbot-nginx
-
-      - name: Create Nginx Config for example.com
-        run: |
-             echo "server {
-              listen 80;
-              server_name ${{ github.event.inputs.domain }};
-
-              location / {
-                return 200 'Hello, this is your Nginx server for example.com!';
-             }
-              }" | sudo tee /etc/nginx/sites-available/${{ github.event.inputs.domain }}
-             
-              sudo certbot --nginx -d ${{ github.event.inputs.domain }}
-
-
-
-       
+          
+# Check-out 'development' repository to our action  
+   
+    - uses: actions/checkout@v3
+    - name: Update NGINX configuration
+      run: |
+           echo "
+              server {
+                 listen 80;
+                 listen [::]:80;
+                 server_name ${{ github.event.inputs.message }};
+                 client_max_body_size 20M;
+               
+                 location /.well-known/acme-challenge/ { 
+                 allow all;
+                 root /var/www/html/shared;
+                 }
+                 
+                 location / {
+                 return 301 https://${{ github.event.inputs.message }}$request_uri;
+                 }
+            }
             
+              server {
+                 listen 443 ssl http2;
+	               server_name ${{ github.event.inputs.message }};
+                 client_max_body_size 20M;
+                 root /home/ubuntu/<<ROOT_PATH>>;
+
+	          ssl_certificate /etc/letsencrypt/live/${{ github.event.inputs.message }}/fullchain.pem;
+	          ssl_certificate_key /etc/letsencrypt/live/${{ github.event.inputs.message }}/privkey.pem;
+	          ssl_protocols TLSv1.2 TLSv1.3;
+	          ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+
+	          location /public/ {
+		           alias /home/ubuntu/<<ROOT_PATH>>/public/;
+		         autoindex on;
+		        try_files $uri @index;
+	         }
+
+	         location /static/ {
+		          alias /home/ubuntu/<<ROOT_PATH>>/static/;
+		          autoindex on;
+		          try_files $uri @index;
+	      }
+
+	          location /api/ {
+		           rewrite ^ https://<<BACKEND_URL>>$uri permanent;
+       	}
+
+	          location / {
+		          expires 0;
+		          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		          proxy_set_header Host $host;
+		          try_files $uri @index;
+	      }
+
+	          location @index {
+		           expires 0;
+		           try_files /index.html =404;
+		          add_header Cache-Control "no-store, no-cache, must-revalidate";
+	      }
+        }" >> ${{ github.event.inputs.message }}.conf
+
+           - name: SCP Command to Transfer Files
+             uses: appleboy/scp-action@v0.1.4
+             with:
+               host: ${{ secrets.HOST }}
+               username: ${{ secrets.USERNAME }}
+               key: ${{ secrets.KEY }}
+               port: ${{ secrets.PORT }}
+              source: "${{ github.event.inputs.message }}.conf"
+              target: /etc/nginx/sites-available/${{ github.event.inputs.message }}.conf
+            
+          - name: executing remote ssh commands using password
+            uses: appleboy/ssh-action@v1.0.0
+            with:
+               host: ${{ secrets.HOST }}
+               username: ${{ secrets.USERNAME }}
+               key: ${{ secrets.KEY }}
+               port: ${{ secrets.PORT }}
+               script:|
+                      certbot certonly --nginx -d ${{ github.event.inputs.message }}
+                      service nginx restart
