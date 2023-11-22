@@ -4,10 +4,10 @@ name: Mapping
 on:
   workflow_dispatch:
     inputs:
-      message:
+      domain:
         description: 'Notification message'
         required: true
-    
+  
 jobs:
   notification:
     runs-on: ubuntu-latest
@@ -75,23 +75,4 @@ jobs:
             }
           }" >> ${{ github.event.inputs.message }}.conf
           
-      - name: SCP Command to Transfer Files
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          source: "${{ github.event.inputs.message }}.conf"
-          target: /etc/nginx/sites-available/
-            
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            certbot certonly --nginx -d ${{ github.event.inputs.message }}
-            service nginx restart
+    
