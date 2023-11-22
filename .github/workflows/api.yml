@@ -21,7 +21,7 @@ jobs:
           echo "server {
             listen 80;
             listen [::]:80;
-            server_name ${{ github.event.inputs.message }};
+            server_name ${{ github.event.inputs.domain }};
             client_max_body_size 20M;
           
             location /.well-known/acme-challenge/ { 
