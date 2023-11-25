@@ -31,7 +31,9 @@ jobs:
       # Check-out 'development' repository to our action  
       - uses: actions/checkout@v3
     
-   
+      - name: Install curl
+        run: |
+          apt-get update; apt-get install -y curl
 
       - name: Make HTTP request to ngrok URL
         run: |
