@@ -17,7 +17,19 @@ jobs:
       # Check-out 'development' repository to our action  
       - uses: actions/checkout@v3
     
+      - name: Install ngrok
+        run: |
+          curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
 
+      - name: Expose local service with ngrok
+        run: ./ngrok http 8000  # Adjust the port number
+
+      - name: Make HTTP request to ngrok URL
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{ "domain":"google"}' \
+            http://localhost:8000/validate/
       - name: 'Call API'
         uses: actionsflow/axios@v1
         id: api
