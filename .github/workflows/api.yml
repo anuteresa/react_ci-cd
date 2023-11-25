@@ -22,8 +22,9 @@ jobs:
         uses: actionsflow/axios@v1
         id: api
         with:
-            url: http://127.0.0.1:8000/validate/
-            method: 'POST'
+            url: http://127.0.0.1:8000/
+            #method: 'POST'
             data: '{ "domain":"google" }'
+            is_debug: true
           
     
