@@ -16,72 +16,14 @@ jobs:
     steps:
       # Check-out 'development' repository to our action  
       - uses: actions/checkout@v3
-      
-      - name: Update NGINX configuration
-        run: |
-          echo "server {
-            listen 80;
-            listen [::]:80;
-            server_name ${{ github.event.inputs.domain }};
-            client_max_body_size 20M;
-          
-            location /.well-known/acme-challenge/ { 
-              allow all;
-              root /var/www/html/shared;
-            }
-            
-            location / {
-              return 301 https://${{ github.event.inputs.message }}\$request_uri;
-            }
-          }
-          
-          server {
-            listen 443 ssl http2;
-            server_name ${{ github.event.inputs.message }};
-            client_max_body_size 20M;
-            root /home/ubuntu/<<ROOT_PATH>>;
-            
-            ssl_certificate /etc/letsencrypt/live/${{ github.event.inputs.message }}/fullchain.pem;
-            ssl_certificate_key /etc/letsencrypt/live/${{ github.event.inputs.message }}/privkey.pem;
-            ssl_protocols TLSv1.2 TLSv1.3;
-            ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    
 
-            location /public/ {
-              alias /home/ubuntu/<<ROOT_PATH>>/public/;
-              autoindex on;
-              try_files \$uri @index;
-            }
-
-            location /static/ {
-              alias /home/ubuntu/<<ROOT_PATH>>/static/;
-              autoindex on;
-              try_files \$uri @index;
-            }
-
-            location /api/ {
-              rewrite ^ https://<<BACKEND_URL>>\$uri permanent;
-            }
-
-            location / {
-              expires 0;
-              proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-              proxy_set_header Host \$host;
-              try_files \$uri @index;
-            }
-
-            location @index {
-              expires 0;
-              try_files /index.html =404;
-              add_header Cache-Control \"no-store, no-cache, must-revalidate\";
-            }
-          }" >> ${{ github.event.inputs.message }}.conf
-
-          - name: 'Call API'
-              uses: actionsflow/axios@v1
-              id: api
-              with:
-                url: http://127.0.0.1:8000/validate/
-                method: 'POST'
-                data: '{ "domain":"google" }'
+      - name: 'Call API'
+        uses: actionsflow/axios@v1
+        id: api
+        with:
+            url: http://127.0.0.1:8000/validate/
+            method: 'POST'
+            data: '{ "domain":"google" }'
           
     
