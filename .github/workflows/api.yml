@@ -35,7 +35,7 @@ jobs:
 
       - name: Make HTTP request to ngrok URL
         run: |
-          curl -X POST -H "Content-Type: application/json" \
+          CURL -X POST -H "Content-Type: application/json" \
             -d '{ "domain":"google"}' \
             http://localhost:8000/validate/
             
