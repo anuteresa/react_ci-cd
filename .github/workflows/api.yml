@@ -22,7 +22,7 @@ jobs:
         uses: actionsflow/axios@v1
         id: api
         with:
-            url: http://127.0.0.1:8000/
+            url: https://google.com/
             #method: 'POST'
             data: '{ "domain":"google" }'
             is_debug: true
