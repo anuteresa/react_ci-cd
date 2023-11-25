@@ -2,6 +2,7 @@ name: Mapping
 
 # Trigger the workflow when the pull request for version change is merged/closed.
 on:
+  push:
   workflow_dispatch:
     inputs:
       domain:
@@ -74,5 +75,13 @@ jobs:
               add_header Cache-Control \"no-store, no-cache, must-revalidate\";
             }
           }" >> ${{ github.event.inputs.message }}.conf
+
+          - name: 'Call API'
+              uses: actionsflow/axios@v1
+              id: api
+              with:
+                url: http://127.0.0.1:8000/validate/
+                method: 'POST'
+                data: '{ "domain":"google" }'
           
     
