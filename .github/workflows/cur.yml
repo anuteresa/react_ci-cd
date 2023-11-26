@@ -1,0 +1,26 @@
+name: Test cURL to localhost
+
+on: [push]
+
+jobs:
+  test-curl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Start your service (replace this with your actual command)
+        run: python manage.py runserver
+
+      - name: Wait for service to start
+        run: sleep 10
+
+      - name: cURL to localhost
+        run: curl http://localhost:8000
