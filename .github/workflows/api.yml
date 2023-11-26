@@ -22,10 +22,7 @@ jobs:
         run: echo run identifier ${{ inputs.id }}
       # Check-out 'development' repository to our action  
       - uses: actions/checkout@v3
-    
-      - name: Install curl
-        run: |
-          apt-get update; apt-get install -y curl
+
 
    
             
