@@ -8,26 +8,18 @@ on:
       domain:
         description: 'Notification message'
         required: true
+      id:
+        description: 'run identifier'
+        required: false
   
 jobs:
   notification:
     runs-on: ubuntu-latest
-    container: ubuntu
-    services:
-     postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     
+        
     steps:
+      - name: ${{github.event.inputs.id}}
+        run: echo run identifier ${{ inputs.id }}
       # Check-out 'development' repository to our action  
       - uses: actions/checkout@v3
     
