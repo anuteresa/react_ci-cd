@@ -27,11 +27,7 @@ jobs:
         run: |
           apt-get update; apt-get install -y curl
 
-      - name: Make HTTP request to ngrok URL
-        run: |
-          curl -X POST -H "Content-Type: application/json" \
-            -d '{ "domain":"google"}' \
-            http://127.0.0.1:8000/validate/
+   
             
     
     
