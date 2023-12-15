@@ -3,14 +3,6 @@ name: Mapping
 # Trigger the workflow when the pull request for version change is merged/closed.
 on:
   push:
-  workflow_dispatch:
-    inputs:
-      domain:
-        description: 'Notification message'
-        required: true
-      id:
-        description: 'run identifier'
-        required: false
   
 jobs:
   notification:
@@ -18,10 +10,41 @@ jobs:
     
         
     steps:
-      - name: ${{github.event.inputs.id}}
-        run: echo run identifier ${{ inputs.id }}
-      # Check-out 'development' repository to our action  
-      - uses: actions/checkout@v3
+      - name: Update NGINX configuration
+        run: |
+          echo "server {
+            listen 80;
+            listen [::]:80;
+            server_name com;
+            client_max_body_size 20M;
+          
+            location /.well-known/acme-challenge/ { 
+              allow all;
+              root /var/www/html/shared;
+            }
+            
+            location / {
+              return 301 https://com\$request_uri;
+            }
+          }
+          
+          server {
+            listen 443 ssl http2;
+            server_name com;
+            client_max_body_size 20M;
+            root /home/ubuntu/mula_next_shops/build;
+            
+            location / {
+              expires 0;
+              proxy_pass http://localhost:8081;
+              proxy_http_version 1.1;
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection 'upgrade';
+              proxy_set_header Host $host;
+              proxy_cache_bypass $http_upgrade;
+            }
+          }" >>com.conf
+          cat com.conf
 
 
    
