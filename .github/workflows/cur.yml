@@ -1,6 +1,7 @@
 name: Test cURL to localhost
 
-on: [push]
+on: 
+ workflow_dispatch:
 
 jobs:
   test-curl:
