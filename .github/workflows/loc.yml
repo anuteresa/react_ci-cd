@@ -1,6 +1,6 @@
 on:
 
- workflow_dispatch:
+ push:
  
 jobs:
   run-build-if-needed:
@@ -29,11 +29,16 @@ jobs:
           --export-empty-as base \
           --add-newline-eof \
           --replace-breaks=false
-             
-      - name: Move new translations
+
+
+      - name: Check for New Keys
         run: |
-             ls -la
-             cp /tmp/lokalise/locale/* ./translations/app  
+          git diff --exit-code || { cp /tmp/lokalise/locale/* ./translations/app && git add . && git commit -m "Update Lokalise translations"; }   
+             
+     # - name: Move new translations
+      #  run: |
+       #      ls -la
+        #     cp /tmp/lokalise/locale/* ./translations/app  
   #    - name: 🏗 Set up 
    #     uses: frenck/action-setup-lokalise@v1
     #  - name: Frenck's Lokalise CLI setu
