@@ -27,10 +27,16 @@ jobs:
           --replace-breaks=false
 
 
-      - name: Check for New Keys
+      - name: Fetch Lokalisations and Check for Changes
         run: |
-          git diff --exit-code || { cp /tmp/lokalise/locale/* ./translations/app && git add . && git commit -m "Update Lokalise translations"; }   
-             
+    
+           if git diff --exit-code; then
+            echo "No changes found."
+           else
+            echo "Changes detected. Staging and committing..."
+            
+           fi
+
      # - name: Move new translations
       #  run: |
        #      ls -la
