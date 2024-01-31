@@ -25,7 +25,11 @@ jobs:
           --export-empty-as base \
           --add-newline-eof \
           --replace-breaks=false
-
+          
+      - name: Move new translations
+        run: |
+             ls -la
+             cp /tmp/lokalise/locale/* ./translations/app 
 
       - name: Fetch Lokalisations and Check for Changes
         run: |
@@ -36,10 +40,7 @@ jobs:
             echo "Changes detected. Staging and committing..."           
            fi
 
-     # - name: Move new translations
-      #  run: |
-       #      ls -la
-        #     cp /tmp/lokalise/locale/* ./translations/app  
+       
   #    - name: 🏗 Set up 
    #     uses: frenck/action-setup-lokalise@v1
     #  - name: Frenck's Lokalise CLI setu
