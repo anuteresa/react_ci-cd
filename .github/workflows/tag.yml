@@ -16,12 +16,8 @@ jobs:
       - name: Get Last Commit Tag
         id: get-tag
         run: |
-          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null)
-          if [ -n "$latest_tag" ]; then
-           echo "::set-output name=latest_tag::$latest_tag"
-          else
-           echo "No tags found."
-          fi
+          git fetch --tags
+          git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true
           
 
   checkout-another-repo:
