@@ -45,7 +45,7 @@ jobs:
            else
             echo "Changes detected. Staging and committing..."   
             git add ./translations/app
-            yarn version patch
+            yarn version --patch
             yarn publish
            fi
 
