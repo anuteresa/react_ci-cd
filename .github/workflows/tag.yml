@@ -17,7 +17,12 @@ jobs:
         id: get-tag
         run: |
           git fetch --tags
-          git describe --tags --abbrev=0
+          last_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1 --all) || echo "NoTagFound")
+          if [ "$last_tag" != "NoTagFound" ]; then
+            echo "::set-output name=last_commit_tag::$last_tag"
+          else
+           echo "No tags found across all branches."
+          fi
           
 
   checkout-another-repo:
