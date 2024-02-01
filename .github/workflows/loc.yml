@@ -37,6 +37,11 @@ jobs:
              ls -la
              cp /tmp/lokalise/locale/* ./translations/app 
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"        
+
       - name: Fetch Lokalisations and Check for Changes
         run: |
     
