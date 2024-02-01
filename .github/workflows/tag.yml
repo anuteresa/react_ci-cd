@@ -42,6 +42,19 @@ jobs:
            echo "Versions match!"
           else
            echo "Versions do not match."
+
+          echo "Versions do not match. Updating expected version..."
+
+
+          jq '.dependencies."@testing-library/jest-dom" = "$latest_tag"' package.json > tmpfile && mv tmpfile package.json
+
+
+          git add package.json
+          git commit -m "Update @testing-library/jest-dom version to $latest_tag"
+
+
+          git push origin main
+
           fi
 
           # Replace with actual commands to interact with Repository B
