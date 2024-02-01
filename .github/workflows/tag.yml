@@ -29,6 +29,7 @@ jobs:
         with:
           repository: anuteresa/ci-cd  # Replace with the actual repository URL
           ref: main
+          token: ${{ secrets.PAT }}
 
       - name: Display Repository B Contents
         run: |
