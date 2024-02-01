@@ -1,0 +1,35 @@
+name: Get Last Commit Tag and Checkout Another Repo
+
+on:
+  push:
+
+jobs:
+  get-last-commit-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository A
+        uses: actions/checkout@v2
+        with:
+          repository: anuteresa/react_ci-cd  # Replace with the actual repository URL
+
+      - name: Get Last Commit Tag
+        id: get-tag
+        run: |
+          git fetch --tags
+          echo "::set-output name=last_commit_tag::$(git describe --tags --abbrev=0)"
+
+  checkout-another-repo:
+    needs: get-last-commit-tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository B
+        uses: actions/checkout@v2
+        with:
+          repository: anuteresa/ci-cd  # Replace with the actual repository URL
+          ref: ${{ needs.get-last-commit-tag.outputs.last_commit_tag }}
+
+      - name: Display Repository B Contents
+        run: |
+          ls -la  # Replace with actual commands to interact with Repository B
