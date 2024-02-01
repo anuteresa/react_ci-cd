@@ -16,10 +16,9 @@ jobs:
       - name: Get Last Commit Tag
         id: get-tag
         run: |
-          git fetch --tags
-          last_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1 --all) || echo "NoTagFound")
-          if [ "$last_tag" != "NoTagFound" ]; then
-            echo "::set-output name=last_commit_tag::$last_tag"
+          latest_tag=$(git tag -l | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -k2 -r | awk '{print $1}' | head -n 1)
+          if [ "$latest_tag" != "" ]; then
+            echo "::set-output name=last_commit_tag::$latest_tag"
           else
            echo "No tags found across all branches."
           fi
