@@ -36,7 +36,12 @@ jobs:
 
       - name: Display Repository B Contents
         run: |
-          ls -la  
-          npm install
           echo ${{needs.get-last-commit-tag.outputs.output1}}
+          expected_version=$(jq -r '.dependencies."@testing-library/jest-dom"' package.json)
+          if [ "${{needs.get-last-commit-tag.outputs.output1}}" = "$expected_version" ]; then
+           echo "Versions match!"
+          else
+           echo "Versions do not match."
+          fi
+
           # Replace with actual commands to interact with Repository B
