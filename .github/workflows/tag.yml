@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: anuteresa/ci-cd  # Replace with the actual repository URL
-          ref: ${{ needs.get-last-commit-tag.outputs.last_commit_tag }}
+          ref: main
 
       - name: Display Repository B Contents
         run: |
