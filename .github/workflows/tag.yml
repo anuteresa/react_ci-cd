@@ -38,6 +38,7 @@ jobs:
         run: |
           echo ${{needs.get-last-commit-tag.outputs.output1}}
           expected_version=$(jq -r '.dependencies."@testing-library/jest-dom"' package.json)
+          echo $expected_version
           if [ "${{needs.get-last-commit-tag.outputs.output1}}" = "$expected_version" ]; then
            echo "Versions match!"
           else
