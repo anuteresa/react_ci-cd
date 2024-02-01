@@ -16,6 +16,7 @@ jobs:
       - name: Get Last Commit Tag
         id: get-tag
         run: |
+          git fetch --tags
           git describe
           echo "::set-output name=last_commit_tag::$(git describe --tags --abbrev=0)"
 
