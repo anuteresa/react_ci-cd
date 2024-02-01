@@ -19,8 +19,7 @@ jobs:
         id: get-tag
         run: |
           git fetch --tags
-          echo "test=hello" 
-          echo "version = git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true" >> "$GITHUB_OUTPUT"
+          echo "version=$(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true)" >> "$GITHUB_OUTPUT"
           
 
   checkout-another-repo:
