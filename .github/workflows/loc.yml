@@ -1,6 +1,6 @@
 on:
 
- push:
+ workflow_dispatch:
  
 jobs:
   run-build-if-needed:
@@ -8,16 +8,13 @@ jobs:
     
    steps: 
       - uses: actions/checkout@v3
-
-      - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          owner: anuteresa
-          repo: ci-cd
-          github_token: ${{ secrets.PAT }}  
-          workflow_file_name: test.yml
-          ref: main
-          trigger_workflow: true
-          wait_workflow: true
+          node-version: '18.16.1'
+
+      - name: Install Dependencies
+        run: yarn install
          
       - name: Download lokalise translations
         run: |
@@ -46,7 +43,10 @@ jobs:
            if git diff --exit-code; then
             echo "No changes found."
            else
-            echo "Changes detected. Staging and committing..."           
+            echo "Changes detected. Staging and committing..."   
+            yarn add ./translations/app
+            yarn version patch
+            yarn publish
            fi
 
        
