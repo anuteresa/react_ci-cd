@@ -6,6 +6,8 @@ on:
 jobs:
   get-last-commit-tag:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.get-tag.outputs.version }}
 
     steps:
       - name: Checkout Repository A
@@ -17,7 +19,8 @@ jobs:
         id: get-tag
         run: |
           git fetch --tags
-          git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true
+          echo "test=hello" 
+          echo "version = git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true" >> "$GITHUB_OUTPUT"
           
 
   checkout-another-repo:
@@ -35,4 +38,6 @@ jobs:
       - name: Display Repository B Contents
         run: |
           ls -la  
-          npm install  # Replace with actual commands to interact with Repository B
+          npm install
+          echo ${{needs.get-last-commit-tag.outputs.output1}}
+          # Replace with actual commands to interact with Repository B
