@@ -33,4 +33,5 @@ jobs:
 
       - name: Display Repository B Contents
         run: |
-          ls -la  # Replace with actual commands to interact with Repository B
+          ls -la  
+          npm install  # Replace with actual commands to interact with Repository B
