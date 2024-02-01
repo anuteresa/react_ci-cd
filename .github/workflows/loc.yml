@@ -44,7 +44,7 @@ jobs:
             echo "No changes found."
            else
             echo "Changes detected. Staging and committing..."   
-            yarn add ./translations/app
+            git add ./translations/app
             yarn version patch
             yarn publish
            fi
