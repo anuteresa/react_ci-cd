@@ -33,6 +33,11 @@ jobs:
           ref: main
           token: ${{ secrets.PAT }}
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"        
+
       - name: Display Repository B Contents
         run: |
           echo ${{needs.get-last-commit-tag.outputs.output1}}
