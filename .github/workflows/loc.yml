@@ -1,6 +1,6 @@
 on:
 
- workflow_dispatch:
+ push:
  
 jobs:
   run-build-if-needed:
@@ -13,8 +13,7 @@ jobs:
         with:
           node-version: '18.16.1'
 
-      - name: Install Dependencies
-        run: yarn install
+
          
       - name: Download lokalise translations
         run: |
@@ -51,7 +50,9 @@ jobs:
             echo "Changes detected. Staging and committing..."   
             git add ./translations/app
             yarn version --patch
-            yarn publish
+            git push origin main --tags 
+            
+            
            fi
 
        
