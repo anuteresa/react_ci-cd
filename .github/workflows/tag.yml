@@ -51,7 +51,7 @@ jobs:
           echo "Versions do not match. Updating expected version..."
 
 
-          jq '.dependencies."@testing-library/jest-dom" = "$latest_tag"' package.json > tmpfile && mv tmpfile package.json
+          jq '.dependencies."@testing-library/jest-dom" = "${{needs.get-last-commit-tag.outputs.output1}}"' package.json > tmpfile && mv tmpfile package.json
 
 
           git add package.json
