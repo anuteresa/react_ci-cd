@@ -26,6 +26,11 @@ jobs:
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
           echo 'output'
           echo $version
+
+      - name: Install Dependencies
+        run: |
+           yarn install   
+           yarn add @testing-library/jest-dom@6.4.1
           
   checkout-another-repo:
     needs: get-last-commit-tag
@@ -37,7 +42,7 @@ jobs:
         with:
           repository: anuteresa/ci-cd  # Replace with the actual repository URL
           ref: main
-          token: ${{ secrets.PAT }}
+          #token: ${{ secrets.PAT }}
 
       - name: Set Git Identity
         run: |
