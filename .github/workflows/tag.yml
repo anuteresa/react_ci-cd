@@ -30,7 +30,12 @@ jobs:
       - name: Install Dependencies
         run: |
            yarn install   
-           yarn add @testing-library/jest-dom@6.4.1
+           yarn add @testing-library/jest-dom@${{ steps.get-tag.outputs.version }} -S
+           git add package.json
+           git commit -m "Update @testing-library/jest-dom version"
+
+
+           git push origin main
           
   checkout-another-repo:
     needs: get-last-commit-tag
