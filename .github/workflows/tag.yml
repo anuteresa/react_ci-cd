@@ -21,7 +21,10 @@ jobs:
           git fetch --tags
           tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true)
           echo $tag
+          echo version=${tag#v}
+          echo $version
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+          echo 'output'
           echo $version
           
   checkout-another-repo:
