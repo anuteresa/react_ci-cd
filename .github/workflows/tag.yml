@@ -19,8 +19,8 @@ jobs:
         id: get-tag
         run: |
           git fetch --tags
-          tag = $(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true) >> "$GITHUB_OUTPUT"
-          echo "version=${tag#v}"
+          tag = $(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true) 
+          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
           
   checkout-another-repo:
     needs: get-last-commit-tag
