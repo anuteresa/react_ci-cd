@@ -21,9 +21,9 @@ jobs:
           git fetch --tags
           tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true)
           echo $tag
-          echo version=${tag#v}
+          echo version='tad'
           echo $version
-          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+          echo "version=6.4.1" >> "$GITHUB_OUTPUT"
           echo 'output'
           echo $version
 
@@ -47,30 +47,19 @@ jobs:
       - name: Set Git Identity
         run: |
           git config --global user.email "anuteresaj@gmail.com"
-          git config --global user.name "anuteresa"        
+          git config --global user.name "anuteresa" 
 
-      - name: Display Repository B Contents
+      - name: Install Dependencies
         run: |
-          echo ${{needs.get-last-commit-tag.outputs.output1}}
-          expected_version=$(jq -r '.dependencies."@testing-library/jest-dom"' package.json)
-          echo $expected_version
-          if [ "${{needs.get-last-commit-tag.outputs.output1}}" = "$expected_version" ]; then
-           echo "Versions match!"
-          else
-           echo "Versions do not match."
+           yarn install      
+           yarn add @testing-library/jest-dom@${{needs.get-last-commit-tag.outputs.output1}} -S
 
-          echo "Versions do not match. Updating expected version..."
+           git add package.json
+           git commit -m "Update @testing-library/jest-dom version"
 
 
-          jq '.dependencies."@testing-library/jest-dom" = "^${{needs.get-last-commit-tag.outputs.output1}}"' package.json > tmpfile && mv tmpfile package.json
+           git push origin main
 
-
-          git add package.json
-          git commit -m "Update @testing-library/jest-dom version to $latest_tag"
-
-
-          git push origin main
-
-          fi
+           fi
 
           # Replace with actual commands to interact with Repository B
