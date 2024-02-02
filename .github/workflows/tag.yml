@@ -29,12 +29,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-          - name: Checkout Repository B
+      - name: Checkout Repository B
         uses: actions/checkout@v2
         with:
           repository: anuteresa/ci-cd  # Replace with the actual repository URL
           ref: main
-          token: ${{ secrets.PAT }}
+          #token: ${{ secrets.PAT }}
 
       - name: Set Git Identity
         run: |
