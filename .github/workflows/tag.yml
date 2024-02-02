@@ -19,15 +19,17 @@ jobs:
         id: get-tag
         run: |
           git fetch --tags
-          tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true) 
+          tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true)
+          echo $tag
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+          echo $version
           
   checkout-another-repo:
     needs: get-last-commit-tag
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository B
+          - name: Checkout Repository B
         uses: actions/checkout@v2
         with:
           repository: anuteresa/ci-cd  # Replace with the actual repository URL
