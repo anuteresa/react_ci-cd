@@ -1,5 +1,5 @@
 on:
- pull_request:
+ push:
  
 jobs:
   run-build-if-needed:
@@ -19,7 +19,7 @@ jobs:
         
       # Get branch name
       - name: Get branch name
-        id: branch
+        id: branch1
         run: echo   ${{ steps.branch.outputs.BRANCH_NAME }}
      
       - name: Download lokalise translations
