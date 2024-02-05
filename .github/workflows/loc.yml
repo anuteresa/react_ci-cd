@@ -1,5 +1,5 @@
 on:
- push:
+ pull_request:
  
 jobs:
   run-build-if-needed:
@@ -12,8 +12,16 @@ jobs:
         with:
           node-version: '18.16.1'
 
-
-         
+       # Get branch name
+      - name: Get branch name
+        id: branch
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT  
+        
+      # Get branch name
+      - name: Get branch name
+        id: branch
+        run: echo   ${{ steps.branch.outputs.BRANCH_NAME }}
+     
       - name: Download lokalise translations
         run: |
           docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
