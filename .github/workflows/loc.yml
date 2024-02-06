@@ -38,8 +38,7 @@ jobs:
           --indentation 2sp \
           --export-empty-as base \
           --add-newline-eof \
-          --replace-breaks=false
-          
+          --replace-breaks=false          
           
       - name: Move new translations
         run: |
