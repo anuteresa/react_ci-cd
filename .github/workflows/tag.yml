@@ -1,7 +1,7 @@
 name: Get Last Commit Tag and Checkout Another Repo
 
 on:
-  push:
+  pull_request:
 
 jobs:
   get-last-commit-tag:
