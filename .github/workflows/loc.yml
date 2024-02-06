@@ -59,7 +59,7 @@ jobs:
             yarn version --patch
             git push origin main --tags 
            else
-            echo "No Changes detected.   
+            echo "No Changes detected".   
             
             
             
