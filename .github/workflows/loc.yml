@@ -54,8 +54,8 @@ jobs:
         run: |
            cat ./translations/app/en.json
          
-           CHANGES=$(git diff --exit-code --quiet || echo "true")
-           if [ "$CHANGES" = "true" ]; then
+           CHANGES=$(git status --porcelain)
+           if [ -n "$CHANGES" ]; then    
             echo " changes found."
             git add ./translations/app
             yarn version --patch
