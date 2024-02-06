@@ -24,7 +24,6 @@ jobs:
      
       - name: Download lokalise translations
         run: |
-          yarn install
           cat ./translations/app/en.json
           docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
           --token "e1c60528902a5a3c4a1e257d9b8f2bc7a72f43f7" \
