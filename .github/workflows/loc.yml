@@ -55,8 +55,8 @@ jobs:
            cat ./translations/app/en.json
            npm install
            git status
-           CHANGES=$(git status --porcelain)
-           if [ -n "$CHANGES" ]; then    
+           CHANGES=$(git diff --exit-code --quiet || echo "true")
+           if [ "$CHANGES" = "true" ]; then   
             echo " changes found."
             git add ./translations/app
             yarn version --patch
