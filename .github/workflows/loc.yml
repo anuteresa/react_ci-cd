@@ -25,6 +25,7 @@ jobs:
       - name: Download lokalise translations
         run: |
           yarn install
+          cat ./translations/app/en.json
           docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
           --token "e1c60528902a5a3c4a1e257d9b8f2bc7a72f43f7" \
           --project-id 1002082764c25a286c0de3.61986318 file download \
@@ -52,6 +53,7 @@ jobs:
 
       - name: Fetch Lokalisations and Check for Changes
         run: |
+           cat ./translations/app/en.json
            CHANGES=$(git status --porcelain)
            if [ -n "$CHANGES" ]; then
             echo " changes found."
