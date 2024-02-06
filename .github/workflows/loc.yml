@@ -53,9 +53,9 @@ jobs:
       - name: Fetch Lokalisations and Check for Changes
         run: |
            cat ./translations/app/en.json
-         
+           npm install
            git status
-           git status --porcelain ./translations/app/
+           CHANGES=$(git status --porcelain ./translations/app/)
 
            if [ -n "$CHANGES" ]; then   
             echo " changes found."
