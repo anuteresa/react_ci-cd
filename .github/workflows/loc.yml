@@ -38,7 +38,8 @@ jobs:
           --indentation 2sp \
           --export-empty-as base \
           --add-newline-eof \
-          --replace-breaks=false          
+          --replace-breaks=false \
+          --include-pids 1428271165ce1c3b947082.81920211
           
       - name: Move new translations
         run: |
@@ -60,7 +61,6 @@ jobs:
            if [ -n "$CHANGES" ]; then   
             echo " changes found."
             git add ./translations/app
-            yarn version --patch
             git push origin main --tags 
            else
             echo "No Changes detected".   
