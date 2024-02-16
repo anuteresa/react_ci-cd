@@ -12,5 +12,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install Nginx
+        run: |
+         sudo apt update
+         sudo apt install -y nginx
+    
+      - name: Copy Nginx configuration
+        run: |
+          echo "$NGINX_CONFIG" | sudo tee /etc/nginx/nginx.conf
+    
       - name: Test Nginx configuration
-        run: nginx -t -c nginx.conf
+        run: sudo nginx -t
+      
+      - name: Display test result
+        run: sudo cat /var/log/nginx/error.log
