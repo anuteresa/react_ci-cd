@@ -20,6 +20,8 @@ jobs:
       - name: Copy Nginx configuration
         run: |
           echo "$NGINX_CONFIG" | sudo tee /etc/nginx/nginx.conf
+          cd /etc/nginx/
+          cat nginx.conf
     
       - name: Test Nginx configuration
         run: sudo nginx -t
