@@ -2,7 +2,7 @@ name: Mapping
 
 # Trigger the workflow when the pull request for version change is merged/closed.
 on:
-  push:
+  pull_request:
   
 jobs:
   notification:
