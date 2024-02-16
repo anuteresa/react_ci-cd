@@ -1,0 +1,16 @@
+name: Test Nginx Configuration
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test-nginx-configuration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Test Nginx configuration
+        run: nginx -t -c nginx.conf
