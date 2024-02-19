@@ -22,6 +22,14 @@ jobs:
 
       - name: Test nginx configuration
         run: sudo nginx -t -c ./nginx/temp/nginx.conf
+        
+      - name: Remove configuration file (if test failed)
+        if: ${{ failure() }}
+        run: sudo rm -f .nginx/temp/nginx.conf  
+
+      - name: Move configuration file to nginx config folder (if test successful)
+        if: ${{ success() }}
+        run: print('sucess')
     
       - name: Test Nginx configuration
         run: sudo nginx -t
