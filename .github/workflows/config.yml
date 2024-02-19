@@ -23,7 +23,7 @@ jobs:
 
       - name: Test nginx configuration
         id: latest-workflow-status
-        run: sudo nginx -t /etc/nnn
+        run: sudo nginx -t 
         
       - name: Remove configuration file (if test failed)
         if: ${{ failure() && steps.latest-workflow-status1.conclusion == 'failure' }}
@@ -31,7 +31,7 @@ jobs:
 
       - name: Move configuration file to nginx config folder (if test successful)
         if: ${{ success() }}
-        run: echo('sucess')
+        run: echo'sucess'
     
       - name: Test Nginx configuration
         run: sudo nginx -t
