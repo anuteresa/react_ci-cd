@@ -5,8 +5,7 @@ on:
     branches: [ main ]
     
 concurrency:
-  group: my-workflow
-  
+  group: my-workflow  
 jobs:
   test-nginx-configuration:
     runs-on: ubuntu-latest
