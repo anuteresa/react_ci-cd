@@ -18,7 +18,7 @@ jobs:
          sudo apt install -y nginx
     
       - name: Move nginx.conf file
-        run: sudo mv nginx.conf /nginx/temp/nginx.conf
+        run: sudo mv nginx.conf /nginx/temp/
 
       - name: Test nginx configuration
         run: sudo nginx -t -c /nginx/temp/nginx.conf
