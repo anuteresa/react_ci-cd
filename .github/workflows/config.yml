@@ -29,9 +29,7 @@ jobs:
         if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure'  }}
         run: echo '1st step' 
 
-      - name: Remove configuration file (if test failed)
-        if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure'  }}
-        run: echo '2nd step'
+     
 
       - name: Move configuration file to nginx config folder (if test successful)
         if: ${{ success() }}
