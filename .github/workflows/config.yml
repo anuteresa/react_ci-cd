@@ -21,7 +21,7 @@ jobs:
         run: sudo mv nginx.conf ./nginx/temp/
 
       - name: Test nginx configuration
-        run: sudo nginx -t -c /nginx/temp/nginx.conf
+        run: sudo nginx -t -c ./nginx/temp/nginx.conf
     
       - name: Test Nginx configuration
         run: sudo nginx -t
