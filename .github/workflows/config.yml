@@ -19,7 +19,7 @@ jobs:
     
       - name: Move nginx.conf file
         id: latest-workflow-status
-        run: sudo mv nginx.conf /etc/nginx/nhhh
+        run: sudo mv nginx.conf /etc/nginx/nginx.conf
 
       - name: Test nginx configuration
         run: sudo nginx -t 
@@ -30,7 +30,7 @@ jobs:
 
       - name: Move configuration file to nginx config folder (if test successful)
         if: ${{ success() }}
-        run: print('sucess')
+        run: echo('sucess')
     
       - name: Test Nginx configuration
         run: sudo nginx -t
