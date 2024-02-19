@@ -23,7 +23,7 @@ jobs:
 
       - name: Test nginx configuration
         id: latest-workflow-status
-        run: sudo nginx -t 
+        run: sudo nginx -t nn/uhj
         
       - name: Remove configuration file (if test failed)
         if: ${{ failure() && steps.latest-workflow-status.conclusion == 'failure' }}
