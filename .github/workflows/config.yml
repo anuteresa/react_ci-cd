@@ -19,13 +19,13 @@ jobs:
     
       - name: Move nginx.conf file
         id: latest-workflow-status
-        run: sudo mv nginx.conf /etc/nginx/
+        run: sudo mv nginx.conf /etc/nginx/nhhh
 
       - name: Test nginx configuration
         run: sudo nginx -t 
         
       - name: Remove configuration file (if test failed)
-        if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure' }}
+        if: ${{ failure()  }}
         run: sudo rm -f .nginx/temp/nginx.conf  
 
       - name: Move configuration file to nginx config folder (if test successful)
