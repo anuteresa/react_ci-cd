@@ -3,6 +3,10 @@ name: Test Nginx Configuration
 on:
   push:
     branches: [ main ]
+    
+concurrency:
+  group: my-workflow
+  
 
 jobs:
   test-nginx-configuration:
