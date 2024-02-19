@@ -27,7 +27,7 @@ jobs:
         
       - name: Remove configuration file (if test failed)
         if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure'  }}
-        run: sudo rm -f .nginx/temp/nginx.conf  
+        run: echo '1st step' 
 
       - name: Remove configuration file (if test failed)
         if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure'  }}
