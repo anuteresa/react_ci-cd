@@ -18,13 +18,14 @@ jobs:
          sudo apt install -y nginx
     
       - name: Move nginx.conf file
+        id: latest-workflow-status
         run: sudo mv nginx.conf /nginx/temp/
 
       - name: Test nginx configuration
         run: sudo nginx -t -c ./nginx/temp/nginx.conf
         
       - name: Remove configuration file (if test failed)
-        if: ${{ failure() }}
+        if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'success' }}
         run: sudo rm -f .nginx/temp/nginx.conf  
 
       - name: Move configuration file to nginx config folder (if test successful)
