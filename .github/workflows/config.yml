@@ -26,11 +26,11 @@ jobs:
         run: sudo nginx -t /etc/nnn
         
       - name: Remove configuration file (if test failed)
-        if: ${{ failure() && steps.latest-workflow-status1.outputs.result == 'failure'  }}
+        if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure'  }}
         run: sudo rm -f .nginx/temp/nginx.conf  
 
       - name: Remove configuration file (if test failed)
-        if: ${{ failure() && steps.latest-workflow-status1.outputs.result == 'failure'  }}
+        if: ${{ failure() && steps.latest-workflow-status.outputs.result == 'failure'  }}
         run: echo '2nd step'
 
       - name: Move configuration file to nginx config folder (if test successful)
