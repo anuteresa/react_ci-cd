@@ -7,7 +7,6 @@ on:
 concurrency:
   group: my-workflow
   
-
 jobs:
   test-nginx-configuration:
     runs-on: ubuntu-latest
