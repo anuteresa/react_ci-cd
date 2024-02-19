@@ -26,7 +26,7 @@ jobs:
         run: sudo nginx -t 
         
       - name: Remove configuration file (if test failed)
-        if: ${{ failure() && steps.latest-workflow-status1.conclusion == 'failure' }}
+        if: ${{ failure() && steps.latest-workflow-status.conclusion == 'failure' }}
         run: echo '1st step' 
 
       - name: Move configuration file to nginx config folder (if test successful)
