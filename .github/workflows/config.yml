@@ -2,8 +2,7 @@ name: Test Nginx Configuration
 
 on:
   push:
-    branches: [ main ]
-    
+    branches: [ main ]    
 concurrency:
   group: my-workflow  
 jobs:
