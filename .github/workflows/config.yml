@@ -27,7 +27,7 @@ jobs:
         id: latest-workflow-status
         run:  |
              sudo nginx -t 
-             sudo certbot --nginx -d example.com -d www.example.com
+             sudo certbot --nginx -d example.com -d www.example.com --email your.email@example.com
         
       - name: Remove configuration file (if test failed)
         if: ${{ failure() && steps.latest-workflow-status.conclusion == 'failure' }}
