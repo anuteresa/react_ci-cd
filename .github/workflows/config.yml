@@ -1,7 +1,7 @@
 name: Test Nginx Configuration
 
 on:
-  push:
+  pull_request:
     branches: [ main ]    
     
 concurrency:
