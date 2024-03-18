@@ -20,3 +20,5 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/anuteresa/react_ci-cd/releases/latest > latest_release.json
           latest_tag=$(jq -r '.tag_name' latest_release.json)
+          echo $latest_tag
+          
