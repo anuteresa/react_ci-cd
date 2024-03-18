@@ -29,13 +29,13 @@ jobs:
       - name: Fetch Latest Release Draft
         id: fetch_draft_release
         run: |
-          curl -sSL \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/owner/repo/releases | jq -r 'map(select(.draft == true))'
-            tag_name=$(echo "${draft_info}" | jq -r '.[0].tag_name')
+          draft_info=$(curl -sSL \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/owner/repo/releases | jq -r '.[] | select(.draft == true)')
+            tag_name=$(echo "${draft_info}" | jq -r '.tag_name')
             echo "Latest Draft Release Tag: $tag_name"
-             echo "BRANCH_NAME=${tag_name}" >> $GITHUB_OUTPUT 
+            echo "BRANCH_NAME=${tag_name}" >> $GITHUB_ENV
 
       - name: Checkout code from draft release
         uses: actions/checkout@v2
