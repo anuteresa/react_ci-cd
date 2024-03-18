@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - release/v*
-      - hotfix/v*
+    
  
 jobs:
   run-build-if-needed:
