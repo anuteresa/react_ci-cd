@@ -14,8 +14,7 @@ jobs:
 
       - name: Update draft to 
         run: |
-          curl \
-              -X GET \
+          curl-L \
              -H "Authorization: Bearer ${{ secrets.PAT }}" \           
             -H "Accept: application/vnd.github.v3+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
