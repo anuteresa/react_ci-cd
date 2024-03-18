@@ -28,6 +28,6 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/anuteresa/react_ci-cd/releases > latest_release.json 
-            latest_tag_draft=$(jq -r 'map(select(.draft == true)) latest_release.json)
+            latest_tag_draft=$(jq -r 'map(select(.draft == true))' latest_release.json)
              echo $latest_tag_draft
 
