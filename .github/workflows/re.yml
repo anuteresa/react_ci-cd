@@ -1,19 +1,18 @@
 name: Test Nginx Configuration
 
 on:
-  pull_request:
+  push:
     branches: [ main ]    
     
-concurrency:
-  group: my-workflow  
+
 jobs:
-  test-nginx-configuration:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Update draft to ${{ github.event.client_payload.release_tag }}
+      - name: Update draft to 
         run: |
           curl \
             -u user:${{ secrets.PAT }} \
