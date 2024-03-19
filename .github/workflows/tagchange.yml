@@ -1,8 +1,7 @@
 name: Nightly Deployment
 
 on:
-  schedule:
-    - cron: '0 17 * * *'  # Runs every day at 5 PM UTC (adjust the time zone as needed)
+  push: # Runs every day at 5 PM UTC (adjust the time zone as needed)
 
 jobs:
   deploy:
