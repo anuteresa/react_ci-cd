@@ -1,0 +1,45 @@
+name: Nightly Deployment
+
+on:
+  schedule:
+    - cron: '0 17 * * *'  # Runs every day at 5 PM UTC (adjust the time zone as needed)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get latest tag commit
+        id: get_tag_commit
+        run: |
+          last_tag_commit=$(git rev-list --tags --max-count=1)
+          echo "Last tag commit SHA: $last_tag_commit"
+          echo "last_tag_commit=${last_tag_commit}" >> $GITHUB_OUTPUT
+
+      - name: Get latest commit in branch
+        id: get_latest_commit
+        run: |
+          latest_commit=$(git rev-parse HEAD)
+          echo "Latest commit SHA: $latest_commit"
+            echo "latest_commit=${latest_commit}" >> $GITHUB_OUTPUT
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [ "${{ steps.get_tag_commit.outputs.last_tag_commit }}" != "${{ steps.get_latest_commit.outputs.latest_commit }}" ]; then
+            echo "Changes detected since the last deployment."
+          
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes detected since the last deployment."
+             echo "changes_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Continue with deployment steps only if changes were detected
+      - name: Deploy if changes detected
+        if: steps.check_changes.outputs.changes_detected == 'true'
+        run: |
+             ls -la
