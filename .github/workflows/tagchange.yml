@@ -59,6 +59,11 @@ jobs:
       - name: Updating Release
         run: echo 'reelasae=${{ steps.previous-release.output.release }}'
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa" 
+
       - name: Redeploy previous tag on failure
         if: failure()
         run: |
