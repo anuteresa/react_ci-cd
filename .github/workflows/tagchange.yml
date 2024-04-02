@@ -59,6 +59,13 @@ jobs:
         run: echo 'reelasae=${{ steps.previous-release.output.release }}'
 
       - name: Redeploy previous tag on failure
+        if: failure()
         run: |
           previous_tag=$(git describe --tags --abbrev=0)
           echo "Previous tag: $previous_tag"
+          curl -X POST \
+           -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/90263043/dispatches \
+          -d '{"ref":"$previous_tag"}'
+    
