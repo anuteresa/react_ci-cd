@@ -73,6 +73,7 @@ jobs:
           echo "Previous tag: $previous_tag"
            git checkout $previous_tag
            git add .
+           git diff $previous_tag main
           git commit -m "Rerun with previous tag or branch"
           git push origin main
           curl -X POST \
