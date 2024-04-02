@@ -46,8 +46,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v2.6.6
-          release_name: Release v2.6.6
+          tag_name: v2.6.1
+          release_name: Release v2.6.1
           draft: false
           prerelease: false
           
@@ -64,6 +64,10 @@ jobs:
         run: |
           previous_tag=$(git describe --tags --abbrev=0)
           echo "Previous tag: $previous_tag"
+           git checkout $previous_tag
+           git add .
+          git commit -m "Rerun with previous tag or branch"
+          git push origin main
           curl -X POST \
            -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
