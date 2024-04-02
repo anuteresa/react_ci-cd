@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: git fetch --prune --unshallow --tags  
+     
 
       - name: Get latest tag commit
         id: get_tag_commit
@@ -45,11 +45,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v2.7.2
-          release_name: Release v2.7.2
+          tag_name: v2.7.6
+          release_name: Release v2.7.6
           draft: false
           prerelease: false
-
+          
+      - run: git fetch --prune --unshallow --tags  
       - name: Get previous release tag
         id: previous-release
         uses: sammcoe/get-previous-release-action@v1.0.3 
