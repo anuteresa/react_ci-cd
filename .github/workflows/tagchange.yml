@@ -48,3 +48,8 @@ jobs:
           release_name: Release v2.7.9
           draft: false
           prerelease: false
+
+      - name: Redeploy previous tag on failure
+        run: |
+          previous_tag=$(git describe --tags --abbrev=0)
+          echo "Previous tag: $previous_tag"   
