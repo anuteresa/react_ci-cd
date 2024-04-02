@@ -53,6 +53,7 @@ jobs:
           
      
       - name: Get previous release tag
+        if: failure()
         id: previous-release
         uses: sammcoe/get-previous-release-action@v1.0.3 
 
@@ -60,6 +61,7 @@ jobs:
         run: echo 'reelasae=${{ steps.previous-release.output.release }}'
 
       - name: Set Git Identity
+        if: failure()
         run: |
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa" 
