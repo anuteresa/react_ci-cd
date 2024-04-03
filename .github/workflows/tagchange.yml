@@ -13,8 +13,7 @@ jobs:
         uses: actions/checkout@v2
       - run:  |
             git fetch --prune --unshallow --tags 
-            cat tes.py
-    
+            cat tes.py   
 
       - name: Get latest tag commit
         id: get_tag_commit
