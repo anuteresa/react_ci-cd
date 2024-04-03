@@ -36,7 +36,7 @@ jobs:
           server_port: 465
           secure: true
           username: ssouser714@gmail.com 
-          password: djho olrv tqhk zjrm
+          password: djhoolrvtqhkzjrm
           subject: Github Actions job '${{ github.workflow }}' of '${{ github.repository }}' Succeded
           body: The job '${{ github.job }}' in worflow '${{ github.workflow }}' of '${{ github.repository }}' succeded.
           to: ssouser714@gmail.com
