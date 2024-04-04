@@ -1,9 +1,9 @@
 name: Rollback
 
 on:
-   
   schedule:
-   - cron: '25 15 * * *'
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '35 5,15 * * *'
    
 jobs:
   deploy:
