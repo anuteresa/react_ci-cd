@@ -1,7 +1,7 @@
 name: Nightly Deployment
 
 on:
-  push: # Runs every day at 5 PM UTC (adjust the time zone as needed)
+ # Runs every day at 5 PM UTC (adjust the time zone as needed)
   workflow_dispatch: 
 
 jobs:
