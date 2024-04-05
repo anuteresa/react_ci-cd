@@ -2,12 +2,13 @@ name: Nightly Deployment
 
 on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
-  workflow_dispatch: 
+  push: 
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    outputs:
+     output1: ${{ steps.check_changes.outputs.changes_detected }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,19 +31,7 @@ jobs:
           latest_commit=$(git rev-parse HEAD)
           echo "Latest commit SHA: $latest_commit"
             echo "latest_commit=${latest_commit}" >> $GITHUB_OUTPUT
-
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v3.12.0
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
-          username: ssouser714@gmail.com 
-          password: fbnz shnc pkpv fpds
-          subject: Github Actions job '${{ github.workflow }}' of '${{ github.repository }}' Succeded
-          body: The job '${{ github.job }}' in worflow '${{ github.workflow }}' of '${{ github.repository }}' succeded.
-          to: ssouser714@gmail.com
-          from: ssouser714@gmail.com   
+ 
 
       - name: Check for changes
         id: check_changes
@@ -50,27 +39,19 @@ jobs:
           if [ "${{ steps.get_tag_commit.outputs.last_tag_commit }}" != "${{ steps.get_latest_commit.outputs.latest_commit }}" ]; then
             echo "Changes detected since the last deployment."
           
-            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
             echo "No changes detected since the last deployment."
-             echo "changes_detected=false" >> $GITHUB_OUTPUT
+             echo "changes_detected=true" >> $GITHUB_OUTPUT
           fi
 
         # Retrieves the version from package.json
       - name: Get current package version
+        if: steps.check_changes.outputs.changes_detected == 'true'
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
 
-     # Create release
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        with:
-          tag_name: v${{ steps.package-version.outputs.current-version}}
-          release_name: production${{ steps.package-version.outputs.current-version}}
-          draft: false
-          prerelease: false 
+   
           
      
       - name: Get previous release tag
@@ -87,30 +68,33 @@ jobs:
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa" 
 
-      - name: Redeploy previous tag on failure
-        if: failure()
-        run: |
-          previous_tag=$(git describe --tags --abbrev=0)
-          echo "Previous tag: $previous_tag"
-          
-          curl -X POST \
-           -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d "{\"ref\":\"$previous_tag\"}" \
-          https://api.github.com/repos/${{ github.repository }}/actions/workflows/92242166/dispatches 
           
   deploy2:
-     if:sucess()
      runs-on: ubuntu-latest
+     if: success() && needs.deploy.outputs.output1 == 'true'
+     needs: [deploy]
 
-    steps:
+     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
          ref: main
       - run:  |
             git fetch --prune --unshallow --tags 
-            cat tes.py           
+            cat tes.py  
+
+  deploy3:
+     runs-on: ubuntu-latest
+     if: success() 
+     needs: [deploy2]
+
+     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+         ref: main
+      - run:  |
+            cat tes.py               
           
          
     
