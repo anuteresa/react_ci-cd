@@ -1,7 +1,6 @@
 on:
   push:
-   tags:
-      - 'v*.**'
+  
     
   
 
@@ -27,14 +26,25 @@ jobs:
       - name: vvversion 
         run: 
           echo "version =${{ steps.package-version.outputs.current-version}}" 
-
-      - name: Generate release notes
-        uses: softprops/action-gh-release@v0.1.15
-        with:
-          token: ${{ secrets.PAT }}
-          generate_release_notes: true 
           
   version:
+     runs-on: ubuntu-latest
+   # outputs:
+      #output1: ${{ steps.get_version.outputs.VERSION }}
+    
+     steps: 
+   
+       
+      - uses: actions/checkout@v3
+      - name: Get current package version
+        
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1 
+      - name: vvversion 
+        run: 
+          echo "version =${{ steps.package-version.outputs.current-version}}" 
+          
+  version1:
      if: success()
      needs: [version-check]
      runs-on: ubuntu-latest
@@ -51,6 +61,66 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@v1.3.1 
       - name: vvversion 
         run: 
-          echo "version =${{ steps.package-version.outputs.current-version}}" 
+          echo "version =${{ steps.package-version.outputs.current-version}}"  
+
+  version2:
+     if: success()
+     needs: [version1]
+     runs-on: ubuntu-latest
+   # outputs:
+      #output1: ${{ steps.get_version.outputs.VERSION }}
+    
+     steps: 
+   
+       
+      - uses: actions/checkout@v3
+      - name: Get current package version
+        
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1 
+      - name: vvversion 
+        run: 
+          echo "version =${{ steps.package-version.outputs.current-version}}"
+
+
+  version3:
+     if: success()
+     needs: [version2]
+     runs-on: ubuntu-latest
+   # outputs:
+      #output1: ${{ steps.get_version.outputs.VERSION }}
+    
+     steps: 
+   
+       
+      - uses: actions/checkout@v3
+      - name: Get current package version
+        
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1 
+      - name: vvversion 
+        run: 
+          echo "version =${{ steps.package-version.outputs.current-version}}"
+
+
+    
+  version4:
+     if: success()
+     needs: [version3]
+     runs-on: ubuntu-latest
+   # outputs:
+      #output1: ${{ steps.get_version.outputs.VERSION }}
+    
+     steps: 
+   
+       
+      - uses: actions/checkout@v3
+      - name: Get current package version
+        
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1 
+      - name: vvversion 
+        run: 
+          echo "version =${{ steps.package-version.outputs.current-version}}"       
      
      
