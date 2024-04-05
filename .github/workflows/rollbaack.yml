@@ -15,8 +15,7 @@ jobs:
             repos=(
              "anuteresa/ci-cd"
              )
-
-      
+   
             for repo in "${repos[@]}"; do
                curl -X POST \
                  -H "Accept: application/vnd.github+json" \
