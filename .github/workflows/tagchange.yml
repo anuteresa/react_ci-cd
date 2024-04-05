@@ -70,11 +70,12 @@ jobs:
           
   deploy2:
      runs-on: ubuntu-latest
-     if: success() && needs.deploy.outputs.output1 == 'true'
+     if: success() 
      needs: [deploy]
 
      steps:
       - name: Checkout code
+        if: needs.deploy.outputs.output1 == 'true'
         uses: actions/checkout@v2
         with:
          ref: main
@@ -85,7 +86,7 @@ jobs:
   deploy3:
      runs-on: ubuntu-latest
      if: success() 
-     needs: [deploy]
+     needs: [deploy2]
 
      steps:
       - name: Checkout code
