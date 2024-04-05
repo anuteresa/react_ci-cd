@@ -1,8 +1,8 @@
 on:
-  push:
+  repository_dispatch:
+    types: [dispatch-event]
   
     
-  
 
 jobs:
   version-check:
