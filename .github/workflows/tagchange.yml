@@ -85,7 +85,7 @@ jobs:
   deploy3:
      runs-on: ubuntu-latest
      if: success() 
-     needs: [deploy2]
+     needs: [deploy]
 
      steps:
       - name: Checkout code
