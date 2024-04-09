@@ -77,6 +77,16 @@ jobs:
       - name: Get current package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1   
+
+      - name: Set API
+        run: |
+           curl -X POST \
+           -H "Authorization: Bearer  ${{ secrets.PAT }} " \
+           -H "Accept: application/vnd.github.v3+json" \
+           -H "X-GitHub-Api-Version: 2022-11-28" \
+             https://api.github.com/repos/anuteresa/react_ci-cd/actions/workflows/92242166/dispatches \
+           -d '{"ref": "main"}'  
+      
         
       # Create release
       - name: Create Release
@@ -90,14 +100,7 @@ jobs:
           prerelease: false  
 
           
-      - name: Set API
-        run: |
-           curl -X POST \
-           -H "Authorization: Bearer  ${{ secrets.PAT }} " \
-           -H "Accept: application/vnd.github.v3+json" \
-             https://api.github.com/repos/anuteresa/react_ci-cd/actions/workflows/92242166/dispatches \
-           -d '{"ref": "main"}'  
-      
+    
 
 
                    
