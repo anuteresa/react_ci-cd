@@ -38,10 +38,10 @@ jobs:
           if [ "${{ steps.get_tag_commit.outputs.last_tag_commit }}" != "${{ steps.get_latest_commit.outputs.latest_commit }}" ]; then
             echo "Changes detected since the last deployment."
           
-            echo "changes_detected=false" >> $GITHUB_OUTPUT
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
           else
             echo "No changes detected since the last deployment."
-             echo "changes_detected=true" >> $GITHUB_OUTPUT
+             echo "changes_detected=false" >> $GITHUB_OUTPUT
           fi
 
         # Retrieves the version from package.json
