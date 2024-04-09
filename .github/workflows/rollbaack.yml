@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        
      # - run:  |
       #      event_type="trigger-workflow"
        #     repos=(
