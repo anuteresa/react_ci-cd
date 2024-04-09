@@ -1,0 +1,77 @@
+name: Get Last Commit Tag and Checkout Another Repo
+
+on:
+  pull_request:
+
+jobs:
+  get-last-commit-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.get-tag.outputs.version }}
+
+    steps:
+      - name: Checkout Repository A
+        uses: actions/checkout@v2
+        with:
+          repository: anuteresa/react_ci-cd  # Replace with the actual repository URL
+
+      - name: Get Last Commit Tag
+        id: get-tag
+        run: |
+          git fetch --tags
+          tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>&1 || true)
+          echo $tag
+          echo version='tad'
+          echo $version
+          echo "version=6.4.1" >> "$GITHUB_OUTPUT"
+          echo 'output'
+          echo $version
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa" 
+
+
+
+      - name: Install Dependencies
+        run: |
+           yarn install   
+           yarn add @testing-library/jest-dom@${{ steps.get-tag.outputs.version }} -S
+           git add package.json
+           git commit -m "Update @testing-library/jest-dom version"
+
+
+           git push origin main
+          
+  checkout-another-repo:
+    needs: get-last-commit-tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository B
+        uses: actions/checkout@v2
+        with:
+          repository: anuteresa/ci-cd  # Replace with the actual repository URL
+          ref: main
+          token: ${{ secrets.PAT }}
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa" 
+
+      - name: Install Dependencies
+        run: |
+           yarn install      
+           yarn add @testing-library/jest-dom@${{needs.get-last-commit-tag.outputs.output1}} -S
+
+           git add package.json
+           git commit -m "Update @testing-library/jest-dom version"
+
+
+           git push origin main
+
+           fi
+
+          # Replace with actual commands to interact with Repository B

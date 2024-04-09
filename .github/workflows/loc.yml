@@ -1,46 +1,34 @@
 on:
-  
-  pull_request:
-    types:
-      - closed
-    branches: [ "main" ]
-    paths:
-     - 'package.json'
+ pull_request:
  
 jobs:
   run-build-if-needed:
-   if: github.event.pull_request.merged == true
    runs-on: ubuntu-latest   
     
    steps: 
       - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          ref: main
+          node-version: '18.16.1'
 
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
-       
-   
-
-     
+       # Get branch name
+      - name: Get branch name
+        id: branch
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT  
         
-      - name: Log when changed
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-
-      - name: Log when unchanged
-        if: steps.check.outputs.changed == 'false'
-        run: 'echo "No version change :/"'
-
-               
-         
+      # Get branch name
+      - name: Get branch name
+        id: branch1
+        run: echo   ${{ steps.branch.outputs.BRANCH_NAME }}
+     
       - name: Download lokalise translations
-        if: steps.check.outputs.changed == 'true'
         run: |
+          
+          cat ./translations/app/en.json
           docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
-          --token "633896f181ccf6613e1d44fa6a2d1dbc00fa1dcd" \
-          --project-id 6425482963873698913302.34331656 file download \
+          --token "e1c60528902a5a3c4a1e257d9b8f2bc7a72f43f7" \
+          --project-id 1002082764c25a286c0de3.61986318 file download \
           --format json_structured \
           --unzip-to /opt/dest \
           --original-filenames=false \
@@ -50,13 +38,37 @@ jobs:
           --indentation 2sp \
           --export-empty-as base \
           --add-newline-eof \
-          --replace-breaks=false
-             
+          --replace-breaks=false \
+          --include-pids=1428271165ce1c3b947082.81920211
+          
       - name: Move new translations
-        if: steps.check.outputs.changed == 'true'
         run: |
              ls -la
-             cp /tmp/lokalise/locale/* ./translations/app  
+             cp /tmp/lokalise/locale/* ./translations/app 
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"        
+
+      - name: Fetch Lokalisations and Check for Changes
+        run: |
+           cat ./translations/app/en.json
+           npm install
+           git status
+           CHANGES=$(git status --porcelain ./translations/app/)
+
+           if [ -n "$CHANGES" ]; then   
+            echo " changes found."
+            git add ./translations/app
+            git push origin main --tags 
+           else
+            echo "No Changes detected".   
+                       
+            
+           fi
+
+       
   #    - name: 🏗 Set up 
    #     uses: frenck/action-setup-lokalise@v1
     #  - name: Frenck's Lokalise CLI setu
@@ -73,88 +85,4 @@ jobs:
 
            
   
-      - name: Create Pull Request
-        if: steps.check.outputs.changed == 'true'
-        id: demo-pr
-        uses: peter-evans/create-pull-request@v4
-        
-      
-        
-      - name: Approve Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }}
-        uses: juliangruber/approve-pull-request-action@v2.0.3
-        with:
-         github-token: ${{ secrets.PAT }}
-         number: ${{ steps.demo-pr.outputs.pull-request-number }}
-      - name: Merge Pull Request
-        if:  ${{ steps.demo-pr.outputs.pull-request-number }}
-        uses: juliangruber/merge-pull-request-action@v1.1.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ steps.demo-pr.outputs.pull-request-number }}
-          method: squash   
-  
-     
-
-
-  run-build:
-  
-    runs-on: ubuntu-latest 
-    if: success()
-    needs: [run-build-if-needed]
-    strategy:
-      matrix:
-       include:
-           - REACT_APP_API_URL: https://staging
-           - REACT_APP_WEBSITE_URL: https://staging.anu
-             REACT_APP_RT: anu
-             REACT_APP: JOSE
-    steps:
-      - uses: actions/checkout@v3
-        with:
-         ref: main
-       
-      - name: Check if version has been updated
-        id: check  
-        uses: EndBug/version-check@v2.1.1
-       
-      
-
-
-     
-        
-      - name: Log when changed
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
-
-      - name: Log when unchanged
-        if: steps.check.outputs.changed == 'false'
-        run: 'echo "No version change :/"'
-
-         
-      - name: Create Pull 
-        run: |
-             ls -la
-             cd translations
-             cd app
-             cat en.json
-                 
-         
-        
-     # - name:  Use Lokalise
-      #  run: |
-       #     lokalise2 --version
-        #    lokalise2  file download --token 633896f181ccf6613e1d44fa6a2d1dbc00fa1dcd --project-id 6425482963873698913302.34331656 --export-empty-as skip --export-sort first_added --format xml --unzip-to "./translations" --directory-prefix "values-%LANG_ISO%" --original-filenames false
-  
-      #- name: Pull translations
-
-       # run: |
-        #      curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
-         #     lokalise2 \
-          #       file download \
-           #      --token 633896f181ccf6613e1d44fa6a2d1dbc00fa1dcd \
-            #     --project-id 6425482963873698913302.34331656 \
-             #    --format json \
-              #    --unzip-to ./locales
-            #  lokalise2  file download --token 633896f181ccf6613e1d44fa6a2d1dbc00fa1dcd --project-id 6425482963873698913302.34331656 --export-empty-as skip --export-sort first_added --format xml --unzip-to "./translations" --directory-prefix "values-%LANG_ISO%" --original-filenames false
- 
+    
