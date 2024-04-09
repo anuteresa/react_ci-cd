@@ -2,7 +2,7 @@ name: Nightly Deployment
 
 on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
-  push: 
+  pull_request: 
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -53,13 +53,7 @@ jobs:
    
           
      
-      - name: Get previous release tag
-        if: failure()
-        id: previous-release
-        uses: sammcoe/get-previous-release-action@v1.0.3 
-
-      - name: Updating Release
-        run: echo 'reelasae=${{ steps.previous-release.output.release }}'
+  
 
       - name: Set Git Identity
         if: failure()
@@ -70,27 +64,33 @@ jobs:
           
   deploy2:
      runs-on: ubuntu-latest
-     if: success() 
+     if: success() && needs.deploy.outputs.output1 == 'true'
      needs: [deploy]
 
      steps:
       - name: Checkout code
-        if: needs.deploy.outputs.output1 == 'true'
         uses: actions/checkout@v2
         with:
          ref: main
+
+       # Retrieves the version from package.json
+      - name: Get current package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1   
+        
+      # Create release
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v${{ steps.package-version.outputs.current-version}}
+          release_name: production${{ steps.package-version.outputs.current-version}}
+          draft: false
+          prerelease: false    
       
 
-  deploy3:
-     runs-on: ubuntu-latest
-     if: success() 
-     needs: [deploy2]
 
-     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-         ref: main
                    
           
          
