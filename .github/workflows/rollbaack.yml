@@ -2,8 +2,8 @@ name: Rollback
 
 on:
   push:
-    tags:
-      - 'v*.*.*' 
+     tags:
+      - v*.** 
   repository_dispatch: 
       types: [trigger-workflow]
    
