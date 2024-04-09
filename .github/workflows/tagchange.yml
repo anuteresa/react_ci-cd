@@ -2,7 +2,7 @@ name: Nightly Deployment
 
 on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
-  push: 
+  pull_request: 
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
       - name: Set API
         run: |
            curl -X POST \
-           -H "Authorization: ${{ secrets.PAT }} " \
+           -H "Authorization: Bearer  ${{ secrets.PAT }} " \
            -H "Accept: application/vnd.github.v3+json" \
              https://api.github.com/repos/anuteresa/react_ci-cd/actions/workflows/92242166/dispatches \
            -d '{"ref": "main"}'  
