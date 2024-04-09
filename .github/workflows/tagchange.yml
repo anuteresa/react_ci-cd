@@ -2,7 +2,7 @@ name: Nightly Deployment
 
 on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
-  push: 
+  pull_request: 
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -75,6 +75,10 @@ jobs:
 
        
       
+  # Retrieves the version from package.json
+      - name: Get current package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1   
         
       # Create release
       - name: Create Release
@@ -88,10 +92,6 @@ jobs:
           prerelease: false  
 
 
-  # Retrieves the version from package.json
-      - name: Get current package version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1   
 
        
       - name: Set API
