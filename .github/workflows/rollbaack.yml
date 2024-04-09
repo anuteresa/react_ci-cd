@@ -14,8 +14,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Get current package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+  
+        
+       # Release
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          token: ${{ secrets.PAT }}
+          name: production${{ steps.package-version.outputs.current-version}}
+          generate_release_notes: true
         
      # - run:  |
       #      event_type="trigger-workflow"
