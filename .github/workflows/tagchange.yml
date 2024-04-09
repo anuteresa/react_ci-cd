@@ -2,7 +2,7 @@ name: Nightly Deployment
 
 on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
-  push: 
+  pull_request: 
 jobs:
   deploy:
     runs-on: ubuntu-latest
