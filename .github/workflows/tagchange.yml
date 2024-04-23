@@ -4,8 +4,7 @@ on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
   push: 
   repository_dispatch: 
-      types: [trigger]
-  
+      types: [trigger]  
 jobs:
   deploy:
     runs-on: ubuntu-latest
