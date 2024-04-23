@@ -19,10 +19,20 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
   
-        
+            
+  deploy2:
+     runs-on: ubuntu-latest
+     if: success() && github.event_name == 'push'
+     needs: [deploy]
+
+     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+         ref: main      
+      
        # Release
       - name: Release
-        if: github.event_name == 'push'
         uses: softprops/action-gh-release@v0.1.15
         with:
           token: ${{ secrets.PAT }}
