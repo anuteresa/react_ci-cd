@@ -3,6 +3,8 @@ name: Nightly Deployment
 on:
  # Runs every day at 5 PM UTC (adjust the time zone as needed)
   pull_request: 
+  repository_dispatch: 
+      types: [trigger]
   
 jobs:
   deploy:
@@ -65,7 +67,7 @@ jobs:
           
   deploy2:
      runs-on: ubuntu-latest
-     if: success() && needs.deploy.outputs.output1 == 'true'
+     if: success() && github.event_name == 'repository_dispatch'
      needs: [deploy]
 
      steps:
