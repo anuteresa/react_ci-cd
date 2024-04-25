@@ -54,7 +54,7 @@ jobs:
 
    
       - name: Get next version
-        uses: reecetech/version-increment@2023.9.3
+        uses: reecetech/version-increment@2024.4.4
         id: version
         with:
           scheme: semver
