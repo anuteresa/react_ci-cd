@@ -2,7 +2,7 @@ name: Rollback
 
 on:
   repository_dispatch: 
-      types: [trigger-workflow]
+      types: [trigger]
    
 jobs:
   deploy:
