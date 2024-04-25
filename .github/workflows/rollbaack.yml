@@ -56,7 +56,7 @@ jobs:
           increment: patch  
 
       - name: Create Release
-        uses: aaiezza/create-release@master
+        uses: aaiezza/create-release@v1.0.0
         id: create_release
         with:
           release_branch: development
