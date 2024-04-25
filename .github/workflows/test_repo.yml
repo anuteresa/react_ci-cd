@@ -1,7 +1,7 @@
 name: Nightly Deployment
 
 on:
-  pull_request:
+  push:
  
   repository_dispatch: 
       types: [trigger-workflow]  
