@@ -1,6 +1,7 @@
 name: Rollback
 
 on:
+  push:
   repository_dispatch: 
       types: [trigger]
    
