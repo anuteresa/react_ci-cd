@@ -60,6 +60,7 @@ jobs:
           fi   
       
       - name: Get next version
+        if: steps.check_changes.outputs.changes_detected == 'true'
         uses: reecetech/version-increment@2024.4.3
         id: version
         with:
@@ -67,6 +68,7 @@ jobs:
           increment: patch
 
       - name: Create Release
+        if: steps.check_changes.outputs.changes_detected == 'true'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -75,9 +77,11 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           release_name: v${{ steps.version.outputs.version }}
           draft: false
-          prerelease: false    
-        
-      - run:  |
+          prerelease: false  
+
+      - name: Create Release  
+        if: steps.check_changes.outputs.changes_detected == 'true'  
+        run:  |
             repos=(
             "anuteresa/ci-cd"
              "anuteresa/react_ci-cd"
