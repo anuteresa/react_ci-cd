@@ -53,19 +53,17 @@ jobs:
         id: version
         with:
           scheme: semver
-          increment: patch
+          increment: patch  
 
       - name: Create Release
-        if: steps.check_changes.outputs.changes_detected == 'true'
+        uses: aaiezza/create-release@master
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v${{ steps.version.outputs.version }}
-          release_name: v${{ steps.version.outputs.version }}
-          draft: false
-          prerelease: false  
+          release_branch: development
+          tag: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
 
      # - name: Create Release  
       #  if: steps.check_changes.outputs.changes_detected == 'true'  
