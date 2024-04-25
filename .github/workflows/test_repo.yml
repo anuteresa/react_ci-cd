@@ -21,6 +21,6 @@ jobs:
                  -H "Accept: application/vnd.github+json" \
                  -H "Authorization: Bearer ${{ secrets.PAT }}" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
-                "https://api.github.com/repos/anuteresa/ci-cd/dispatches" \
+                "https://api.github.com/repos/anuteresa/react_ci-cd/dispatches" \
                 -d "{\"event_type\": \"trigger\"}"  
           
