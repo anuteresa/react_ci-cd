@@ -51,25 +51,6 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
 
-   
-      - name: Get next version
-        uses: reecetech/version-increment@2024.4.4
-        id: version
-        with:
-          scheme: semver
-          increment: patch    
-     
-      - name: Create Release
-        if: steps.check_changes.outputs.changes_detected == 'true'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        with:
-          tag_name: v${{ steps.version.outputs.version}}
-          release_name: v${{ steps.version.outputs.version}}
-          draft: false
-          prerelease: false 
-
       - name: Set Git Identity
    
         run: |
