@@ -1,8 +1,7 @@
 name: Nightly Deployment
 
 on:
- # Runs every day at 5 PM UTC (adjust the time zone as needed)
-  push: 
+ # Runs every day at 5 PM UTC (adjust the time zone as needed) 
   repository_dispatch: 
       types: [trigger]  
 jobs:
@@ -61,6 +60,7 @@ jobs:
           increment: patch    
      
       - name: Create Release
+        if: steps.check_changes.outputs.changes_detected == 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
