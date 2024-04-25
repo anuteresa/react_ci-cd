@@ -19,8 +19,7 @@ jobs:
      
 
         # Retrieves the version from package.json
-      - name: Get current package version
-        if: steps.check_changes.outputs.changes_detected == 'true'
+      - name: Get current package version     
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
 
