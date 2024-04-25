@@ -16,8 +16,7 @@ jobs:
       - name: Get current package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
-  
-            
+              
   deploy2:
      runs-on: ubuntu-latest
      if: success() 
