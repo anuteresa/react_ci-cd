@@ -3,8 +3,7 @@ name: Rollback
 on:
   push:
   repository_dispatch: 
-      types: [trigger]
-   
+      types: [trigger]   
 jobs:
   deploy:
     runs-on: ubuntu-latest
