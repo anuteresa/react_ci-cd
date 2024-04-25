@@ -1,6 +1,8 @@
 name: Nightly Deployment
 
 on:
+  release:
+    types: [published]
  # Runs every day at 5 PM UTC (adjust the time zone as needed) 
   repository_dispatch: 
       types: [trigger]  
