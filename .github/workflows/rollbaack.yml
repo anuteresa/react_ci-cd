@@ -46,13 +46,7 @@ jobs:
              echo "changes_detected=false" >> $GITHUB_OUTPUT
           fi   
       
-      - name: Get next version
-        if: steps.check_changes.outputs.changes_detected == 'true'
-        uses: reecetech/version-increment@2024.4.3
-        id: version
-        with:
-          scheme: semver
-          increment: patch
+    
 
       - name: Create Release
         if: steps.check_changes.outputs.changes_detected == 'true'
@@ -61,8 +55,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v${{ steps.version.outputs.version }}
-          release_name: v${{ steps.version.outputs.version }}
+          tag_name: v7.8.45
+          release_name: v7.8.45
           draft: false
           prerelease: false  
 
