@@ -39,9 +39,7 @@ jobs:
         run: |
           new_tag_commit=$(git rev-list --tags --max-count=1)
           echo "Last tag commit SHA: $new_tag_commit"
-          echo "new_tag_commit=${new_tag_commit}" >> $GITHUB_OUTPUT         
-
-           
+          echo "new_tag_commit=${new_tag_commit}" >> $GITHUB_OUTPUT                    
 
       - name: Get latest commit in branch
         id: get_latest_commit
