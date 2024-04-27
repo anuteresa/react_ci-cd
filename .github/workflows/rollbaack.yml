@@ -66,7 +66,6 @@ jobs:
             -d '{"tag_name":"v${{ steps.version.outputs.version }}","target_commitish":"development","name":"v${{ steps.version.outputs.version}}","generate_release_notes":true}' 
       - name: Set release info
         run: echo "RELEASE_CREATED_BY_API=true" > release_info.txt
-
       - name: Upload release info artifact
         uses: actions/upload-artifact@v2
         with:
