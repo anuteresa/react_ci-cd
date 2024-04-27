@@ -72,7 +72,6 @@ jobs:
         with:
           name: release-info
           path: release_info.txt  
-
      # - name: Create Release  
       #  if: steps.check_changes.outputs.changes_detected == 'true'  
        # run:  |
