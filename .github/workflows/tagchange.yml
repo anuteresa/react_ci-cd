@@ -1,9 +1,10 @@
 name: Nightly Deployment
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  workflow_dispatch:
+ # push:
+  #  tags:
+   #   - 'v*.*.*'
  
   repository_dispatch: 
       types: [trigger-workflow]  
