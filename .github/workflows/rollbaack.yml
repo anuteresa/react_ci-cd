@@ -2,6 +2,7 @@ name: Rollback
 
 on:
  push:
+ workflow_dispatch:
  release:
     types: [published]
  repository_dispatch: 
