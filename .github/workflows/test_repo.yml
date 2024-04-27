@@ -12,6 +12,8 @@ jobs:
         uses: actions/checkout@v2
         with:
          ref: development
+      - run:  |
+            git fetch --prune --unshallow --tags    
       - name: Set API
         id: get_tag_commit
         run: |
