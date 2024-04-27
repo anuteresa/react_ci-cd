@@ -1,10 +1,7 @@
 name: Rollback
 
-on:
-  push:
-    tags:
-      - 'v*.*.*'
-    types: [published]
+
+  
   repository_dispatch: 
       types: [trigger]   
 jobs:
