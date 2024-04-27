@@ -15,3 +15,5 @@ jobs:
       - name: Set API
         run: |
               gh release view
+              env:
+                  GH_TOKEN: ${{ github.token }}
