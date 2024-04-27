@@ -28,6 +28,20 @@ jobs:
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa" 
 
+      - name: Get repository metadata
+        id: metadata
+        run: |
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/metadata \
+          | jq '.["created_by_api"]' \
+          > created_by_api.txt
+
+      - name: Read repository metadata
+        run: |
+          CREATED_BY_API=$(cat created_by_api.txt)
+          echo "CREATED_BY_API: $CREATED_BY_API"
+          # Use CREATED_BY_API to determine how the release was created     
+
           
   deploy2:
      runs-on: ubuntu-latest
