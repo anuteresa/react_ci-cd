@@ -47,7 +47,7 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          if [ "${{ steps.get_tag_commit.outputs.latest_tag_commit }}" != "${{ steps.get_latest_commit.outputs.latest_commit }}" ]; then
+          if [ "${{ steps.get_tag_commit.outputs.last_tag_commit }}" != "${{ steps.get_latest_commit.outputs.latest_commit }}" ]; then
             echo "Changes detected since the last deployment."
           
             echo "changes_detected=true" >> $GITHUB_OUTPUT
