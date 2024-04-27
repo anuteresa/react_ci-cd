@@ -1,7 +1,9 @@
 name: Rollback
 
 on:
-  release:
+  push:
+    tags:
+      - 'v*.*.*'
     types: [published]
   repository_dispatch: 
       types: [trigger]   
