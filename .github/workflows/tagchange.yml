@@ -29,15 +29,7 @@ jobs:
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa" 
 
-      - name: Download release info artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: release-info
-
-      - name: Read release info
-        run: |
-          RELEASE_CREATED_BY_API=$(cat release_info.txt)
-          echo "RELEASE_CREATED_BY_API: $RELEASE_CREATED_BY_API"    
+         
 
           
   deploy2:
