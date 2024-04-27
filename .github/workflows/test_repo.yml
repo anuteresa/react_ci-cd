@@ -28,7 +28,7 @@ jobs:
       - name: Set 
         id: get_tag_commit
         run: |
-              response=$(git rev-list -n 1 ${{ steps.get_tag_commit.outputs.last_tag }})
+              response=$( git rev-list -n 1 "${{ steps.get_tag_commit.outputs.last_tag }}")
                last_tag_commit=$response
                 echo "Last tag commit SHA: $last_tag_commit"
                 echo "last_tag_commit=${last_tag_commit}" >> $GITHUB_OUTPUT 
