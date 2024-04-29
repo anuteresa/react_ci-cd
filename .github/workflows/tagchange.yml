@@ -35,7 +35,6 @@ jobs:
             https://api.github.com/repos/anuteresa/react_ci-cd/releases \
              -d '{"tag_name":"v${{ steps.version.outputs.version }}","target_commitish":"development","name":"v${{ steps.version.outputs.version}}","generate_release_notes":true,"body": "{\"created_via_api\": true}"}'
      
-     
 
       - name: Set Git Identity
    
