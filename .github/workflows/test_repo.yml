@@ -1,7 +1,7 @@
 name: Nightly Deployment
 
 on:
- push: 
+ pull_request: 
 jobs:
   deploy:
     runs-on: ubuntu-latest
