@@ -13,8 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-         ref: main
-     
+         ref: main   
 
         # Retrieves the version from package.json
       - name: Get current package version     
