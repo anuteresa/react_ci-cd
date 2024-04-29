@@ -46,7 +46,7 @@ jobs:
       - name: Set Git Identity
         run: |
       
-         if echo "${{ github.event.release.body }}" | grep -q '"created_via_api": true'; then
+         if echo "${{ github.event.release.body }}" | grep -q 'created_via_api: true'; then
          echo "This release was created programmatically via API."
          else
          echo "This release was published manually."
