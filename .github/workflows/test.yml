@@ -39,6 +39,9 @@ jobs:
          run:  |
               echo "latest_commit=$(semver ${{ steps.version.outputs.version }} -i prerelease --preid rc)" >> $GITHUB_OUTPUT
               echo $latest_commit
+
+       - name: Output release candidate version
+         run: echo "The release candidate version is ${{ steps.increment_version.outputs.latest_commit }}"      
          
      
  
