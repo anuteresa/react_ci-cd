@@ -40,16 +40,18 @@ jobs:
 
        - name: Output release candidate version
          run: echo "The release candidate version is ${{ steps.increment_version.outputs.latest_commit }}"  
-         
-       - name: Update package.json version
-         run: npm version prerelease --preid=rc  
 
        - name: Set Git Identity
    
          run: |         
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa" 
+   
+         
+       - name: Update package.json version
+         run: npm version prerelease --preid=rc  
 
+      
        - name: Commit changes
          run: |
           git add package.json
