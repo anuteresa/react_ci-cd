@@ -39,7 +39,20 @@ jobs:
               echo $latest_commit
 
        - name: Output release candidate version
-         run: echo "The release candidate version is ${{ steps.increment_version.outputs.latest_commit }}"      
+         run: echo "The release candidate version is ${{ steps.increment_version.outputs.latest_commit }}"  
+
+       - name: Set Git Identity
+   
+         run: |         
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa" 
+
+       - name: Commit changes
+         run: |
+          git add .
+          git commit -m "Update workflow file"
+          git push origin main
+          
          
      
  
