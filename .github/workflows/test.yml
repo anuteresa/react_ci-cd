@@ -54,6 +54,8 @@ jobs:
       
        - name: Commit changes
          run: |
+           ls -la
+           cat package.json
            git add .
            git commit -m "Update workflow file"
            git push origin main
