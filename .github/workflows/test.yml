@@ -57,6 +57,7 @@ jobs:
            ls -la
            cat package.json
            git add package.json
+           git status
            git commit -m "Update workflow file"
            cat package.json
            git push origin main
