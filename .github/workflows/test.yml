@@ -30,7 +30,10 @@ jobs:
 
        - name: Increment version to release candidate
          id: increment_version
-         run: echo " "latest_commit=$(semver ${{ steps.version.outputs.version }} -i prerelease --preid rc)" >> $GITHUB_OUTPUT
+         run:  |
+              echo "latest_commit=$(semver ${{ steps.version.outputs.version }} -i prerelease --preid rc)" >> $GITHUB_OUTPUT
+              echo $latest_commit
+         
      
  
 
