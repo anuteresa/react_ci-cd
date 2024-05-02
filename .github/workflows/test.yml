@@ -7,9 +7,7 @@ name: production CI
 
 on:
   push:
-    tags:
-      - staging*.**
- 
+   
 
  
         
@@ -19,26 +17,21 @@ jobs:
   run-build-if-needed:
     runs-on: ubuntu-latest
      
-    strategy:
-      matrix:
-
-       include:
-           - REACT_APP_API_URL: 'test'
-             REACT_APP_WEBSITE_URL: 'staging' 
-               
+   
     steps:
 
-    - uses: actions/checkout@v3
+       - uses: actions/checkout@v3
  
-      with:
-        fetch-depth: 1
-        ref: 'main'
+   
         
-    - name: 'Blog Custom Github Action'
-      shell: bash 
-      run: |
-           sudo chmod +x setup.sh
-           sudo echo stg | ./setup.sh dump
+       - name: Get current package version     
+         id: package-version
+         uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+       - name: Increment version to release candidate
+         id: increment_version
+         run: echo " "latest_commit=$(semver ${{ steps.version.outputs.version }} -i prerelease --preid rc)" >> $GITHUB_OUTPUT
+     
  
 
 
