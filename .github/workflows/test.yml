@@ -40,6 +40,9 @@ jobs:
 
        - name: Output release candidate version
          run: echo "The release candidate version is ${{ steps.increment_version.outputs.latest_commit }}"  
+         
+       - name: Update package.json version
+         run: npm version prerelease --preid=rc  
 
        - name: Set Git Identity
    
@@ -49,7 +52,7 @@ jobs:
 
        - name: Commit changes
          run: |
-          git add .
+          git add package.json
           git commit -m "Update workflow file"
           git push origin main
           
