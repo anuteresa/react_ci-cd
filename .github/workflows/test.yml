@@ -59,8 +59,7 @@ jobs:
            git add package.json
            git status
            git log
-           git commit -m "Update workflow file"
-
+          
        - name: Push changes
          uses: ad-m/github-push-action@master
          with:
