@@ -32,8 +32,7 @@ jobs:
        - name: Output release candidate version
          run: echo "The release candidate version is ${{ steps.increment_version.outputs.latest_commit }}"  
 
-       - name: Set Git Identity
-   
+       - name: Set Git Identity   
          run: |         
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa" 
