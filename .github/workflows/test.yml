@@ -52,6 +52,7 @@ jobs:
               patch=$(echo "$current_version" | awk -F'.' '{print $3}' | cut -d'r' -f1)
               rc_number=$(echo "$current_version" | awk -F'.' '{print $3}' | cut -d'r' -f2)
               echo "$rc_number"
+              echo "$rc_number + 1"
               new_rc_version="${major}.${minor}.${patch}rc$((rc_number + 1))"
               echo "$new_rc_version"
               jq '.version = $new_version' --arg new_version "$new_rc_version" package.json > package.tmp && mv package.tmp package.json
