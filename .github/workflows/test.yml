@@ -57,18 +57,18 @@ jobs:
               git push origin "$new_rc_version"
 
       
-       - name: Commit changes
-         run: |
-           ls -la
-           cat package.json
-           git add package.json
-           git status
-           git log
+   #    - name: Commit changes
+    #     run: |
+     #      ls -la
+      #     cat package.json
+       #    git add package.json
+        #   git status
+         #  git log
           
-       - name: Push changes
-         uses: ad-m/github-push-action@master
-         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+       #- name: Push changes
+        # uses: ad-m/github-push-action@master
+         #with:
+         # github_token: ${{ secrets.GITHUB_TOKEN }}
          
      
  
