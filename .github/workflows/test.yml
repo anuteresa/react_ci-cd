@@ -53,9 +53,9 @@ jobs:
               patch=$(echo "$patch_rc" | cut -dr -f1)
               rc=$(echo "$patch_rc" | cut -dr -f2)
               new_rc=$((rc + 1))
-              echo "$new_rc"
-              echo "$new_rc_version"
+              echo "$new_rc"         
               new_rc_version="${major}.${minor}.${patch}rc${new_rc}"
+              echo "$new_rc_version"
               jq '.version = $new_version' --arg new_version "$new_rc_version" package.json > package.tmp && mv package.tmp package.json
               git commit -am "Update package.json version to $new_rc_version"
               git push
