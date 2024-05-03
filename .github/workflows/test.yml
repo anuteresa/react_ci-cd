@@ -51,7 +51,7 @@ jobs:
               new_rc_version="${current_version}rc1"
               else
               new_rc_number=$((rc_number + 1))
-              new_rc_version=$(echo "$current_version" | sed "s/rc$rc_number/rc$new_rc_number/")
+              new_rc_version=$(echo "$current_version" | sed "s/rc$rc_number/-rc$new_rc_number/")
               fi
               jq '.version = $new_version' --arg new_version "$new_rc_version" package.json > package.tmp && mv package.tmp package.json
               git commit -am "Update package.json version to $new_rc_version"
