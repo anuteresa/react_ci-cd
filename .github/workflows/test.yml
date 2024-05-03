@@ -46,7 +46,7 @@ jobs:
          run: |  
               #npm version ${{ steps.package-version.outputs.current-version}} prerelease --preid=rc
               current_version=${{ steps.package-version.outputs.current-version}}
-              rc_number=$(echo "$current_version" | grep -o 'rc[0-9]*' | grep -o '[0-9]*' | tail -1)
+              rc_number=$(echo "$current_version" | grep -o '\(-\|rc\)[0-9]*' | grep -o '[0-9]*' | tail -1)
               if [ -z "$rc_number" ]; then
               new_rc_version="${current_version}rc1"
               else
