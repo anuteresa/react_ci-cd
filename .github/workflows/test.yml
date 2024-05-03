@@ -48,7 +48,7 @@ jobs:
    
          
        - name: Update package.json version
-         run: npm version prerelease --preid=rc  
+         run: npm version ${{ steps.package_version.outputs.current }} prerelease --preid=rc  
 
       
        - name: Commit changes
