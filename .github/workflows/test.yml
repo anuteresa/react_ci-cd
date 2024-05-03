@@ -47,8 +47,13 @@ jobs:
           git config --global user.name "anuteresa" 
    
          
-       - name: Update package.json version
-         run: npm version ${{ steps.package_version.outputs.current }} prerelease --preid=rc  
+       - name:  'Automated Version Bump'
+         uses:  'phips28/gh-action-bump-version@master'
+         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+          default: prerelease
+          preid: 'rc' 
 
       
        - name: Commit changes
