@@ -76,10 +76,15 @@ jobs:
               echo "Tag $tag is a stable version"
             else
               echo "Tag $tag is not a stable version"
+              new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
+              echo "New tag: $new_tag"
+              git tag -d "$tag" && git tag "$new_tag"
+              git push origin ":refs/tags/$tag" "$new_tag"
             fi
           done
          else
           echo "Latest commit is not tagged"
+          
          fi  
 
      # - name: Fetch Lokalisations and Check for Changes
