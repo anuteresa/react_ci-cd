@@ -68,11 +68,19 @@ jobs:
 
       - name: Check if latest commit is tagged
         run: |
-         if [ -n "${{ steps.latest_tags.outputs.tags }}" ]; then
+         latest_tags="${{ steps.latest_tags.outputs.tags }}"
+         if [ -n "$latest_tags" ]; then
           echo "Latest commit is tagged"
+          for tag in $latest_tags; do
+            if [[ "$tag" != *"-"* ]]; then
+              echo "Tag $tag is a stable version"
+            else
+              echo "Tag $tag is not a stable version"
+            fi
+          done
          else
           echo "Latest commit is not tagged"
-         fi      
+         fi  
 
      # - name: Fetch Lokalisations and Check for Changes
       #  run: |
