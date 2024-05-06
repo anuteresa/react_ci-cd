@@ -22,51 +22,72 @@ jobs:
         id: branch1
         run: echo   ${{ steps.branch.outputs.BRANCH_NAME }}
      
-      - name: Download lokalise translations
-        run: |
+   #   - name: Download lokalise translations
+    #    run: |
           
-          cat ./translations/app/en.json
-          docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
-          --token "e1c60528902a5a3c4a1e257d9b8f2bc7a72f43f7" \
-          --project-id 1002082764c25a286c0de3.61986318 file download \
-          --format json_structured \
-          --unzip-to /opt/dest \
-          --original-filenames=false \
-          --export-sort a_z \
-          --placeholder-format icu \
-          --json-unescaped-slashes=true \
-          --indentation 2sp \
-          --export-empty-as base \
-          --add-newline-eof \
-          --replace-breaks=false \
-          --include-pids=1428271165ce1c3b947082.81920211
+     #     cat ./translations/app/en.json
+      #    docker run -v /tmp/lokalise:/opt/dest lokalise/lokalise-cli-2 lokalise2 \
+       #   --token "e1c60528902a5a3c4a1e257d9b8f2bc7a72f43f7" \
+        #  --project-id 1002082764c25a286c0de3.61986318 file download \
+       #   --format json_structured \
+        #  --unzip-to /opt/dest \
+        #  --original-filenames=false \
+        #  --export-sort a_z \
+        #  --placeholder-format icu \
+         # --json-unescaped-slashes=true \
+         # --indentation 2sp \
+         # --export-empty-as base \
+         # --add-newline-eof \
+         # --replace-breaks=false \
+         # --include-pids=1428271165ce1c3b947082.81920211
           
-      - name: Move new translations
-        run: |
-             ls -la
-             cp /tmp/lokalise/locale/* ./translations/app 
+      #- name: Move new translations
+       # run: |
+        #     ls -la
+         #    cp /tmp/lokalise/locale/* ./translations/app 
 
       - name: Set Git Identity
         run: |
           git config --global user.email "anuteresaj@gmail.com"
-          git config --global user.name "anuteresa"        
+          git config --global user.name "anuteresa"   
 
-      - name: Fetch Lokalisations and Check for Changes
+
+      - name: Get latest commit hash
+        id: latest_commit
         run: |
-           cat ./translations/app/en.json
-           npm install
-           git status
-           CHANGES=$(git status --porcelain ./translations/app/)
+             last_commit=$(git rev-parse HEAD)
+             echo "last_commit=${last_commit}" >> $GITHUB_OUTPUT
 
-           if [ -n "$CHANGES" ]; then   
-            echo " changes found."
-            git add ./translations/app
-            git push origin main --tags 
-           else
-            echo "No Changes detected".   
-                       
-            
-           fi
+
+      - name: Get tags associated with the latest commit
+        id: latest_tags
+        run: |
+             tags=$(git tag --points-at $(git rev-parse HEAD))
+             echo "tags=${tags}" >> $GITHUB_OUTPUT
+             
+
+      - name: Check if latest commit is tagged
+        run: |
+         if [ -n "${{ steps.latest_tags.outputs.tags }}" ]; then
+          echo "Latest commit is tagged"
+         else
+          echo "Latest commit is not tagged"
+         fi      
+
+     # - name: Fetch Lokalisations and Check for Changes
+      #  run: |
+       #    cat ./translations/app/en.json
+        #   npm install
+         #  git status
+          # CHANGES=$(git status --porcelain ./translations/app/)
+
+          # if [ -n "$CHANGES" ]; then   
+           ## echo " changes found."
+            #git add ./translations/app
+           # git push origin main --tags 
+           #else
+           # echo "No Changes detected".   
+            #    fi
 
        
   #    - name: 🏗 Set up 
