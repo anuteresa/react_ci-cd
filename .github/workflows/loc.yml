@@ -78,7 +78,10 @@ jobs:
               echo "Tag $tag is not a stable version"
               new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"
-              npm version $new_tag
+              npm version $new_tag 
+              ls -la
+              cat package.json
+              git commit -m "initial commit"
               git push origin main --tags 
             fi
           done
