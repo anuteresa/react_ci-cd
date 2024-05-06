@@ -79,7 +79,7 @@ jobs:
               new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"
               npm version 
-              git push origin ":refs/tags/$tag" "$new_tag"
+              #git push origin ":refs/tags/$tag" "$new_tag"
             fi
           done
          else
