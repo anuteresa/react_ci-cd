@@ -5,7 +5,7 @@
 
 name: production CI
 on:
-  push:     
+  pull_request:     
 jobs:
   run-build-if-needed:
     runs-on: ubuntu-latest        
