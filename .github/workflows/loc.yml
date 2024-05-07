@@ -102,6 +102,7 @@ jobs:
           echo "$tag" 
           npm version patch
           git push origin main --follow-tags
+         fi
             
 
      # - name: Fetch Lokalisations and Check for Changes
