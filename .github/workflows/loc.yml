@@ -1,5 +1,5 @@
 on:
- pull_request:
+ push:
  
 jobs:
   run-build-if-needed:
@@ -41,12 +41,13 @@ jobs:
          # --replace-breaks=false \
          # --include-pids=1428271165ce1c3b947082.81920211
           
-      - name: Move new translations
-        run: |
-             yarn loklaise:download
-             git add .
-             git commit -m "update lokalise"
-             git push 
+   #   - name: Move new translations
+     #   run: |
+    #         yarn loklaise:download
+       
+             #git add .
+      #       git commit -m "update lokalise"
+       #      git push 
                  
          #    cp /tmp/lokalise/locale/* ./translations/app 
 
@@ -92,11 +93,10 @@ jobs:
           done
          else
           echo "Latest commit is not tagged"
-          npm version "version without suffix "
-          git push origin 
-         
-          
-          
+          tag=$(git describe --abbrev=0 --tags)
+          echo "tag=${tag}" >> $GITHUB_OUTPUT
+          echo "$tag"
+          npm version $tag      
          fi  
 
      # - name: Fetch Lokalisations and Check for Changes
