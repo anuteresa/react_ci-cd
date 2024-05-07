@@ -102,16 +102,17 @@ jobs:
           echo "$tag" 
           for tagt in $tag; do
             if [[ "$tagt" != *"-"* ]]; then
-              echo "Tag $tag is a stable version"
+              echo "Tag $tagt is a stable version"
               npm version patch
               git push origin main --follow-tags
             else
-              echo "Tag $tag is not a stable version"          
-              new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
+              echo "Tag $tagt is not a stable version"          
+              new_tag=$(echo "$tagt" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"       
               npm version $new_tag
               git push origin main --follow-tags
-         fi  
+           fi  
+           done
 
      # - name: Fetch Lokalisations and Check for Changes
       #  run: |
