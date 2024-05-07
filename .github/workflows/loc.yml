@@ -56,6 +56,10 @@ jobs:
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa"   
 
+      - run:  |
+            git fetch --prune --unshallow --tags 
+                   
+
 
       - name: Get latest commit hash
         id: latest_commit
@@ -95,8 +99,7 @@ jobs:
           echo "Latest commit is not tagged"
           tag=$(git describe --abbrev=0 --tags)
           echo "tag=${tag}" >> $GITHUB_OUTPUT
-          echo "$tag"
-          npm version $tag      
+          echo "$tag"     
          fi  
 
      # - name: Fetch Lokalisations and Check for Changes
