@@ -88,11 +88,9 @@ jobs:
               
               new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"
-              npm version $new_tag 
+              npm version patch
               ls -la
-              cat package.json
-              git commit -m "update version "
-              git push origin main --tags 
+              git push origin main --follow-tags
             fi
           done
          else
