@@ -1,5 +1,5 @@
 on:
- push:
+ pull_request:
  
 jobs:
   run-build-if-needed:
@@ -100,8 +100,17 @@ jobs:
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "tag=${tag}" >> $GITHUB_OUTPUT
           echo "$tag" 
-          npm version patch
-          git push origin main --follow-tags
+          for tagt in $tag; do
+            if [[ "$tagt" != *"-"* ]]; then
+              echo "Tag $tag is a stable version"
+              npm version patch
+              git push origin main --follow-tags
+            else
+              echo "Tag $tag is not a stable version"          
+              new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
+              echo "New tag: $new_tag"       
+              npm version $new_tag
+              git push origin main --follow-tags
          fi  
 
      # - name: Fetch Lokalisations and Check for Changes
