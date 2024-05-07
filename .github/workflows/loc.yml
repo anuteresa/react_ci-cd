@@ -97,7 +97,7 @@ jobs:
           done
          else
           echo "Latest commit is not tagged"
-          tag=$(git describe --abbrev=0 --tags)
+          tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "tag=${tag}" >> $GITHUB_OUTPUT
           echo "$tag"     
          fi  
