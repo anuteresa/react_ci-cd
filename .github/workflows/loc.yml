@@ -100,7 +100,7 @@ jobs:
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "tag=${tag}" >> $GITHUB_OUTPUT
           echo "$tag" 
-          npm version patch
+          npm version $tag
          fi  
 
      # - name: Fetch Lokalisations and Check for Changes
