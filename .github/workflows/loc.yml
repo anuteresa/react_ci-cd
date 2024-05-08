@@ -1,5 +1,5 @@
 on:
- push:
+ pull_request:
  
 jobs:
   run-build-if-needed:
@@ -85,9 +85,9 @@ jobs:
               echo "Tag $tag is not a stable version"
               new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"
-              npm version --patch
+              npm version $new_tag --allow-same-version
               ls -la
-              git push origin main 
+              git push origin main  --follow-tags
             fi
           done
          else
