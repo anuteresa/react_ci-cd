@@ -66,6 +66,7 @@ jobs:
         run: |
              last_commit=$(git rev-parse HEAD)
              echo "last_commit=${last_commit}" >> $GITHUB_OUTPUT
+             echo "$last_commit"
 
 
       - name: Get tags associated with the latest commit
