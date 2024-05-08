@@ -87,6 +87,7 @@ jobs:
               echo "New tag: $new_tag"
               npm version $new_tag --allow-same-version
               ls -la
+              cat package.json
               git push origin main  --follow-tags
             fi
           done
