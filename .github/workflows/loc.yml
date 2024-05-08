@@ -86,6 +86,8 @@ jobs:
               new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"
               npm version $new_tag --allow-same-version
+              current_branch=$(git branch --show-current)
+              echo "Currently on branch: $current_branch"
               git add .
               git commit -m "update version"
               ls -la
