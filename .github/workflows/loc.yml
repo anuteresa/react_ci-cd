@@ -88,7 +88,7 @@ jobs:
               npm version $new_tag --allow-same-version
               ls -la
               cat package.json
-              git push origin main  --follow-tags
+              git push origin main 
             fi
           done
          else
