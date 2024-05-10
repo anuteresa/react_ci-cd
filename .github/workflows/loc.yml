@@ -4,11 +4,16 @@ on:
 jobs:
   run-build-if-needed:
    runs-on: ubuntu-latest   
-    
+   strategy:
+      matrix:
+        repository:
+          - anuteresa/react_ci-cd
+          - anuteresa/ci-cd
    steps: 
       - uses: actions/checkout@v3
         with:
-         ref:  main
+          repository: ${{ matrix.repository }}
+          ref: main
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -88,15 +93,9 @@ jobs:
               echo "Tag $tag is not a stable version"
               new_tag=$(echo "$tag" | sed 's/-[^-]*$//')
               echo "New tag: $new_tag"
-              npm version $new_tag --allow-same-version
+              npm version patch
               current_branch=$(git branch --show-current)
-              echo "Currently on branch: $current_branch"
-              git checkout -b main
-              git add .
-              git commit -m "update version"
-              ls -la
-              cat package.json
-              git push origin main --follow-tags
+              echo "Currently on branch: $current_branch"                       
             fi
           done
          else
@@ -104,8 +103,7 @@ jobs:
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "tag=${tag}" >> $GITHUB_OUTPUT
           echo "$tag" 
-          #npm version patch
-          #git push origin main --follow-tags
+          npm version patch
          fi
             
 
