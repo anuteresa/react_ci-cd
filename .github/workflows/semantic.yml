@@ -1,0 +1,59 @@
+name: Update Version and Merge
+
+on:
+  pull_request:
+   
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for all tags and branches
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.16.1'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Get version from package.json
+        id: get_version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "version=$version" >> $GITHUB_ENV
+
+      - name: Check if version is an RC version
+        id: check_rc_version
+        run: |
+          if [[ "${{ env.version }}" == *-rc* ]]; then
+            echo "is_rc=true" >> $GITHUB_ENV
+          else
+            echo "is_rc=false" >> $GITHUB_ENV
+          fi
+
+      - name: Process RC version
+        if: env.is_rc == 'true'
+        run: |
+          # Extract base version without RC suffix
+          base_version=$(echo ${{ env.version }} | sed 's/-rc[0-9]*//')
+          
+          # Update version in package.json to main version
+          npm version $base_version --allow-same-version --no-git-tag-version
+
+          # Commit changes
+          git add package.json
+          git commit -m "Update version to $base_version"
+
+          # Push changes back to development branch
+          git checkout -b development origin/development
+          git merge main --no-ff --no-edit
+          git push origin development
+
+      - name: Output if no action needed
+        if: env.is_rc == 'false'
+        run: echo "The version in package.json is not an RC version. No action needed."
