@@ -31,7 +31,7 @@ jobs:
       - name: Check if version is an RC version
         id: check_rc_version
         run: |
-          if [[ "${{ env.version }}" == *-rc* ]]; then
+          if [[ "${{ steps.get_version.outputs.version }}" == *-rc* ]]; then
             echo "is_rc=true" >> $GITHUB_OUTPUT  
           else
             echo "is_rc=false" >> $GITHUB_OUTPUT  
