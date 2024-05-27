@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: '18.16.1'
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Get version from package.json
         id: get_version
         run: |
@@ -38,10 +35,11 @@ jobs:
           fi
 
       - name: Process RC version
-        if: env.is_rc == 'true'
+        if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         run: |
           # Extract base version without RC suffix
-          base_version=$(echo ${{ env.version }} | sed 's/-rc[0-9]*//')
+          base_version=$(echo ${{ steps.get_version.outputs.version }} | sed 's/-rc[0-9]*//')
+          echo "base_version=$base_version" >> $GITHUB_OUTPUT
           echo "base_version=$base_version"
           
           # Update version in package.json to main version
