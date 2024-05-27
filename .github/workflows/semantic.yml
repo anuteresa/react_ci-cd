@@ -52,10 +52,10 @@ jobs:
       - name: Merge to development branch
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         run: |
-          git checkout development
-          git pull origin development
+          git checkout develop
+          git pull origin develop
           git merge main --no-ff --no-edit
-          git push origin development
+          git push origin develop
 
       - name: Output if no action needed
         if: ${{ steps.check_rc_version.outputs.is_rc == 'false' }}
