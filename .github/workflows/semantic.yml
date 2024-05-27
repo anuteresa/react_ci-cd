@@ -14,11 +14,6 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all history for all tags and branches
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.16.1'
-
       - name: Get version from package.json
         id: get_version
         run: |
@@ -50,7 +45,7 @@ jobs:
           npm version $base_version --allow-same-version --no-git-tag-version
 
           # Commit changes
-          git add package.json
+          git add .
           git commit -m "Update version to $base_version"
           git push origin main
 
