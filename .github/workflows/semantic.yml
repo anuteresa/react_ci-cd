@@ -49,13 +49,26 @@ jobs:
           git commit -m "Update version to $base_version"
           git push origin main
 
-      - name: Merge to development branch
+      - name: Checkout and update develop branch
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         run: |
+          git fetch origin
+          git checkout -b develop origin/develop
+          # Update version in package.json to main version to avoid conflict
+          base_version=$(echo ${{ steps.get_version.outputs.version }} | sed 's/-rc\.[0-9]*//')
+          npm version $base_version --allow-same-version --no-git-tag-version
+          git add package.json package-lock.json
+          git commit -m "Update version to $base_version in develop"
+          git push origin develop
+
+      - name: Merge main into develop
+        if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        run: |
+          git fetch origin
           git checkout develop
           git pull origin develop
-          git merge main --no-ff --no-edit
-          git push origin develop
+          git merge main --no-ff --no-edit || true
+
 
       - name: Output if no action needed
         if: ${{ steps.check_rc_version.outputs.is_rc == 'false' }}
