@@ -34,6 +34,11 @@ jobs:
             echo "is_rc=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"        
+
       - name: Process RC version
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         run: |
