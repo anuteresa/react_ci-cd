@@ -67,7 +67,8 @@ jobs:
           git fetch origin
           git checkout develop
           git pull origin develop
-          git merge main --no-ff --no-edit || true
+          git merge origin/main --no-ff --no-edit || true
+          git push origin develop
 
 
       - name: Output if no action needed
