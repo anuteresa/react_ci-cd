@@ -1,10 +1,7 @@
 name: Update Version and Merge
 
 on:
-  push:
-    branches:
-      - main
-
+  pull_request:
 jobs:
   check-version:
     runs-on: ubuntu-latest
