@@ -12,7 +12,6 @@ jobs:
         with:
           fetch-depth: 0  
           ref: main
-
       - name: Get current package version     
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
