@@ -15,6 +15,11 @@ jobs:
       - name: Get current package version     
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"      
     
       - name: Bump release version
         id: bump_version
