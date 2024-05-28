@@ -23,4 +23,9 @@ jobs:
          current-version: ${{ steps.package-version.outputs.current-version}}
          version-fragment: 'rc'
       - name: Do something with your bumped release version
-        run: echo ${{ steps.bump_version.outputs.next-version }}    
+        run: |
+            echo ${{ steps.bump_version.outputs.next-version }}
+            npm version ${{ steps.bump_version.outputs.next-version }} --allow-same-version
+            git add .
+            git commit -m "Update version to ${{ steps.bump_version.outputs.next-version }}"
+            git push origin main
