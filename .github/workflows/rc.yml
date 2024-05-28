@@ -35,4 +35,4 @@ jobs:
             cat package.json
             git add package.json
             git commit -m "Update version to ${{ steps.bump_version.outputs.next-version }}"
-            git push origin main
+            git push 
