@@ -30,9 +30,9 @@ jobs:
       - name: Do something with your bumped release version
         run: |
             echo ${{ steps.bump_version.outputs.next-version }}
+            npm version ${{ steps.bump_version.outputs.next-version }} --allow-same-version
             ls -la
             cat package.json
-            npm version ${{ steps.bump_version.outputs.next-version }} --allow-same-version
             git add package.json
             git commit -m "Update version to ${{ steps.bump_version.outputs.next-version }}"
             git push origin main
