@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  
+
+      - name: Get current package version     
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+    
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.3
+        with:
+         current-version: ${{ steps.package-version.outputs.current-version}}
+         version-fragment: 'rc'
+      - name: Do something with your bumped release version
+        run: echo ${{ steps.bump_version.outputs.next-version }}    
