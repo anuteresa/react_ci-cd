@@ -52,7 +52,7 @@ jobs:
           git fetch origin
           git checkout -b develop origin/develop
           # Update version in package.json to main version to avoid conflict
-          base_version=$(echo ${{ steps.get_version.outputs.version }} | sed 's/-rc\.[0-9]*//')
+          base_version=$(echo ${{ steps.get_version.outputs.version }} |  sed 's/-rc[0-9]*//')
           npm version $base_version --allow-same-version --no-git-tag-version
           git add package.json package-lock.json
           git commit -m "Update version to $base_version in develop"
