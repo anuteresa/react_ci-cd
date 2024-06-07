@@ -4,6 +4,7 @@ on:
   push:
     branches: 
           - dev
+          
 jobs:
   check-version:
     runs-on: ubuntu-latest
@@ -13,7 +14,6 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
           ref: dev
-
       - name: Get version from package.json
         id: get_version
         run: |
@@ -45,8 +45,8 @@ jobs:
           npm version $base_version --allow-same-version --no-git-tag-version
 
           # Commit changes
-          git add .
-          git commit -m "Update version to $base_version"
+          #git add .
+          #git commit -m "Update version to $base_version"
           #git push origin main
 
       - name: Create Pull Request
@@ -54,12 +54,17 @@ jobs:
         uses: peter-evans/create-pull-request@v4
 
       # Approve the PR automatically
-      - name: Approve Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }}
-        uses: juliangruber/approve-pull-request-action@v2.0.3
+    #  - name: Approve Pull Request
+     #   if: ${{ steps.demo-pr.outputs.pull-request-number }}
+      #  uses: juliangruber/approve-pull-request-action@v2.0.6
+       # with:
+        #  github-token: ${{ secrets.GITHUB_TOKEN}}
+         # number: ${{ steps.demo-pr.outputs.pull-request-number }}
+
+      - uses: hmarr/auto-approve-action@v4
         with:
-          github-token: ${{ secrets.deploy_token }}
-          number: ${{ steps.demo-pr.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.demo-pr.outputs.pull-request-number }} 
+          github-token: ${{ secrets.PAT }}
 
       # Merge the PR automatically
       - name: Merge Pull Request
@@ -69,6 +74,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
           method: squash    
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"     
 
       - name: Checkout and update develop branch
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
