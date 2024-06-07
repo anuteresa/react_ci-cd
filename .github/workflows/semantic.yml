@@ -54,17 +54,17 @@ jobs:
         uses: peter-evans/create-pull-request@v4
 
       # Approve the PR automatically
-    #  - name: Approve Pull Request
-     #   if: ${{ steps.demo-pr.outputs.pull-request-number }}
-      #  uses: juliangruber/approve-pull-request-action@v2.0.6
-       # with:
-        #  github-token: ${{ secrets.GITHUB_TOKEN}}
-         # number: ${{ steps.demo-pr.outputs.pull-request-number }}
-
-      - uses: hmarr/auto-approve-action@v4
+      - name: Approve Pull Request
+        if: ${{ steps.demo-pr.outputs.pull-request-number }}
+        uses: juliangruber/approve-pull-request-action@v2.0.6
         with:
-          pull-request-number: ${{ steps.demo-pr.outputs.pull-request-number }} 
           github-token: ${{ secrets.PAT }}
+          number: ${{ steps.demo-pr.outputs.pull-request-number }}
+
+    #  - uses: hmarr/auto-approve-action@v4
+     #   with:
+      #    pull-request-number: ${{ steps.demo-pr.outputs.pull-request-number }} 
+       #   github-token: ${{ secrets.PAT }}
 
       # Merge the PR automatically
       - name: Merge Pull Request
