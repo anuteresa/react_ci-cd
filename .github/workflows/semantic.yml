@@ -58,7 +58,7 @@ jobs:
         if: ${{ steps.demo-pr.outputs.pull-request-number }}
         uses: juliangruber/approve-pull-request-action@v2.0.3
         with:
-          github-token: ${{ secrets.deploy_token }}
+          github-token: ${{ secrets.pat}}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
 
       # Merge the PR automatically
