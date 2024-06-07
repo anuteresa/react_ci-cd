@@ -63,6 +63,7 @@ jobs:
       - uses: hmarr/auto-approve-action@v4
         with:
           pull-request-number: ${{ steps.demo-pr.outputs.pull-request-number }} 
+          github-token: ${{ secrets.PAT }}
 
       # Merge the PR automatically
       - name: Merge Pull Request
