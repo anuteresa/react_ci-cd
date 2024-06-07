@@ -13,7 +13,6 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
           ref: dev
-
       - name: Get version from package.json
         id: get_version
         run: |
