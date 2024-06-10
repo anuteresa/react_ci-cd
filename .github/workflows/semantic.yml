@@ -56,7 +56,7 @@ jobs:
 
       # Approve the PR automatically
       - name: Approve Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number &&  steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/approve-pull-request-action@v2.0.6
         with:
           github-token: ${{ secrets.PAT }}
@@ -66,7 +66,7 @@ jobs:
 
       # Merge the PR automatically
       - name: Merge Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number  &&  steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/merge-pull-request-action@v1.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -86,7 +86,6 @@ jobs:
           # Update version in package.json to main version to avoid conflict
           base_version=$(echo ${{ steps.get_version.outputs.version }} |  sed 's/-rc[0-9]*//')
           npm version $base_version --allow-same-version --no-git-tag-version
-          
       - name: Create Pull Request
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         id: demo-pr1
@@ -94,7 +93,7 @@ jobs:
 
       # Approve the PR automatically
       - name: Approve Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number  &&  steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/approve-pull-request-action@v2.0.6
         with:
           github-token: ${{ secrets.PAT }}
@@ -104,7 +103,7 @@ jobs:
 
       # Merge the PR automatically
       - name: Merge Pull Request
-        if: ${{ steps.demo-pr1.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        if: ${{ steps.demo-pr1.outputs.pull-request-number  && steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/merge-pull-request-action@v1.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -126,7 +125,7 @@ jobs:
 
       # Approve the PR automatically
       - name: Approve Pull Request
-        if: ${{ steps.demo-pr2.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        if: ${{ steps.demo-pr2.outputs.pull-request-number &&  steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/approve-pull-request-action@v2.0.6
         with:
           github-token: ${{ secrets.PAT }}
@@ -136,7 +135,7 @@ jobs:
 
       # Merge the PR automatically
       - name: Merge Pull Request
-        if: ${{ steps.demo-pr2.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        if: ${{ steps.demo-pr2.outputs.pull-request-number  &&  steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/merge-pull-request-action@v1.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
