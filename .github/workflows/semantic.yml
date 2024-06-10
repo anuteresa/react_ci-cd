@@ -86,6 +86,8 @@ jobs:
           # Update version in package.json to main version to avoid conflict
           base_version=$(echo ${{ steps.get_version.outputs.version }} |  sed 's/-rc[0-9]*//')
           npm version $base_version --allow-same-version --no-git-tag-version
+
+          
       - name: Create Pull Request
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         id: demo-pr1
