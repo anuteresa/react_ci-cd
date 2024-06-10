@@ -50,12 +50,13 @@ jobs:
           #git push origin main
 
       - name: Create Pull Request
+        if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         id: demo-pr
         uses: peter-evans/create-pull-request@v4
 
       # Approve the PR automatically
       - name: Approve Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/approve-pull-request-action@v2.0.6
         with:
           github-token: ${{ secrets.PAT }}
@@ -65,7 +66,7 @@ jobs:
 
       # Merge the PR automatically
       - name: Merge Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/merge-pull-request-action@v1.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
