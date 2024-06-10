@@ -50,25 +50,23 @@ jobs:
           #git push origin main
 
       - name: Create Pull Request
+        if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         id: demo-pr
         uses: peter-evans/create-pull-request@v4
 
       # Approve the PR automatically
       - name: Approve Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/approve-pull-request-action@v2.0.6
         with:
           github-token: ${{ secrets.PAT }}
           number: ${{ steps.demo-pr.outputs.pull-request-number }}
 
-    #  - uses: hmarr/auto-approve-action@v4
-     #   with:
-      #    pull-request-number: ${{ steps.demo-pr.outputs.pull-request-number }} 
-       #   github-token: ${{ secrets.PAT }}
+   
 
       # Merge the PR automatically
       - name: Merge Pull Request
-        if: ${{ steps.demo-pr.outputs.pull-request-number }}
+        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
         uses: juliangruber/merge-pull-request-action@v1.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -88,9 +86,30 @@ jobs:
           # Update version in package.json to main version to avoid conflict
           base_version=$(echo ${{ steps.get_version.outputs.version }} |  sed 's/-rc[0-9]*//')
           npm version $base_version --allow-same-version --no-git-tag-version
-          git add package.json package-lock.json
-          git commit -m "Update version to $base_version in develop"
-          git push origin main
+          
+      - name: Create Pull Request
+        if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        id: demo-pr1
+        uses: peter-evans/create-pull-request@v4
+
+      # Approve the PR automatically
+      - name: Approve Pull Request
+        if: ${{ steps.demo-pr.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        uses: juliangruber/approve-pull-request-action@v2.0.6
+        with:
+          github-token: ${{ secrets.PAT }}
+          number: ${{ steps.demo-pr1.outputs.pull-request-number }}
+
+   
+
+      # Merge the PR automatically
+      - name: Merge Pull Request
+        if: ${{ steps.demo-pr1.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        uses: juliangruber/merge-pull-request-action@v1.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.demo-pr1.outputs.pull-request-number }}
+          method: squash    
 
       - name: Merge main into develop
         if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
@@ -99,7 +118,30 @@ jobs:
           git checkout main
           git pull origin main
           git merge origin/dev --no-ff --no-edit || true
-          git push origin main
+          
+      - name: Create Pull Request
+        if: ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        id: demo-pr2
+        uses: peter-evans/create-pull-request@v4
+
+      # Approve the PR automatically
+      - name: Approve Pull Request
+        if: ${{ steps.demo-pr2.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        uses: juliangruber/approve-pull-request-action@v2.0.6
+        with:
+          github-token: ${{ secrets.PAT }}
+          number: ${{ steps.demo-pr2.outputs.pull-request-number }}
+
+   
+
+      # Merge the PR automatically
+      - name: Merge Pull Request
+        if: ${{ steps.demo-pr2.outputs.pull-request-number }} && ${{ steps.check_rc_version.outputs.is_rc == 'true' }}
+        uses: juliangruber/merge-pull-request-action@v1.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.demo-pr2.outputs.pull-request-number }}
+          method: squash    
 
 
       - name: Output if no action needed
