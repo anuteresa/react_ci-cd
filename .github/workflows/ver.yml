@@ -8,7 +8,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
           
-
       # Get branch name
       - name: Get branch name
         id: branch
@@ -36,7 +35,7 @@ jobs:
             branch_version=${BASH_REMATCH[2]}
             echo "Branch version: $branch_version"
              if [ "$branch_version" != "${{ steps.read_package_version.outputs.package_version }}" ]; then
-              echo "Version mismatch: package.json ($package_version) !== branch ($branch_version)"
+              echo "Version mismatch: package.json (${{ steps.read_package_version.outputs.package_version }}) !== branch ($branch_version)"
               git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
               jq --arg new_version "$branch_version" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
               git add package.json
@@ -45,7 +44,7 @@ jobs:
              git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags
               
             else
-              echo "Version match: $package_version"
+              echo "Version match: ${{ steps.read_package_version.outputs.package_version }}"
             fi
            else
             echo "Branch name $BRANCH_NAME does not follow the format release/vX.X.X or hotfix/vX.X.X"
