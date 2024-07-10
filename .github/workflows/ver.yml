@@ -52,18 +52,19 @@ jobs:
           fi   
 
  
- #     - name: Bump release version
-  #      id: bump_version
-   #     uses: christian-draeger/increment-semantic-version@1.0.3
-    #    with:
-     #    current-version: ${{ steps.package-version.outputs.current-version}}
-      #   version-fragment: 'rc'
-    #- name: Do something with your bumped release version
-     #   run: |
-      #        echo ${{ steps.bump_version.outputs.next-version }}
-       #       git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
-        ##      jq --arg new_version "${{ steps.bump_version.outputs.next-version }}" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
-          #    git add package.json
-           #   git commit -m "Bump version to ${{ steps.bump_version.outputs.next-version }}" -n
-            #  git tag “v${{ steps.bump_version.outputs.next-version }}”
-             # git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags#
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.3
+        with:
+         current-version: ${{ steps.package-version.outputs.current-version}}
+         version-fragment: 'rc'
+         
+      - name: Do something with your bumped release version
+        run: |
+              echo ${{ steps.bump_version.outputs.next-version }}
+              git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
+              jq --arg new_version "${{ steps.bump_version.outputs.next-version }}" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
+              git add package.json
+              git commit -m "Bump version to ${{ steps.bump_version.outputs.next-version }}" -n
+              git tag “v${{ steps.bump_version.outputs.next-version }}”
+              git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags#
