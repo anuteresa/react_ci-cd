@@ -13,6 +13,7 @@ jobs:
       - name: Get branch name
         id: branch
         run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+             
 
       - name: Set Git Identity
         run: |
@@ -31,8 +32,8 @@ jobs:
 
       - name: Check version
         run: |
-          if [[ "$BRANCH_NAME" =~ ^(release|hotfix)/v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
-            branch_version=${BASH_REMATCH[2]}
+            branch_name=${BRANCH_NAME#*/v}        
+            branch_version=$(echo "$branch_name" | cut -d '/' -f1)
             if [ "$branch_version" != "${{ steps.read_package_version.outputs.package_version }}" ]; then
               echo "Version mismatch: package.json ($package_version) !== branch ($branch_version)"
               git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
@@ -45,9 +46,7 @@ jobs:
             else
               echo "Version match: $package_version"
             fi
-          else
-            echo "Branch name $branch_name does not follow the format"
-          fi   
+           
           
       - name: Get current package version     
         id: package-version
