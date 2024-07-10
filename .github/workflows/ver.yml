@@ -32,9 +32,10 @@ jobs:
 
       - name: Check version
         run: |
-            branch_name=${BRANCH_NAME#*/v}        
-            branch_version=$(echo "$branch_name" | cut -d '/' -f1)
-            if [ "$branch_version" != "${{ steps.read_package_version.outputs.package_version }}" ]; then
+          if [[ "${{ steps.branch.outputs.BRANCH_NAME }}" =~ ^(release|hotfix)/v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+            branch_version=${BASH_REMATCH[2]}
+            echo "Branch version: $branch_version"
+             if [ "$branch_version" != "${{ steps.read_package_version.outputs.package_version }}" ]; then
               echo "Version mismatch: package.json ($package_version) !== branch ($branch_version)"
               git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
               jq --arg new_version "$branch_version" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
@@ -46,7 +47,9 @@ jobs:
             else
               echo "Version match: $package_version"
             fi
-           
+           else
+            echo "Branch name $BRANCH_NAME does not follow the format release/vX.X.X or hotfix/vX.X.X"
+          fi 
           
       - name: Get current package version     
         id: package-version
