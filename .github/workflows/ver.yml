@@ -67,4 +67,4 @@ jobs:
               git add package.json
               git commit -m "Bump version to ${{ steps.bump_version.outputs.next-version }}" -n
               git tag “v${{ steps.bump_version.outputs.next-version }}”
-              git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags#
+              git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags
