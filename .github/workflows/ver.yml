@@ -17,8 +17,7 @@ jobs:
         run: |
           git config --global user.email "anuteresaj@gmail.com"
           git config --global user.name "anuteresa"      
-       
-
+      
       # Read package.json version and clear rc suffix if present  
       - name: Read package version of branch
         id: read_package_version
