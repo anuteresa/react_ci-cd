@@ -19,35 +19,36 @@ jobs:
           git config --global user.name "anuteresa"      
        
 
-      - name: Read package version
+      # Read package.json version and clear rc suffix if present  
+      - name: Read package version of branch
         id: read_package_version
         run: |
-          package_version=$(node -p "require('./package.json').version")
-          # Strip off -rc.X suffix if present
+          package_version=$(jq -r '.version' package.json)
           clean_package_version=$(echo $package_version | sed 's/-rc[\.0-9]*//')
           echo "package_version=$clean_package_version" >> $GITHUB_OUTPUT
   
-
-      - name: Check version
+       # Check release branch version and branch name version
+      - name: Check release branch version and branch name version
         run: |
           if [[ "${{ steps.branch.outputs.BRANCH_NAME }}" =~ ^(release|hotfix)/v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
-            branch_version=${BASH_REMATCH[2]}
-            echo "Branch version: $branch_version"
+             branch_version=${BASH_REMATCH[2]}
+             echo "Branch version: $branch_version"
              if [ "$branch_version" != "${{ steps.read_package_version.outputs.package_version }}" ]; then
-              echo "Version mismatch: package.json (${{ steps.read_package_version.outputs.package_version }}) !== branch ($branch_version)"
-              git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
-              jq --arg new_version "$branch_version" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
-              git add package.json
-              git commit -m "Bump version to $branch_version" -n
-              git tag “v$branch_version”
-             git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags
-              
-            else
+                echo "Version mismatch: package.json (${{ steps.read_package_version.outputs.package_version }}) !== branch ($branch_version)"
+                git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
+                jq --arg new_version "$branch_version" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
+                git add package.json
+                git commit -m "Bump version to $branch_version" -n
+                git tag “v$branch_version”
+                git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags              
+             else
               echo "Version match: ${{ steps.read_package_version.outputs.package_version }}"
             fi
-           else
-            echo "Branch name $BRANCH_NAME does not follow the format release/vX.X.X or hotfix/vX.X.X"
+          else
+            echo "Branch name ${{ steps.branch.outputs.BRANCH_NAME }} does not follow the format release/vX.X.X or hotfix/vX.X.X"
           fi 
+              
+
           
   check-version2:
     runs-on: ubuntu-latest
