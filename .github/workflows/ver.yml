@@ -13,7 +13,6 @@ jobs:
         id: branch
         run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
              
-
       - name: Set Git Identity
         run: |
           git config --global user.email "anuteresaj@gmail.com"
