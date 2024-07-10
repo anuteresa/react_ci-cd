@@ -1,7 +1,6 @@
 on:
   push:
  
-
 jobs:
   check-version:
     runs-on: ubuntu-latest
