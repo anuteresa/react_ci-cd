@@ -17,6 +17,12 @@ jobs:
         id: get_branch
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"      
+       
+
       - name: Read package version
         id: read_package_version
         run: |
@@ -31,7 +37,7 @@ jobs:
             branch_version=${BASH_REMATCH[1]}
             if [ "$branch_version" != "$package_version" ]; then
               echo "Version mismatch: package.json ($package_version) !== branch ($branch_version)"
-               git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
+              git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
               jq --arg new_version "$branch_version" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
               git add package.json
               git commit -m "Bump version to $branch_version" -n
@@ -45,11 +51,7 @@ jobs:
             echo "Branch name $branch_name does not follow the format release/vX.X.X"
           fi   
 
-      - name: Set Git Identity
-        run: |
-          git config --global user.email "anuteresaj@gmail.com"
-          git config --global user.name "anuteresa"      
-    
+ 
  #     - name: Bump release version
   #      id: bump_version
    #     uses: christian-draeger/increment-semantic-version@1.0.3
