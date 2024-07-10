@@ -46,7 +46,7 @@ jobs:
               echo "Version match: $package_version"
             fi
           else
-            echo "Branch name $branch_name does not follow the format 
+            echo "Branch name $branch_name does not follow the format"
           fi   
           
       - name: Get current package version     
