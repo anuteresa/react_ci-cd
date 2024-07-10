@@ -1,6 +1,6 @@
 {
   "name": "elloq",
-  "version": "7.7.7-rc1",
+  "version": "7.7.7-rc2",
   "private": true,
   "engines": {
     "npm": ">=5",
