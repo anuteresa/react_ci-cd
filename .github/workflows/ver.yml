@@ -1,0 +1,72 @@
+on:
+  push:
+ 
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+          
+      # Get branch name
+      - name: Get branch name
+        id: branch
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+             
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "anuteresaj@gmail.com"
+          git config --global user.name "anuteresa"      
+       
+
+      - name: Read package version
+        id: read_package_version
+        run: |
+          package_version=$(node -p "require('./package.json').version")
+          # Strip off -rc.X suffix if present
+          clean_package_version=$(echo $package_version | sed 's/-rc[\.0-9]*//')
+          echo "package_version=$clean_package_version" >> $GITHUB_OUTPUT
+  
+
+      - name: Check version
+        run: |
+          if [[ "${{ steps.branch.outputs.BRANCH_NAME }}" =~ ^(release|hotfix)/v([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+            branch_version=${BASH_REMATCH[2]}
+            echo "Branch version: $branch_version"
+             if [ "$branch_version" != "${{ steps.read_package_version.outputs.package_version }}" ]; then
+              echo "Version mismatch: package.json (${{ steps.read_package_version.outputs.package_version }}) !== branch ($branch_version)"
+              git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
+              jq --arg new_version "$branch_version" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
+              git add package.json
+              git commit -m "Bump version to $branch_version" -n
+              git tag “v$branch_version”
+             git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags
+              
+            else
+              echo "Version match: ${{ steps.read_package_version.outputs.package_version }}"
+            fi
+           else
+            echo "Branch name $BRANCH_NAME does not follow the format release/vX.X.X or hotfix/vX.X.X"
+          fi 
+          
+      - name: Get current package version     
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+ 
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.3
+        with:
+         current-version: ${{ steps.package-version.outputs.current-version}}
+         version-fragment: 'rc'
+         
+      - name: Do something with your bumped release version
+        run: |
+              echo ${{ steps.bump_version.outputs.next-version }}
+              git pull origin ${{ steps.branch.outputs.BRANCH_NAME }}
+              jq --arg new_version "${{ steps.bump_version.outputs.next-version }}" '.version = $new_version' package.json > tmp.$$.json && mv tmp.$$.json package.json
+              git add package.json
+              git commit -m "Bump version to ${{ steps.bump_version.outputs.next-version }}" -n
+              git tag “v${{ steps.bump_version.outputs.next-version }}”
+              git push origin ${{ steps.branch.outputs.BRANCH_NAME }} --follow-tags
